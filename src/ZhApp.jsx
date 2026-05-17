@@ -1895,15 +1895,24 @@ export default function ZhApp() {
                 const imgData = customImages[pest.id];
                 const primaryName = pest.scientific.split('/')[0].split(',')[0].trim();
                 
-                let searchSuffix = "";
+                let suffixZh = "", suffixEn = "";
                 const lowerCommon = pest.common.zh.toLowerCase();
-                if (lowerCommon.includes('crawler') || lowerCommon.includes('爬行若虫')) searchSuffix = " crawler";
-                else if (lowerCommon.includes('nymph') || lowerCommon.includes('hopper') || lowerCommon.includes('若虫')) searchSuffix = " nymph";
-                else if (lowerCommon.includes('grub') || lowerCommon.includes('larva') || lowerCommon.includes('蛴螬') || lowerCommon.includes('幼虫')) searchSuffix = " larva";
-                else if (lowerCommon.includes('caterpillar') || lowerCommon.includes('maggot') || lowerCommon.includes('毛虫') || lowerCommon.includes('蛆')) searchSuffix = " larva";
-                else if (lowerCommon.includes('adult') || lowerCommon.includes('moth') || lowerCommon.includes('beetle') || lowerCommon.includes('成虫') || lowerCommon.includes('蛾')) searchSuffix = " adult";
+                // Append BOTH Chinese and English stage terms — Chinese surfaces CN-language photos,
+                // English ensures scientific/taxonomic photos still appear.
+                if (lowerCommon.includes('crawler') || lowerCommon.includes('爬行若虫')) {
+                  suffixZh = " 爬行若虫"; suffixEn = " crawler";
+                } else if (lowerCommon.includes('nymph') || lowerCommon.includes('hopper') || lowerCommon.includes('若虫')) {
+                  suffixZh = " 若虫"; suffixEn = " nymph";
+                } else if (lowerCommon.includes('grub') || lowerCommon.includes('larva') || lowerCommon.includes('蛴螬') || lowerCommon.includes('幼虫')) {
+                  suffixZh = " 幼虫"; suffixEn = " larva";
+                } else if (lowerCommon.includes('caterpillar') || lowerCommon.includes('maggot') || lowerCommon.includes('毛虫') || lowerCommon.includes('蛆')) {
+                  suffixZh = " 幼虫"; suffixEn = " larva";
+                } else if (lowerCommon.includes('adult') || lowerCommon.includes('moth') || lowerCommon.includes('beetle') || lowerCommon.includes('成虫') || lowerCommon.includes('蛾')) {
+                  suffixZh = " 成虫"; suffixEn = " adult";
+                }
                 const localName = pest.common.zh.split('/')[0].split('(')[0].split('（')[0].trim();
-                const searchQuery = `${primaryName} ${localName}${searchSuffix}`.trim();
+                // Final order: 中文名 中文阶段 学名 英文阶段 — natural Chinese reading + scientific anchor + English stage
+                const searchQuery = `${localName}${suffixZh} ${primaryName}${suffixEn}`.trim();
                 
                 const isGrid = viewMode === 'grid';
                 const categorizedMoa = categorizeMoa(pest.moa, pest.category);
