@@ -1575,25 +1575,30 @@ export default function ZhApp() {
               
               <div className="flex flex-col xl:flex-row gap-4 w-full">
                 <div className="relative flex-1">
-                  <Icon name="search" className="w-6 h-6 absolute left-4 top-4 text-slate-400" />
-                  <input 
-                    type="text" 
-                    placeholder="搜索病虫名称..." 
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        e.target.blur();
-                        const el = document.getElementById('results');
-                        if (el) {
-                          const top = el.getBoundingClientRect().top + window.scrollY - 72;
-                          window.scrollTo({ top, behavior: 'smooth' });
-                        }
+                  <Icon name="search" className="w-6 h-6 absolute left-4 top-4 text-slate-400 pointer-events-none z-10" />
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (document.activeElement && document.activeElement.blur) {
+                        document.activeElement.blur();
+                      }
+                      const el = document.getElementById('results');
+                      if (el) {
+                        const top = el.getBoundingClientRect().top + window.scrollY - 72;
+                        window.scrollTo({ top, behavior: 'smooth' });
                       }
                     }}
-                    className="w-full pl-14 pr-6 py-3.5 text-lg font-medium bg-slate-50 border-2 border-slate-300 rounded-xl focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
-                  />
+                  >
+                    <input 
+                      type="search" 
+                      inputMode="search"
+                      enterKeyHint="search"
+                      placeholder="搜索病虫名称..." 
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="w-full pl-14 pr-6 py-3.5 text-lg font-medium bg-slate-50 border-2 border-slate-300 rounded-xl focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                    />
+                  </form>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-4 w-full xl:w-auto">
