@@ -1857,7 +1857,8 @@ export default function EnApp() {
                 else if (lowerCommon.includes('grub') || lowerCommon.includes('larva')) searchSuffix = " larva";
                 else if (lowerCommon.includes('caterpillar') || lowerCommon.includes('maggot')) searchSuffix = " larva";
                 else if (lowerCommon.includes('adult') || lowerCommon.includes('moth') || lowerCommon.includes('beetle')) searchSuffix = " adult";
-                const searchQuery = `${primaryName}${searchSuffix}`;
+                const localName = pest.common.en.split('/')[0].split('(')[0].split('（')[0].trim();
+                const searchQuery = `${primaryName} ${localName}${searchSuffix}`.trim();
                 
                 const isGrid = viewMode === 'grid';
                 const categorizedMoa = categorizeMoa(pest.moa, pest.category);

@@ -1902,7 +1902,8 @@ export default function ZhApp() {
                 else if (lowerCommon.includes('grub') || lowerCommon.includes('larva') || lowerCommon.includes('蛴螬') || lowerCommon.includes('幼虫')) searchSuffix = " larva";
                 else if (lowerCommon.includes('caterpillar') || lowerCommon.includes('maggot') || lowerCommon.includes('毛虫') || lowerCommon.includes('蛆')) searchSuffix = " larva";
                 else if (lowerCommon.includes('adult') || lowerCommon.includes('moth') || lowerCommon.includes('beetle') || lowerCommon.includes('成虫') || lowerCommon.includes('蛾')) searchSuffix = " adult";
-                const searchQuery = `${primaryName}${searchSuffix}`;
+                const localName = pest.common.zh.split('/')[0].split('(')[0].split('（')[0].trim();
+                const searchQuery = `${primaryName} ${localName}${searchSuffix}`.trim();
                 
                 const isGrid = viewMode === 'grid';
                 const categorizedMoa = categorizeMoa(pest.moa, pest.category);
