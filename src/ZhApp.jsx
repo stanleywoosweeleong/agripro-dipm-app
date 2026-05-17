@@ -999,10 +999,6 @@ export default function ZhApp() {
   const [showBioGuide, setShowBioGuide] = useState(false);
   const [showMicrobeGuide, setShowMicrobeGuide] = useState(false);
   const [showDT50Guide, setShowDT50Guide] = useState(false);
-  const [customImages, setCustomImages] = useState({});
-  const [uploadModal, setUploadModal] = useState({ isOpen: false, pestId: null });
-  const [tempFileUrl, setTempFileUrl] = useState(null);
-  const [tempCredit, setTempCredit] = useState('');
 
   // --- N-CALCULATOR STATE ---
   const [showNCalc, setShowNCalc] = useState(false);
@@ -1088,69 +1084,6 @@ export default function ZhApp() {
       return matchCat && matchPart && matchSearch && matchSeverity && matchLifeStage;
     });
   }, [search, filterCat, filterPart, filterSeverity, filterStage]);
-
-  const openUploadModal = (pestId) => {
-    const existing = customImages[pestId];
-    setTempFileUrl(existing ? existing.url : null);
-    setTempCredit(existing ? existing.credit : '');
-    setUploadModal({ isOpen: true, pestId });
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          // Cap maximum dimensions to maintain visual quality but drastically reduce file size
-          const MAX_WIDTH = 1200; 
-          const MAX_HEIGHT = 1200;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > height) {
-            if (width > MAX_WIDTH) {
-              height *= MAX_WIDTH / width;
-              width = MAX_WIDTH;
-            }
-          } else {
-            if (height > MAX_HEIGHT) {
-              width *= MAX_HEIGHT / height;
-              height = MAX_HEIGHT;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-
-          // Compress to JPEG format at 80% quality (saves massive space in localStorage)
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-          setTempFileUrl(compressedDataUrl);
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSaveImage = () => {
-    if (uploadModal.pestId) {
-      setCustomImages(prev => ({
-        ...prev,
-        [uploadModal.pestId]: { url: tempFileUrl, credit: tempCredit }
-      }));
-    }
-    setUploadModal({ isOpen: false, pestId: null });
-  };
-
-  const activePestTitle = useMemo(() => {
-    if (!uploadModal.pestId) return '';
-    return ALL_PESTS.find(p => p.id === uploadModal.pestId)?.common?.zh || '害虫';
-  }, [uploadModal.pestId]);
 
   const handleShare = (pest) => {
     let moaText = '';
@@ -1252,69 +1185,7 @@ export default function ZhApp() {
         </button>
       )}
 
-      {uploadModal.isOpen && (
-        <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 p-4 md:p-6 animate-in fade-in"
-          onClick={(e) => { if (e.target === e.currentTarget) setUploadModal({ isOpen: false, pestId: null }); }}
-        >
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[95vh]">
-            <div className="flex justify-between items-center p-5 md:p-6 border-b border-slate-200 bg-slate-50 flex-shrink-0">
-              <h3 className="font-bold text-xl md:text-2xl text-slate-900 truncate pr-4">上传照片: {activePestTitle}</h3>
-              <button onClick={() => setUploadModal({ isOpen: false, pestId: null })} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-600 flex-shrink-0">
-                <Icon name="x" className="w-6 h-6 md:w-8 md:h-8" />
-              </button>
-            </div>
-            
-            <div className="p-5 md:p-8 space-y-6 md:space-y-8 overflow-y-auto">
-              <div className="w-full h-56 md:h-72 bg-slate-100 rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center relative overflow-hidden group">
-                {tempFileUrl ? (
-                  <img src={tempFileUrl} alt="Preview" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-center text-slate-500">
-                    <Icon name="image" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 opacity-50" />
-                    <span className="text-lg md:text-xl font-medium">未选择图片</span>
-                  </div>
-                )}
-                
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
-                  <input type="file" accept="image/*" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50" onChange={handleFileChange} />
-                  {tempFileUrl && (
-                    <div className="bg-slate-900/80 text-white px-4 py-2 md:px-5 md:py-3 rounded-full text-base md:text-lg font-bold flex items-center gap-2 md:gap-3 opacity-90 md:opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                      <Icon name="upload" className="w-4 h-4 md:w-5 md:h-5" /> 点击替换
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {!tempFileUrl && (
-                <div className="relative block w-full py-3 md:py-4 bg-emerald-100 text-emerald-800 text-center font-bold text-lg md:text-xl rounded-xl cursor-pointer hover:bg-emerald-200 transition-colors overflow-hidden">
-                  <input type="file" accept="image/*" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50" onChange={handleFileChange} />
-                  从设备选择文件
-                </div>
-              )}
-
-              <div className="space-y-2 md:space-y-3">
-                <label className="text-lg md:text-xl font-bold text-slate-800 block">版权 / 图片来源</label>
-                <input 
-                  type="text" 
-                  placeholder="© 维基百科 / 拍摄者" 
-                  value={tempCredit}
-                  onChange={(e) => setTempCredit(e.target.value)}
-                  className="w-full p-3 md:p-4 text-lg md:text-xl bg-white border-2 border-slate-300 rounded-xl outline-none focus:ring-4 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                />
-              </div>
-            </div>
-
-            <div className="p-5 md:p-6 border-t border-slate-200 bg-slate-50 flex justify-end gap-3 md:gap-4 flex-shrink-0">
-              <button onClick={() => setUploadModal({ isOpen: false, pestId: null })} className="px-5 py-2.5 md:px-6 md:py-3 font-bold text-lg md:text-xl text-slate-700 hover:bg-slate-200 rounded-xl transition-colors">取消</button>
-              <button onClick={handleSaveImage} className="px-6 py-2.5 md:px-8 md:py-3 font-bold text-lg md:text-xl bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl transition-colors shadow-md">保存照片</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-
-      <header className="bg-emerald-900 text-white shadow-md sticky top-0 z-40">
+<header className="bg-emerald-900 text-white shadow-md sticky top-0 z-40">
         <div className="max-w-[90rem] mx-auto px-4 py-4 flex flex-row justify-between items-center gap-4">
           
           <div className="flex items-center gap-2 md:gap-3 min-w-0">
@@ -1893,7 +1764,6 @@ export default function ZhApp() {
 
             <div id="results" className={viewMode === 'list' ? "flex flex-col gap-8 max-w-4xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>
               {filteredPests.map(pest => {
-                const imgData = customImages[pest.id];
                 const primaryName = pest.scientific.split('/')[0].split(',')[0].trim();
                 
                 let suffixZh = "", suffixEn = "";
@@ -1921,51 +1791,13 @@ export default function ZhApp() {
                 return (
                 <div key={pest.id} className={`bg-white shadow-md border-2 border-slate-200 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 relative group ${isGrid ? 'rounded-2xl h-[520px]' : 'rounded-3xl'}`}>
                   
-                  <div className={`relative w-full border-b-2 border-slate-200 flex-shrink-0 ${isGrid ? 'h-48' : 'h-80'} ${imgData && imgData.url ? 'bg-slate-900' : 'bg-slate-100'}`}>
-                    {imgData && imgData.url ? (
-                      <>
-                        <img src={imgData.url} alt={pest.common.zh} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent pointer-events-none"></div>
-                        {imgData.credit && !isGrid && (
-                          <div className="absolute bottom-4 right-4 bg-black/70 text-white/95 text-sm font-medium px-3 py-1.5 rounded-md backdrop-blur-md pointer-events-none z-10">
-                            {imgData.credit}
-                          </div>
-                        )}
-                        <button onClick={() => openUploadModal(pest.id)} className="absolute top-4 right-4 bg-black/60 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/90 shadow-xl backdrop-blur-md z-20" title="修改照片">
-                          <Icon name="camera" className="w-5 h-5" />
-                        </button>
-                      </>
-                    ) : (
-                      <div className="w-full h-full bg-slate-100 flex items-center justify-center overflow-hidden relative">
-                        <Icon name="image" className={`text-slate-200 absolute opacity-50 pointer-events-none ${isGrid ? 'w-24 h-24' : 'w-48 h-48'}`} />
-                        <button onClick={() => openUploadModal(pest.id)} className={`absolute flex items-center gap-2 bg-white shadow-sm hover:shadow-md rounded-xl transition-all cursor-pointer border-2 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-700 z-20 ${isGrid ? 'top-3 right-3 p-2' : 'top-6 right-6 px-5 py-3'}`}>
-                          <Icon name="camera" className={isGrid ? "w-5 h-5" : "w-6 h-6"} />
-                          {!isGrid && <span className="text-lg font-extrabold">添加照片</span>}
-                        </button>
-                      </div>
-                    )}
-                    
-                    <div className={`absolute bottom-0 left-0 w-full pointer-events-none z-10 ${isGrid ? 'px-4 pb-3' : 'px-6 pb-4'}`}>
-                      {!isGrid && (
-                        <span className={`inline-block px-3 py-1 rounded-md text-xs uppercase font-bold tracking-wider mb-2 text-white shadow-sm ${
-                          pest.category === 'Insects' ? 'bg-amber-600' : pest.category === 'Fungi/Pathogens' ? 'bg-blue-600' :
-                          pest.category === 'Vertebrates' ? 'bg-orange-600' : pest.category === 'Molluscs' ? 'bg-pink-600' : 
-                          pest.category === 'Weeds/Epiphytes' ? 'bg-teal-600' : 'bg-purple-600'
-                        }`}>
-                          {categoryDisplayMap[pest.category] || pest.category}
-                        </span>
-                      )}
-                      <h3 className={`font-extrabold leading-tight ${isGrid ? 'text-2xl' : 'text-4xl'} ${imgData && imgData.url ? 'text-white drop-shadow-lg' : 'text-slate-900'}`}>
-                        {pest.common.zh}
-                      </h3>
-                      {!isGrid && (
-                        <p className={`text-xl italic mt-2 font-medium ${imgData && imgData.url ? 'text-emerald-300 drop-shadow-md' : 'text-emerald-700'}`}>
-                          {pest.scientific}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  
+                  <div className={`flex items-center gap-2 px-6 pt-6 ${isGrid ? 'pb-2' : 'pb-3'}`}>
+                    <span className={`inline-block px-3 py-1 rounded-md text-xs uppercase font-bold tracking-wider text-white shadow-sm ${
+                      pest.category === 'Insects' ? 'bg-amber-600' : pest.category === 'Fungi/Pathogens' ? 'bg-blue-600' :
+                      pest.category === 'Vertebrates' ? 'bg-orange-600' : pest.category === 'Molluscs' ? 'bg-pink-600' :
+                      pest.category === 'Weeds/Epiphytes' ? 'bg-teal-600' : 'bg-purple-600'
+                    }`}>{(pest.category === 'Insects' ? '昆虫' : pest.category === 'Fungi/Pathogens' ? '真菌/病原' : pest.category === 'Vertebrates' ? '脊椎动物' : pest.category === 'Molluscs' ? '软体动物' : pest.category === 'Weeds/Epiphytes' ? '杂草/附生植物' : pest.category === 'Mites/Nematodes' ? '螨/线虫' : pest.category)}</span>
+                  </div>                  
                   <div className={`flex-1 bg-white flex flex-col ${isGrid ? 'p-5 space-y-4' : 'p-8 space-y-6 text-xl text-slate-900'}`}>
                     
                     <div className="flex flex-col gap-3">
