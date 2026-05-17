@@ -1317,11 +1317,11 @@ export default function ZhApp() {
         <div className="max-w-[90rem] mx-auto px-4 py-4 flex flex-row justify-between items-center gap-4">
           
           <div className="flex items-center gap-2 md:gap-3">
-            <div className="bg-emerald-800 p-1.5 md:p-2 rounded-lg border border-emerald-700 flex items-center justify-center">
-              <Icon name="leaf" className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
+            <div className="bg-emerald-800 p-1 md:p-2 rounded-lg border border-emerald-700 flex items-center justify-center">
+              <Icon name="leaf" className="w-3.5 h-3.5 md:w-6 md:h-6 text-emerald-400" />
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-xl md:text-2xl font-bold tracking-tight leading-none text-white text-left">
+              <h1 className="text-[11px] md:text-2xl font-bold tracking-tight leading-none text-white text-left">
                 <span className="md:hidden">榴莲病虫害管理</span>
                 <span className="hidden md:inline">AGRIPRO 榴莲病虫害管理</span>
               </h1>
@@ -1349,7 +1349,6 @@ export default function ZhApp() {
               title="切换到英文"
               aria-label="Switch language"
             >
-              <span className="text-base leading-none hidden md:inline">🌐</span>
               <span className="font-bold">{lang === 'zh' ? 'EN' : '中'}</span>
             </button>
           </div>
