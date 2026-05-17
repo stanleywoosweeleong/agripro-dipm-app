@@ -1274,34 +1274,37 @@ export default function EnApp() {
               <Icon name="leaf" className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-xl md:text-2xl font-bold tracking-tight leading-none text-white text-left">AGRIPRO DIPM</h1>
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight leading-none text-white text-left">
+                <span className="md:hidden">DIPM</span>
+                <span className="hidden md:inline">AGRIPRO DIPM</span>
+              </h1>
             </div>
           </div>
           
           {/* Tabs switch positioned top right */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2">
             <div className="flex bg-emerald-950 p-1 rounded-lg border border-emerald-800">
             <button 
               onClick={() => setActiveTab('simulator')}
-              className={`px-3 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1.5 md:gap-2 transition-all ${activeTab === 'simulator' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
+              className={`px-2.5 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1 md:gap-2 transition-all ${activeTab === 'simulator' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
             >
               <Icon name="activity" className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Risk Engine</span><span className="sm:hidden">Risk</span>
             </button>
             <button 
               onClick={() => setActiveTab('database')}
-              className={`px-3 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1.5 md:gap-2 transition-all ${activeTab === 'database' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
+              className={`px-2.5 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1 md:gap-2 transition-all ${activeTab === 'database' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
             >
               <Icon name="search" className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Database</span><span className="sm:hidden">DB</span>
             </button>
           </div>
             <button
               onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-              className="px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-[11px] md:text-sm font-bold bg-emerald-950 border border-emerald-800 text-emerald-100 hover:bg-emerald-800 hover:text-white transition-colors flex items-center gap-1.5"
+              className="px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-[11px] md:text-sm font-bold bg-emerald-950 border border-emerald-800 text-emerald-100 hover:bg-emerald-800 hover:text-white transition-colors flex items-center gap-1 md:gap-1.5"
               title="Switch to Chinese"
               aria-label="Switch language"
             >
-              <span className="text-base leading-none">🌐</span>
-              <span>{lang === 'en' ? '中' : 'EN'}</span>
+              <span className="text-base leading-none hidden md:inline">🌐</span>
+              <span className="font-bold">{lang === 'en' ? '中' : 'EN'}</span>
             </button>
           </div>
         </div>
