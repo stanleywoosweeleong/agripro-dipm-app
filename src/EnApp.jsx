@@ -1737,12 +1737,20 @@ export default function EnApp() {
                 return (
                 <div key={pest.id} className={`bg-white shadow-md border-2 border-slate-200 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 relative group ${isGrid ? 'rounded-2xl h-[520px]' : 'rounded-3xl'}`}>
                   
-                  <div className={`flex items-center gap-2 px-6 pt-6 ${isGrid ? 'pb-2' : 'pb-3'}`}>
-                    <span className={`inline-block px-3 py-1 rounded-md text-xs uppercase font-bold tracking-wider text-white shadow-sm ${
+                  <div className={`flex flex-col gap-2 px-6 pt-6 ${isGrid ? 'pb-3' : 'pb-4'}`}>
+                    <span className={`inline-block self-start px-3 py-1 rounded-md text-xs uppercase font-bold tracking-wider text-white shadow-sm ${
                       pest.category === 'Insects' ? 'bg-amber-600' : pest.category === 'Fungi/Pathogens' ? 'bg-blue-600' :
                       pest.category === 'Vertebrates' ? 'bg-orange-600' : pest.category === 'Molluscs' ? 'bg-pink-600' :
                       pest.category === 'Weeds/Epiphytes' ? 'bg-teal-600' : 'bg-purple-600'
                     }`}>{pest.category}</span>
+                    <h3 className={`font-extrabold leading-tight text-slate-900 ${isGrid ? 'text-2xl' : 'text-4xl'}`}>
+                      {pest.common.en}
+                    </h3>
+                    {!isGrid && (
+                      <p className="text-xl italic font-medium text-emerald-700">
+                        {pest.scientific}
+                      </p>
+                    )}
                   </div>                  
                   <div className={`flex-1 bg-white flex flex-col ${isGrid ? 'p-5 space-y-4' : 'p-8 space-y-6 text-xl text-slate-900'}`}>
                     
