@@ -108,7 +108,7 @@ const categorizeMoa = (moaString, category) => {
   
   items.forEach(item => {
       // Add UN and Chinese keywords here to ensure they sort into Phase 3 (Preventative/Protectant)
-      if (item.match(/(Bio|Oil|Soap|Neem|Bt|Sulfur|Physical|Cultural|Molluscicide|M01|M03|Bait|Wash|Sunlight|Brush|UN|油|皂|印楝|硫磺)/i)) {
+      if (item.match(/(Bio|Oil|Soap|Neem|Bt|Sulfur|Physical|Cultural|Molluscicide|M01|M03|Bait|Wash|Sunlight|Brush|UN|生物|油|皂|印楝|硫磺)/i)) {
           phases[3].push(item);
       } else if (category === 'Fungi/Pathogens') {
           if (item.match(/(FRAC 11|FRAC 3|Premix|P07|FRAC 21|FRAC 14|FRAC 20|FRAC 7)/i)) phases[1].push(item);
