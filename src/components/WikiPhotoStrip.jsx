@@ -11,7 +11,8 @@ import React, { useState, useEffect, useRef } from 'react';
 // Coverage caveat: extmetadata is occasionally missing or partial for
 // older uploads; we fall back to "See source page" + link in those cases.
 
-const CACHE_PREFIX = 'agripro_wiki_photos_v2:'; // bumped — schema changed
+const CACHE_PREFIX = 'agripro_wiki_photos_v3:'; // bumped — switched to localStorage with TTL
+const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000;  // 30 days
 const MAX_PHOTOS = 4;
 const THUMB_PX = 240;
 const FETCH_TIMEOUT_MS = 8000;
@@ -33,13 +34,34 @@ function normaliseLicense(short, name) {
   return s.replace(/^cc-/i, 'CC ').replace(/-/g, ' ').replace(/\bsa\b/i, 'SA').replace(/\bby\b/i, 'BY').toUpperCase().replace(/CC /, 'CC ');
 }
 
+// One-time cleanup of stale cache keys from older app versions.
+// Runs once when the module loads. Catches old `agripro_wiki_photos:` (v1)
+// and `agripro_wiki_photos_v2:` keys left over from previous schemas.
+try {
+  const stalePrefixes = ['agripro_wiki_photos:', 'agripro_wiki_photos_v2:'];
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const k = localStorage.key(i);
+    if (k && stalePrefixes.some(p => k.startsWith(p))) {
+      localStorage.removeItem(k);
+    }
+  }
+} catch (e) { /* localStorage unavailable — skip */ }
+
 async function fetchWikiPhotos(scientificName) {
   if (!scientificName) return [];
 
   const cacheKey = CACHE_PREFIX + scientificName;
   try {
-    const cached = sessionStorage.getItem(cacheKey);
-    if (cached) return JSON.parse(cached);
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      // Check TTL; ignore if expired
+      if (parsed?.timestamp && (Date.now() - parsed.timestamp) < CACHE_TTL_MS) {
+        return parsed.photos;
+      }
+      // Expired — remove it
+      try { localStorage.removeItem(cacheKey); } catch (e) { /* ignore */ }
+    }
   } catch (e) { /* ignore */ }
 
   if (inFlight.has(cacheKey)) return inFlight.get(cacheKey);
@@ -96,7 +118,11 @@ async function fetchWikiPhotos(scientificName) {
       clearTimeout(timer);
     }
 
-    try { sessionStorage.setItem(cacheKey, JSON.stringify(photos)); } catch (e) { /* full */ }
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), photos }));
+    } catch (e) {
+      // localStorage full — silently fail; the cache is an optimization, not required
+    }
     inFlight.delete(cacheKey);
     return photos;
   })();
@@ -203,7 +229,7 @@ export function WikiPhotoStrip({ scientificName, lang = 'en' }) {
           }
         }
       },
-      { rootMargin: '300px' }
+      { rootMargin: '800px' }  // start fetching well before the card is visible
     );
     observer.observe(el);
     return () => observer.disconnect();
