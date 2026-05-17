@@ -57,11 +57,7 @@ const Icon = ({ name, className }) => {
 
 // --- SPRAY TARGET ENRICHMENT ---
 
-// Inject MOA and Application into existing database safely
-ALL_PESTS.forEach(pest => {
-  pest.moa = PEST_MOA_MAPPING[pest.id]?.zh || 'N/A';
-  pest.application = PEST_APPLICATION_MAPPING[pest.id]?.zh || '针对性施用';
-});
+// Enrichment moved inside component so language switches re-apply correctly.
 
 // --- DT50 CHEMICAL LIFESPAN DATABASE ---
 
@@ -944,6 +940,14 @@ const AIIllustration = ({ id, alt }) => {
 
 export default function ZhApp() {
   const { lang, setLang } = useLang();
+  // Enrich pests with MOA & application strings for THIS app's language.
+  // Runs every render so switching languages re-applies the right values
+  // (the data is shared across both apps; whichever mounts last wins, so
+  // we re-apply on each render to guarantee freshness).
+  ALL_PESTS.forEach(pest => {
+    pest.moa = PEST_MOA_MAPPING[pest.id]?.zh || 'N/A';
+    pest.application = PEST_APPLICATION_MAPPING[pest.id]?.zh || '针对性施用';
+  });
   // Preserve UI state across language switches via sessionStorage.
   // Only restores within the same session — a fresh visit starts at the top.
   const [activeTab, setActiveTab] = useState(() => {
