@@ -1581,6 +1581,17 @@ export default function ZhApp() {
                     placeholder="搜索病虫名称..." 
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.target.blur();
+                        const el = document.getElementById('results');
+                        if (el) {
+                          const top = el.getBoundingClientRect().top + window.scrollY - 72;
+                          window.scrollTo({ top, behavior: 'smooth' });
+                        }
+                      }
+                    }}
                     className="w-full pl-14 pr-6 py-3.5 text-lg font-medium bg-slate-50 border-2 border-slate-300 rounded-xl focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
                   />
                 </div>
@@ -1874,7 +1885,7 @@ export default function ZhApp() {
               </div>
             )}
 
-            <div className={viewMode === 'list' ? "flex flex-col gap-8 max-w-4xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>
+            <div id="results" className={viewMode === 'list' ? "flex flex-col gap-8 max-w-4xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>
               {filteredPests.map(pest => {
                 const imgData = customImages[pest.id];
                 const primaryName = pest.scientific.split('/')[0].split(',')[0].trim();
