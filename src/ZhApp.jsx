@@ -1316,31 +1316,31 @@ export default function ZhApp() {
       <header className="bg-emerald-900 text-white shadow-md sticky top-0 z-40">
         <div className="max-w-[90rem] mx-auto px-4 py-4 flex flex-row justify-between items-center gap-4">
           
-          <div className="flex items-center gap-2 md:gap-3">
-            <div className="bg-emerald-800 p-1 md:p-2 rounded-lg border border-emerald-700 flex items-center justify-center">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
+            <div className="flex-shrink-0 bg-emerald-800 p-1 md:p-2 rounded-lg border border-emerald-700 flex items-center justify-center">
               <Icon name="leaf" className="w-3.5 h-3.5 md:w-6 md:h-6 text-emerald-400" />
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-[11px] md:text-2xl font-bold tracking-tight leading-none text-white text-left">
+              <h1 className="text-base md:text-2xl font-bold tracking-tight leading-none text-white text-left whitespace-nowrap">
                 <span className="md:hidden">榴莲病虫害管理</span>
                 <span className="hidden md:inline">AGRIPRO 榴莲病虫害管理</span>
               </h1>
             </div>
           </div>
           
-          <div className="flex items-center gap-1.5 md:gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
             <div className="flex bg-emerald-950 p-1 rounded-lg border border-emerald-800">
             <button 
               onClick={() => setActiveTab('simulator')}
               className={`px-2.5 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1 md:gap-2 transition-all ${activeTab === 'simulator' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
             >
-              <Icon name="activity" className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">风险评估</span><span className="sm:hidden">风险</span>
+              <Icon name="activity" className="hidden md:inline-block w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">风险评估</span><span className="sm:hidden">风险</span>
             </button>
             <button 
               onClick={() => setActiveTab('database')}
               className={`px-2.5 py-1.5 md:px-5 md:py-2 rounded-md text-[11px] md:text-sm font-bold flex items-center gap-1 md:gap-2 transition-all ${activeTab === 'database' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-400 hover:text-white'}`}
             >
-              <Icon name="search" className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">数据库</span><span className="sm:hidden">数据</span>
+              <Icon name="search" className="hidden md:inline-block w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">数据库</span><span className="sm:hidden">数据</span>
             </button>
           </div>
             <button
