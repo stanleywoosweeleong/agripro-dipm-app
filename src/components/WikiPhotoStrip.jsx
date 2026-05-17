@@ -118,11 +118,7 @@ function PhotoLightbox({ photo, lang, onClose }) {
   if (!photo) return null;
 
   const closeLabel = lang === 'zh' ? '关闭' : 'Close';
-  const sourceLabel = lang === 'zh' ? '查看维基共享原始页面' : 'View on Wikimedia Commons';
-  const photoByLabel = lang === 'zh' ? '摄影：' : 'Photo: ';
-  const licenseLabel = lang === 'zh' ? '许可：' : 'License: ';
-  const unknownAuthor = lang === 'zh' ? '佚名' : 'Unknown author';
-  const seeSource = lang === 'zh' ? '请查阅来源页面' : 'See source page';
+  const sourceLabel = lang === 'zh' ? '维基共享来源页 →' : 'View on Wikimedia →';
 
   return (
     <div
@@ -147,45 +143,35 @@ function PhotoLightbox({ photo, lang, onClose }) {
         <img
           src={photo.full}
           alt={photo.title}
-          className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
+          className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
         />
-        {/* Attribution block — required by CC licenses */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 max-w-2xl w-full text-white text-sm">
-          <div className="space-y-1">
-            <div>
-              <span className="text-emerald-300 font-bold">{photoByLabel}</span>
-              <span className="font-medium">{photo.author || unknownAuthor}</span>
-            </div>
-            {photo.license ? (
-              <div>
-                <span className="text-emerald-300 font-bold">{licenseLabel}</span>
-                {photo.licenseUrl ? (
-                  <a
-                    href={photo.licenseUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium underline hover:text-emerald-200"
-                  >
-                    {photo.license}
-                  </a>
-                ) : (
-                  <span className="font-medium">{photo.license}</span>
-                )}
-              </div>
-            ) : (
-              <div className="text-slate-300 text-xs italic">{seeSource}</div>
-            )}
-            <div className="pt-1">
+        {/* Compact single-line attribution — CC-compliant */}
+        <div className="text-xs text-slate-300 max-w-2xl text-center leading-relaxed">
+          {photo.author && <span className="text-white font-medium">{photo.author}</span>}
+          {photo.author && <span className="text-slate-500 mx-1.5">·</span>}
+          {photo.license && (
+            photo.licenseUrl ? (
               <a
-                href={photo.descUrl}
+                href={photo.licenseUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-emerald-300 hover:text-emerald-200 underline"
+                className="hover:text-emerald-200 underline"
               >
-                {sourceLabel} →
+                {photo.license}
               </a>
-            </div>
-          </div>
+            ) : (
+              <span>{photo.license}</span>
+            )
+          )}
+          {photo.license && <span className="text-slate-500 mx-1.5">·</span>}
+          <a
+            href={photo.descUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-emerald-300 hover:text-emerald-200 underline"
+          >
+            {sourceLabel}
+          </a>
         </div>
       </div>
     </div>
