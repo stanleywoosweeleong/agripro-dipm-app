@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ALL_PESTS, PEST_MOA_MAPPING, PEST_APPLICATION_MAPPING, DT50_DATABASE } from './data/index.js';
 import { useLang } from './i18n/useLang.jsx';
+import { WikiPhotoStrip } from './components/WikiPhotoStrip.jsx';
 
 // --- CRASH-PROOF INLINE ICONS (SCALED UP FOR READABILITY) ---
 const Icon = ({ name, className }) => {
@@ -2157,6 +2158,8 @@ export default function ZhApp() {
                          })}
                        </div>
                     )}
+
+                    <WikiPhotoStrip scientificName={pest.scientific} lang="zh" />
 
                     <span className={`flex items-center gap-2 font-black text-emerald-900 uppercase tracking-wider mb-3 ${isGrid ? 'text-sm' : 'text-lg border-t-2 border-emerald-200/50 pt-4'}`}>
                       <Icon name="info" className={isGrid ? "w-4 h-4" : "w-6 h-6"}/> 防治方案总结

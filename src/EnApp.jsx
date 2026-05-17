@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ALL_PESTS, PEST_MOA_MAPPING, PEST_APPLICATION_MAPPING, DT50_DATABASE } from './data/index.js';
 import { useLang } from './i18n/useLang.jsx';
+import { WikiPhotoStrip } from './components/WikiPhotoStrip.jsx';
 
 // --- V1 AGRIPRO DIPM ---
 // --- CRASH-PROOF INLINE ICONS (SCALED UP FOR READABILITY) ---
@@ -2088,6 +2089,8 @@ export default function EnApp() {
                          })}
                        </div>
                     )}
+
+                    <WikiPhotoStrip scientificName={pest.scientific} lang="en" />
 
                     <span className={`flex items-center gap-2 font-black text-emerald-900 uppercase tracking-wider mb-3 ${isGrid ? 'text-sm' : 'text-lg border-t-2 border-emerald-200/50 pt-4'}`}>
                       <Icon name="info" className={isGrid ? "w-4 h-4" : "w-6 h-6"}/> Protocol Summary
