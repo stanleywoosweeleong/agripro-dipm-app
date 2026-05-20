@@ -997,7 +997,19 @@ export default function EnApp() {
   const [filterPart, setFilterPart] = useState('All');
   const [filterSeverity, setFilterSeverity] = useState('All'); 
   const [filterStage, setFilterStage] = useState('All Stages'); 
-  const [viewMode, setViewMode] = useState('list'); 
+  const [viewMode, setViewMode] = useState('list');
+  // Track whether the viewport is desktop-sized (md breakpoint = 768px).
+  // Grid view only makes sense with horizontal space; on mobile we always
+  // render list view regardless of saved viewMode preference.
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const handler = (e) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [showTrappingGuide, setShowTrappingGuide] = useState(false);
   const [showLightGuide, setShowLightGuide] = useState(false);
@@ -1464,7 +1476,7 @@ export default function EnApp() {
                     </select>
                   </div>
 
-                  <div className="flex bg-slate-100 p-1 rounded-xl border-2 border-slate-200 w-full md:w-48 flex-shrink-0 h-[56px]">
+                  <div className="hidden md:flex bg-slate-100 p-1 rounded-xl border-2 border-slate-200 w-48 flex-shrink-0 h-[56px]">
                     <button 
                       onClick={() => setViewMode('list')}
                       className={`flex-1 flex items-center justify-center gap-2 rounded-lg font-bold transition-all ${viewMode === 'list' ? 'bg-white shadow-sm text-emerald-700 border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
@@ -1740,7 +1752,7 @@ export default function EnApp() {
               </div>
             )}
 
-            <div id="results" className={viewMode === 'list' ? "flex flex-col gap-8 max-w-4xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>
+            <div id="results" className={(viewMode === 'list' || !isDesktop) ? "flex flex-col gap-8 max-w-4xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>
               {filteredPests.map(pest => {
                 const primaryName = pest.scientific.split('/')[0].split(',')[0].trim();
                 
@@ -1754,7 +1766,7 @@ export default function EnApp() {
                 const localName = pest.common.en.split('/')[0].split('(')[0].split('（')[0].trim();
                 const searchQuery = `${primaryName} ${localName}${searchSuffix}`.trim();
                 
-                const isGrid = viewMode === 'grid';
+                const isGrid = viewMode === 'grid' && isDesktop;  // mobile always shows list cards
                 const categorizedMoa = categorizeMoa(pest.moa, pest.category);
 
                 return (
