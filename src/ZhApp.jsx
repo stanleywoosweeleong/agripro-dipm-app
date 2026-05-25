@@ -1204,7 +1204,7 @@ export default function ZhApp() {
         </button>
       )}
 
-<header className="bg-emerald-900 text-white shadow-md sticky top-0 z-40">
+<header className="safe-top bg-emerald-900 text-white shadow-md sticky top-0 z-40">
         <div className="max-w-[90rem] mx-auto px-4 py-4 flex flex-row justify-between items-center gap-4">
           
           <div className="flex items-center gap-2 md:gap-3 min-w-0">
@@ -1280,9 +1280,9 @@ export default function ZhApp() {
                   </div>
 
                   <div className="space-y-4 border-t border-slate-200 pt-6">
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                       <label className="text-xl font-bold text-slate-800 flex items-center gap-3"><Icon name="activity" className="w-6 h-6 text-blue-600"/> 施氮量 (公斤/树)</label>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center justify-between sm:justify-end gap-4">
                         <button onClick={() => setShowNCalc(!showNCalc)} className="text-sm font-bold text-blue-600 hover:text-blue-800 underline flex items-center gap-1">
                           <Icon name="calculator" className="w-4 h-4" /> 计算器
                         </button>
@@ -1311,7 +1311,7 @@ export default function ZhApp() {
                          <div className="flex flex-col md:flex-row justify-between items-center bg-blue-100 p-5 rounded-xl mt-6 border border-blue-200 gap-4">
                            <div>
                              <span className="block text-sm text-blue-800 font-bold uppercase tracking-wider">单包总氮量: {(Number(calcNPercent||0)/100 * Number(calcBagWeight||0)).toFixed(2)} 公斤</span>
-                             <span className="block text-2xl font-black text-blue-950 mt-1">单株纯氮量: {calculatedNPerTree.toFixed(2)} 公斤</span>
+                             <span className="block text-lg md:text-2xl font-black text-blue-950 mt-1">单株纯氮量: {calculatedNPerTree.toFixed(2)} 公斤</span>
                            </div>
                            <button onClick={() => { setNitrogen(parseFloat(calculatedNPerTree.toFixed(2))); setShowNCalc(false); }} className="w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-lg rounded-xl transition-colors shadow-md">应用至滑块</button>
                          </div>
