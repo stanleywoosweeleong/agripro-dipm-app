@@ -1251,6 +1251,16 @@ export default function ZhApp() {
         {/* --- TAB 1: RISK ENGINE --- */}
         {activeTab === 'simulator' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-300">
+            <div className="lg:col-span-12">
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 flex items-start gap-3">
+                <Icon name="alert" className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm md:text-base text-amber-900 leading-relaxed">
+                  <span className="font-bold">仅供参考估算 — 非经验证的专业建议。</span>
+                  此风险百分比是基于一般农艺假设的规划参考，尚未经过田间试验或认证农艺师的验证。
+                  在做出任何防治决定之前，请务必结合您自己的果园观察和专业意见加以确认。
+                </p>
+              </div>
+            </div>
             <div className="lg:col-span-4 space-y-6">
               <div className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                 <div className="bg-slate-100 p-6 border-b border-slate-200 flex items-center gap-3">
