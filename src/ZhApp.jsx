@@ -1321,7 +1321,7 @@ export default function ZhApp() {
 
                   <div className="space-y-4 border-t border-slate-200 pt-6">
                     <label className="text-xl font-bold text-slate-800 flex items-center gap-3"><Icon name="rain" className="w-6 h-6 text-cyan-600"/> 天气模式</label>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <select value={rain} onChange={(e) => setRain(e.target.value)} className="p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50">
                         <option value="low">旱季</option>
                         <option value="moderate">阵雨/间歇性</option>
@@ -1336,9 +1336,9 @@ export default function ZhApp() {
                   </div>
 
                   <div className="space-y-4 border-t border-slate-200 pt-6">
-                    <label className="flex items-center gap-4 p-5 bg-amber-50 border-2 border-amber-200 rounded-xl cursor-pointer hover:bg-amber-100 transition-colors">
-                      <input type="checkbox" checked={nearForest} onChange={(e) => setNearForest(e.target.checked)} className="w-6 h-6 accent-amber-600"/>
-                      <span className="text-xl font-bold text-amber-900 flex items-center gap-3"><Icon name="leaf" className="w-6 h-6"/> 果园靠近原始森林或丛林</span>
+                    <label className="flex items-center gap-3 p-4 sm:p-5 bg-amber-50 border-2 border-amber-200 rounded-xl cursor-pointer hover:bg-amber-100 transition-colors">
+                      <input type="checkbox" checked={nearForest} onChange={(e) => setNearForest(e.target.checked)} className="w-6 h-6 flex-shrink-0 accent-amber-600"/>
+                      <span className="text-base sm:text-xl font-bold text-amber-900 flex items-center gap-2"><Icon name="leaf" className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"/> 果园靠近原始森林或丛林</span>
                     </label>
                   </div>
                 </div>
