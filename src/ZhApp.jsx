@@ -1322,12 +1322,18 @@ export default function ZhApp() {
                   <div className="space-y-4 border-t border-slate-200 pt-6">
                     <label className="text-xl font-bold text-slate-800 flex items-center gap-3"><Icon name="rain" className="w-6 h-6 text-cyan-600"/> 天气模式</label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <select value={rain} onChange={(e) => setRain(e.target.value)} className="p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50">
-                        <option value="low">旱季</option>
-                        <option value="moderate">阵雨/间歇性</option>
-                        <option value="high">季风 / 雨季</option>
-                      </select>
-                      <input type="number" placeholder="连续晴天数" value={dryDays} onChange={(e) => setDryDays(e.target.value === '' ? '' : Number(e.target.value))} onFocus={(e) => e.target.select()} className="p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50" title="连续晴天数" />
+                      <div>
+                        <label className="block text-sm font-bold text-slate-600 uppercase tracking-wider mb-2">降雨季节</label>
+                        <select value={rain} onChange={(e) => setRain(e.target.value)} className="w-full p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50">
+                          <option value="low">旱季</option>
+                          <option value="moderate">阵雨/间歇性</option>
+                          <option value="high">季风 / 雨季</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-600 uppercase tracking-wider mb-2">连续晴天数</label>
+                        <input type="number" placeholder="例如 3" value={dryDays} onChange={(e) => setDryDays(e.target.value === '' ? '' : Number(e.target.value))} onFocus={(e) => e.target.select()} className="w-full p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50" title="连续没有下雨的天数" />
+                      </div>
                     </div>
                     <div className="pt-4">
                        <label className="text-lg font-semibold text-slate-600 flex justify-between mb-3">环境湿度 <span>{humidity}%</span></label>

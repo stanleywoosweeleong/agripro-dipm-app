@@ -1276,12 +1276,18 @@ export default function EnApp() {
                   <div className="space-y-4 border-t border-slate-200 pt-6">
                     <label className="text-xl font-bold text-slate-800 flex items-center gap-3"><Icon name="rain" className="w-6 h-6 text-cyan-600"/> Weather Pattern</label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <select value={rain} onChange={(e) => setRain(e.target.value)} className="p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50">
-                        <option value="low">Dry Season</option>
-                        <option value="moderate">Intermittent</option>
-                        <option value="high">Monsoon / Wet</option>
-                      </select>
-                      <input type="number" placeholder="Dry Days" value={dryDays} onChange={(e) => setDryDays(e.target.value === '' ? '' : Number(e.target.value))} onFocus={(e) => e.target.select()} className="p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50" title="Consecutive dry days" />
+                      <div>
+                        <label className="block text-sm font-bold text-slate-600 uppercase tracking-wider mb-2">Rainfall Season</label>
+                        <select value={rain} onChange={(e) => setRain(e.target.value)} className="w-full p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50">
+                          <option value="low">Dry Season</option>
+                          <option value="moderate">Intermittent</option>
+                          <option value="high">Monsoon / Wet</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-600 uppercase tracking-wider mb-2">Consecutive Dry Days</label>
+                        <input type="number" placeholder="e.g. 3" value={dryDays} onChange={(e) => setDryDays(e.target.value === '' ? '' : Number(e.target.value))} onFocus={(e) => e.target.select()} className="w-full p-4 border-2 border-slate-300 rounded-xl text-xl bg-slate-50" title="Number of days in a row without rain" />
+                      </div>
                     </div>
                     <div className="pt-4">
                        <label className="text-lg font-semibold text-slate-600 flex justify-between mb-3">Humidity <span>{humidity}%</span></label>
