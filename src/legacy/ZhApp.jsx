@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ALL_PESTS, PEST_MOA_MAPPING, PEST_APPLICATION_MAPPING, DT50_DATABASE } from './data/index.js';
-import { useLang } from './i18n/useLang.jsx';
-import { WikiPhotoStrip } from './components/WikiPhotoStrip.jsx';
+import { ALL_PESTS, PEST_MOA_MAPPING, PEST_APPLICATION_MAPPING, DT50_DATABASE } from '../data/index.js';
+import { useLang } from '../i18n/useLang.jsx';
+import { WikiPhotoStrip } from '../components/WikiPhotoStrip.jsx';
 
 // --- CRASH-PROOF INLINE ICONS (SCALED UP FOR READABILITY) ---
 const Icon = ({ name, className }) => {

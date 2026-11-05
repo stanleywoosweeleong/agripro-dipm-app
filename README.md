@@ -1,113 +1,93 @@
-# AgriPro DIPM — Unified Bilingual App (中文 / English)
+# AgriPro Durian IPM (v3) · 榴莲综合防治
 
-A unified, bilingual, installable PWA for durian orchard pest and disease management.
-One codebase, two languages, **add data once and it appears in both**.
+A bilingual (中文 / English), offline PWA for durian growers in Malaysia.
 
-> Replaces the separate [`agripro-dipm-en`](https://github.com/stanleywoosweeleong/agripro-dipm-en) (English) and [`agripro-dipm`](https://github.com/stanleywoosweeleong/agripro-dipm) (Chinese) repos.
+**The big change in v3:** the app no longer depends on a catalogue of every pest in
+the world. Control decisions are made by **pest group**, defined by the traits that
+actually decide which chemistry works:
 
-## Key features
+| Trait | Why it matters |
+|---|---|
+| What it is (taxon) | Mites aren't insects; water moulds aren't fungi; many chemistries only work on one order |
+| How it feeds (mouthparts) | Chewers → stomach poisons · sap-suckers → systemic · thrips → translaminar |
+| Where it hides | Borers inside fruit/wood can't be reached by sprays |
+| Which stage does damage | Growth regulators only kill young stages |
 
-- **Bilingual** — language toggle in the top-right (🌐 中 / EN). Defaults to Chinese; choice persists per device.
-- **Single source of truth for data** — all pests, MOA mappings, application advice, and DT50 chemicals live in `src/data/`. Each translatable field is `{ en: ..., zh: ... }`. Add a new pest once with both translations and it shows up in both languages.
-- **Chemicals always bilingual** — DT50 chemical names display in both languages regardless of UI language (for China-export reference contexts).
-- **Code-split per language** — users only download the active language's UI bundle (~28 KB gzipped each), not both.
-- **Fully offline** — installable PWA with service worker precaching all data, JS, CSS, icons.
-- **Auto-deploy** to GitHub Pages on every push to `main`.
+A pest nobody has catalogued still lands in one of ~22 groups through three plain
+questions (where, what you see, what creature), and gets sound advice.
 
-## Setup (first time)
+## Screens
 
-You need [Node.js](https://nodejs.org/) v18+ installed.
+- **Home**: set crop stage + weather, then a "watch now" list, flowering bee warning, search known examples.
+- **Diagnose**: 3-step wizard that returns the likely pest group, the evidence behind it, and a low-confidence warning.
+- **Group page**: what it is, why it matters for control, how to confirm it, action threshold, non-chemical steps first.
+  Then ranked MoA classes with real actives and stage/bee/harvest/resistance warnings, a 3-spray rotation plan,
+  and a list of what **not** to use.
+- **Rotate**: the Rotation Helper (see below). Pick a pest and the IRAC group used last; it returns Avoid,
+  Caution (shared target), and Rotate to, ranked by switching to a different target site and then by WHO toxicity.
+- **Chemicals**: search by active ingredient (EN/中文). Each entry shows MoA, how it reaches the pest, WHO class,
+  bee hazard, effect on natural enemies, weather timing, EU status, cross-resistance, resistance risk by pest,
+  and links to the live China MRL table (GB 2763-2026). Searching for a **banned** active gives an honest
+  "banned" answer with legal alternatives, never "no matches".
+- **Learn**: short WhatsApp-shareable lessons (mouthparts, life stages, rotation, banned chemicals, fake labels,
+  pollinators, systemic vs contact, safe mixing + tank-mix order).
+- **Classic**: the v2 app (full catalogue, DT50 tables, risk simulator), still reachable from Learn.
 
-```bash
-npm install      # ~30 sec
-npm run dev      # preview at http://localhost:5173/agripro-dipm-app/
-```
+## What was merged from the other apps
+
+- **[Pest MoA rotation guide](https://github.com/stanleywoosweeleong/moarotationguide)**: the entire audited
+  insecticide database (69 actives from the Bunting A chart), cross-resistance clusters, WHO / bee /
+  natural-enemy / Beauveria / weather / EU tags, Malaysian removed-actives notices, tank-mix order, and the
+  rotation algorithm. Copied verbatim into `src/core/moaDb.js`, including its audit log and "rejected by
+  design" notes. Its policies apply to the whole app:
+  - Banned actives are not browsable. They appear only as a search answer.
+  - No MRL values or PHI numbers are stored. The app links out to live sources instead.
+  - No half-life figures.
+- **[Taijiang insect guide](https://stanleywoosweeleong.github.io/taijiang-insects/)**: the original line-art
+  insect-order glyphs and the mouthparts figure (`src/components/Art.jsx`), the step-by-step identification
+  idea, and its accessibility conventions (17px+ text, large buttons, Aa text-size toggle, first-launch
+  language choice). Its photographs are **not** used, because they belong to the park and photographers.
 
 ## Project structure
 
 ```
-agripro-dipm-app/
-├── .github/workflows/deploy.yml   # CI: auto-build & deploy
-├── public/                        # PWA icons, favicon
-├── src/
-│   ├── App.jsx                    # Top-level shell + language toggle + Suspense
-│   ├── EnApp.jsx                  # English UI (consumes unified data)
-│   ├── ZhApp.jsx                  # Chinese UI (consumes unified data)
-│   ├── main.jsx                   # React entry + service worker
-│   ├── index.css                  # Tailwind + safe-area
-│   ├── i18n/
-│   │   ├── useLang.jsx            # LanguageProvider + useLang() hook
-│   │   └── ui.js                  # Reserved for shared cross-cutting UI strings
-│   └── data/                      # Single source of truth for all data
-│       ├── index.js               # Re-exports
-│       ├── pests.js               # 85 pests (bilingual translatable fields)
-│       ├── moa.js                 # 78 MOA mappings (bilingual)
-│       ├── application.js         # 78 application notes (bilingual)
-│       └── chemicals.js           # 49 DT50 chemicals (name always bilingual)
-├── index.html
-├── package.json
-└── vite.config.js                 # base: /agripro-dipm-app/
+src/
+├── App.jsx                 # shell: header, bottom nav, hash router, language gate
+├── core/                   # pure JS — the "brain", fully unit-tested
+│   ├── groups.js           # ~22 trait-defined pest groups + advice
+│   ├── diagnosis.js        # signs/culprits → scored groups
+│   ├── moa.js              # plain-language MoA classes (IRAC/FRAC)
+│   ├── moaDb.js            # ← rotation-guide database (verbatim)
+│   ├── chemDb.js           # unified chemicals + banned search notices
+│   ├── recommend.js        # group + stage → ranked options & rotation
+│   ├── rotation.js         # Rotation Helper algorithm
+│   ├── stages.js, lessons.js, examples.js
+├── screens/                # Home, Diagnose, GroupPage, Chemicals, Rotate, Learn, Classic
+├── components/Art.jsx      # illustrations
+├── i18n/                   # useLang + UI strings
+├── legacy/                 # v2 EnApp/ZhApp (Classic mode)
+└── data/                   # v2 data — now supplies examples & photos
+tests/core.test.js          # data-integrity + behaviour tests
 ```
 
-## Adding a new pest
-
-Edit `src/data/pests.js` and append:
-
-```js
-{
-  id: 'new-pest-id',
-  category: 'Insects',
-  common: { en: 'New Pest Name', zh: '新害虫名称' },
-  scientific: 'Genus species',
-  target: { en: 'Where it feeds', zh: '取食位置' },
-  symptoms: { en: '...', zh: '...' },
-  control: { en: '...', zh: '...' },
-  // ... other fields
-}
-```
-
-That's it — the pest appears in both EN and ZH UIs automatically.
-
-## Adding a new chemical
-
-Edit `src/data/chemicals.js`. Names use the bilingual joined format (`'Chemical Name (中文名)'`); other text fields use `{ en, zh }`.
-
-## Deploy to GitHub Pages
-
-The new repo should be named **`agripro-dipm-app`** (matches `vite.config.js` base path).
+## Develop
 
 ```bash
-git init
-git add .
-git commit -m "Initial unified bilingual app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/agripro-dipm-app.git
-git push -u origin main
+npm install
+npm run dev     # http://localhost:5173/agripro-dipm-app/
+npm test        # run after ANY data edit
+npm run build
 ```
 
-Then on GitHub: **Settings → Pages → Source: GitHub Actions**.
+### Adding things
 
-Live at: `https://<your-username>.github.io/agripro-dipm-app/`
+- **New pest species:** usually nothing. It is covered by its group. To list it as an example, add its id
+  in `src/core/examples.js`.
+- **New insecticide:** add it to the rotation database in `src/core/moaDb.js` (follow its audit notes).
+- **New fungicide / biological:** add it to `LOCAL` in `src/core/chemDb.js`.
+- **New ban:** add it to `REMOVED_MY` (`moaDb.js`) and delete its rows. The tests fail if a removed active
+  is still browsable.
 
-## Archive the old repos (optional but recommended)
+Deploys to GitHub Pages on every push to `main` (`.github/workflows/deploy.yml`).
 
-Once the unified app is live and tested:
-
-- For `agripro-dipm-en`: Settings → scroll to bottom → "Archive this repository"
-- For `agripro-dipm`: same
-
-Archived repos remain visible but read-only, signaling they're no longer maintained.
-
----
-
-## 中文摘要
-
-这是一个双语统一版的 AgriPro DIPM 应用，整合了原先独立的英文版与中文版。
-
-- 通过右上角 🌐 按钮切换中英文，默认中文。
-- 所有病虫害、MOA 映射、施药指引、DT50 化学数据集中在 `src/data/` 文件夹下，每条可翻译字段以 `{ en, zh }` 对象保存。
-- 新增一个病虫害时，只需在 `src/data/pests.js` 中加入一次（包含双语），两语界面自动同步。
-- 化学品名称按用户要求始终双语显示（中国出口参考场景）。
-- 按语言代码分包，用户只下载当前语言所需的 UI 资源（约 28 KB gzipped）。
-
-部署到 GitHub Pages 的流程与原版相同，仓库名为 `agripro-dipm-app`。
+*Guidance only. The legal reference is the Malaysian Pesticides Board (LRMP) register and the product label.*

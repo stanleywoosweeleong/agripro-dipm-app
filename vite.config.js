@@ -17,7 +17,7 @@ export default defineConfig({
         name: 'AgriPro DIPM — 榴莲虫害管理 / Durian Pest Management',
         short_name: 'AgriPro DIPM',
         description:
-          '榴莲园综合虫害管理 — 病虫害数据库、风险模拟器、混配方案。Bilingual Durian IPM.',
+          '榴莲综合防治 — 按取食方式诊断、轮替用药、查农药是否违禁。Durian IPM: diagnose by how pests feed, rotate by MoA, check chemicals.',
         theme_color: '#059669',
         background_color: '#f0fdf4',
         display: 'standalone',

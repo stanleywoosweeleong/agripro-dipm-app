@@ -8,6 +8,10 @@ const DEFAULT_LANG = 'zh'; // Chinese is default per user spec
 const VALID_LANGS = ['en', 'zh'];
 
 export function LanguageProvider({ children }) {
+  // `chosen` is false until the user has picked a language once (first-launch gate).
+  const [chosen, setChosen] = useState(() => {
+    try { return !!localStorage.getItem(STORAGE_KEY); } catch (e) { return true; }
+  });
   const [lang, setLangState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -19,6 +23,7 @@ export function LanguageProvider({ children }) {
   const setLang = useCallback((newLang) => {
     if (!VALID_LANGS.includes(newLang)) return;
     setLangState(newLang);
+    setChosen(true);
     try { localStorage.setItem(STORAGE_KEY, newLang); } catch (e) { /* ignore */ }
     // Update <html lang> for accessibility / SEO
     document.documentElement.lang = newLang === 'zh' ? 'zh-CN' : 'en';
@@ -63,7 +68,7 @@ export function LanguageProvider({ children }) {
     return String(field || '');
   }, []);
 
-  const value = useMemo(() => ({ lang, setLang, t, ui, bilingualName }), [lang, setLang, t, ui, bilingualName]);
+  const value = useMemo(() => ({ lang, setLang, t, ui, bilingualName, chosen }), [lang, setLang, t, ui, bilingualName, chosen]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
