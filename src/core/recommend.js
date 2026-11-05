@@ -28,14 +28,15 @@ function activesFor(group, key) {
  * @param {object} ctx   – { stage?: string, recentMoa?: string[] }  (MoA class keys)
  */
 export function recommend(group, ctx = {}) {
-  const { stage = null, recentMoa = [] } = ctx;
+  const { stage = null, recentMoa = [], track = 'all' } = ctx;
   const flowering = stage === 'flowering';
   const nearHarvest = stage === 'harvest';
   const recentIrac = recentMoa.filter(k => k.startsWith('IRAC ')).map(k => k.slice(5));
 
   const options = group.chem.map((c, index) => {
     const info = moaInfo(c.moa);
-    const actives = activesFor(group, c.moa);
+    const all = activesFor(group, c.moa);
+    const actives = track === 'organic' ? all.filter(a => a.organic) : track === 'conventional' ? all.filter(a => !a.organic) : all;
     const warnings = [];
     let score = FIT_SCORE[c.fit] ?? 1;
 
@@ -56,7 +57,7 @@ export function recommend(group, ctx = {}) {
     })) { score -= 1; warnings.push('crossRes'); }
 
     return { ...c, moaInfo: info, actives, warnings, score, index, recentlyUsed };
-  });
+  }).filter(o => o.actives.length > 0);
 
   options.sort((a, b) => b.score - a.score || a.index - b.index);
 

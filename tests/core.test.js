@@ -103,3 +103,18 @@ test('rotation helper: never suggests the same group or a shared-target sibling'
 test('lessons are bilingual with matching paragraph counts', () => {
   for (const l of LESSONS) { bi(l.title, l.id); assert.equal(l.body.en.length, l.body.zh.length, l.id); }
 });
+
+test('organic track shows only organic actives; conventional shows none of them', () => {
+  for (const g of GROUPS) {
+    for (const o of recommend(g, { track: 'organic' }).options) assert.ok(o.actives.every(a => a.organic), `${g.id}/${o.moa}`);
+    for (const o of recommend(g, { track: 'conventional' }).options) assert.ok(o.actives.every(a => !a.organic), `${g.id}/${o.moa}`);
+  }
+  // spinetoram is NOT organic even though spinosad is
+  assert.equal(CHEMICALS.find(c => c.id === 'spinetoram').organic, false);
+  assert.equal(CHEMICALS.find(c => c.id === 'spinosad').organic, true);
+});
+
+test('most groups with any chemistry also have an organic option', () => {
+  const missing = GROUPS.filter(g => g.chem.length && !recommend(g, { track: 'organic' }).options.length).map(g => g.id);
+  assert.deepEqual(missing, ['ants-wasps']);
+});

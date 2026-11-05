@@ -3,7 +3,7 @@ import { useLang } from '../i18n/useLang.jsx';
 import { Card, Section, Icon, Badge, Callout, BackBar, Chip, openExternal } from '../ui/kit.jsx';
 import { GroupArt } from '../components/Art.jsx';
 import {
-  CHEMICALS, searchChemicals, findRemovedActive, chemById, moaInfo, chemsForMoa, CAUTION_TEXT, LAST_REVIEWED,
+  CHEMICALS, searchChemicals, findRemovedActive, chemById, moaInfo, chemsForMoa, CAUTION_TEXT, LAST_REVIEWED, organicNote,
 } from '../core/chemDb.js';
 import { MOA_LABELS, TOX_LABEL, BEE_LABEL, BENEFICIAL_LABEL, FUNGUS_LABEL, ENV_LABEL, CHART_PESTS } from '../core/moaDb.js';
 import { GROUPS, groupById } from '../core/groups.js';
@@ -12,9 +12,9 @@ import { GROUP_FOR_CHART } from '../core/rotation.js';
 import { href } from '../hooks/useRoute.js';
 import { moaCode, TOX_TONE } from './GroupPage.jsx';
 
-const KINDS = ['all', 'insecticide', 'fungicide', 'bio'];
+const KINDS = ['all', 'organic', 'insecticide', 'fungicide'];
 const KIND_LABEL = {
-  all: { en: 'All', zh: '全部' }, insecticide: { en: 'Insect & mite', zh: '杀虫杀螨' },
+  all: { en: 'All', zh: '全部' }, organic: { en: 'Organic & bio', zh: '有机与生物' }, insecticide: { en: 'Insect & mite', zh: '杀虫杀螨' },
   fungicide: { en: 'Disease', zh: '杀菌' }, bio: { en: 'Biological', zh: '生物' },
 };
 const SITE_LABEL = (lang, s) => MOA_LABELS[lang][`site_${s}`];
@@ -49,17 +49,17 @@ export function RemovedNotice({ r }) {
   );
 }
 
-export function ChemicalList() {
+export function ChemicalList({ initialKind = 'all' }) {
   const { t, ui } = useLang();
   const [q, setQ] = useState('');
-  const [kind, setKind] = useState('all');
+  const [kind, setKind] = useState(initialKind);
   const list = useMemo(() => searchChemicals(q, kind), [q, kind]);
   const removed = useMemo(() => findRemovedActive(q), [q]);
 
   return (
     <div>
-      <h1 className="text-2xl font-extrabold">{ui('chem.title')}</h1>
-      <p className="text-[15px] text-stone-600 leading-snug">{ui('chem.hint')}</p>
+      <h1 className="text-2xl font-extrabold">{kind === 'organic' ? ui('chem.organicTitle') : ui('chem.title')}</h1>
+      <p className="text-[15px] text-stone-600 leading-snug">{kind === 'organic' ? ui('chem.organicHint') : ui('chem.hint')}</p>
       <input value={q} onChange={e => setQ(e.target.value)} placeholder={ui('chem.search')} autoComplete="off"
         className="mt-3 w-full min-h-[52px] rounded-xl border-2 border-stone-300 px-3 bg-white focus:border-emerald-600 outline-none" />
       <div className="flex gap-2 mt-3 overflow-x-auto pb-1 -mx-1 px-1">
@@ -72,7 +72,7 @@ export function ChemicalList() {
         {!removed && list.length === 0 && <Callout tone="grey" icon="search">{ui('chem.none')}</Callout>}
         {list.map(c => <ChemRow key={c.id} c={c} />)}
       </div>
-      <p className="mt-4 text-[13px] text-stone-500">{ui('chem.legal')} {ui('chem.reviewed')}: {LAST_REVIEWED}. {CHEMICALS.length} {ui('chem.count')}</p>
+      <p className="mt-4 text-[13px] text-stone-500">{ui('chem.legal')} {CHEMICALS.length} {ui('chem.count')} · {LAST_REVIEWED}</p>
     </div>
   );
 }
@@ -86,6 +86,7 @@ function ChemRow({ c }) {
         <div className="font-extrabold text-[16px] leading-tight">{c.name.en} <span className="font-bold text-stone-600">{c.name.zh !== c.name.en ? c.name.zh : ''}</span></div>
         <div className="flex flex-wrap gap-1.5 mt-1">
           <Badge tone="green">{moaCode(info) || t(info.name)}</Badge>
+          {c.organic && <Badge tone="lime"><Icon name="leaf" className="w-3.5 h-3.5" /> {t({ en: 'Organic', zh: '有机' })}</Badge>}
           {c.site && <Badge tone={SITE_TONE[c.site]}>{SITE_LABEL(lang, c.site)}</Badge>}
           {c.bee === 'high' && <Badge tone="red"><Icon name="bee" className="w-3.5 h-3.5" /></Badge>}
           {(c.tox === 'Ia' || c.tox === 'Ib') && <Badge tone="red">WHO {c.tox}</Badge>}
@@ -123,6 +124,7 @@ export function ChemicalDetail({ id }) {
         {c.site && <Badge tone={SITE_TONE[c.site]}>{SITE_LABEL(lang, c.site)}</Badge>}
       </div>
 
+      {c.organic && <div className="mt-3"><Callout tone="lime" icon="leaf" title={ui('chem.organic')}>{t(organicNote(c))}</Callout></div>}
       {c.caution && <div className="mt-3"><Callout>{t(CAUTION_TEXT[c.caution])}</Callout></div>}
 
       <Section title={ui('chem.how')}>

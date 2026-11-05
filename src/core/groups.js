@@ -142,11 +142,12 @@ export const GROUPS = [
       { en: 'Irrigate in dry spells; outbreaks explode in hot dry weather.', zh: '干旱期及时灌溉；高温干旱时易爆发。' },
     ],
     chem: [
-      { moa: 'IRAC 5', fit: 'best', why: { en: 'Spinetoram soaks into buds; gentle on predators.', zh: '乙基多杀菌素可渗入花蕾；对天敌温和。' } },
+      { moa: 'IRAC 5', fit: 'best', why: { en: 'Spinosyns (spinosad — organic; spinetoram — conventional) reach thrips in buds; gentle on predators. Do not alternate the two: same target.', zh: '多杀菌素类（多杀霉素——有机；乙基多杀菌素——常规）可到达花蕾内的蓟马；对天敌温和。两者靶标相同，不能互相轮换。' } },
       { moa: 'IRAC 6', fit: 'best', why: { en: 'Abamectin is translaminar and reaches folded leaves.', zh: '阿维菌素具渗透性，可到达卷叶内部。' } },
       { moa: 'IRAC 28', fit: 'good', why: { en: 'Cyantraniliprole has thrips activity and low bee risk.', zh: '溴氰虫酰胺对蓟马有效，对蜜蜂风险低。' } },
       { moa: 'IRAC 15', fit: 'good', why: { en: 'Lufenuron kills larvae at moult.', zh: '虱螨脲在蜕皮期杀灭若虫。' } },
       { moa: 'BIO-INS', fit: 'good', why: { en: 'Isaria fumosorosea in humid evenings.', zh: '湿润傍晚施用玫烟色棒束孢。' } },
+      { moa: 'IRAC UN', fit: 'limited', why: { en: 'Neem or oil sprays slow thrips build-up; best early and with good coverage.', zh: '印楝或油剂可减缓蓟马增殖；宜尽早使用并充分覆盖。' } },
     ],
     avoid: [
       { moa: 'IRAC 3A', why: { en: 'Thrips are widely resistant and pyrethroids kill predatory mites and bugs.', zh: '蓟马普遍抗药，且拟除虫菊酯会杀死捕食螨和捕食蝽。' } },
@@ -181,6 +182,8 @@ export const GROUPS = [
       { moa: 'IRAC 28', fit: 'good', why: { en: 'Cyantraniliprole: low impact on beneficials.', zh: '溴氰虫酰胺：对益虫影响小。' } },
       { moa: 'IRAC 3A', fit: 'good', why: { en: 'Fast knockdown of exposed bugs — but never during flowering, and not repeatedly.', zh: '快速击倒暴露的蝽——但切勿在花期使用，且勿重复使用。' } },
       { moa: 'IRAC 4A', fit: 'limited', why: { en: 'Acetamiprid is an option outside flowering.', zh: '花期外可选用啶虫脒。' } },
+      { moa: 'BIO-INS', fit: 'limited', why: { en: 'Beauveria infects bugs in humid weather; slower than chemicals.', zh: '湿润天气下白僵菌可侵染蝽类；比化学药剂慢。' } },
+      { moa: 'IRAC UN', fit: 'limited', why: { en: 'Neem repels and reduces feeding.', zh: '印楝素可驱避并减少取食。' } },
     ],
     avoid: [],
     stages: ['fruit-set', 'fruit-growth'],
@@ -213,6 +216,7 @@ export const GROUPS = [
       { moa: 'IRAC 6', fit: 'good', why: { en: 'Emamectin benzoate: very potent on caterpillars.', zh: '甲维盐：对毛虫活性极高。' } },
       { moa: 'IRAC 22A', fit: 'good', why: { en: 'Indoxacarb: stomach action.', zh: '茚虫威：胃毒作用。' } },
       { moa: 'IRAC 15', fit: 'good', why: { en: 'Lufenuron: for young larvae.', zh: '虱螨脲：用于低龄幼虫。' } },
+      { moa: 'IRAC UN', fit: 'good', why: { en: 'Neem stops young larvae feeding and moulting.', zh: '印楝素抑制低龄幼虫取食和蜕皮。' } },
     ],
     avoid: [
       { moa: 'IRAC 1B', why: { en: 'Kills the parasitic wasps that keep caterpillars in check.', zh: '会杀死控制毛虫的寄生蜂。' } },
@@ -243,6 +247,7 @@ export const GROUPS = [
     ],
     chem: [
       { moa: 'BIO-INS', fit: 'good', why: { en: 'Metarhizium infects beetles and grasshoppers.', zh: '绿僵菌可侵染甲虫和蝗虫。' } },
+      { moa: 'IRAC UN', fit: 'limited', why: { en: 'Neem as an antifeedant on young trees.', zh: '在幼树上使用印楝素作拒食剂。' } },
       { moa: 'IRAC 28', fit: 'good', why: { en: 'Some diamides have beetle activity and are bee-safe.', zh: '部分双酰胺类对甲虫有效且对蜂安全。' } },
       { moa: 'IRAC 3A', fit: 'limited', why: { en: 'Contact knockdown on young trees only, never in flowering.', zh: '仅用于幼树的触杀击倒，切勿在花期使用。' } },
     ],
@@ -468,6 +473,7 @@ export const GROUPS = [
       { moa: 'IRAC 12C', fit: 'good', why: { en: 'Propargite: contact on adults (avoid hot midday).', zh: '炔螨特：触杀成螨（避开正午高温）。' } },
       { moa: 'SULFUR', fit: 'good', why: { en: 'Good on broad and eriophyid mites; cheap, no resistance.', zh: '对茶黄螨和瘿螨效果好；便宜，无抗性。' } },
       { moa: 'IRAC UN', fit: 'good', why: { en: 'Oil smothers mites and eggs.', zh: '油剂窒息螨及螨卵。' } },
+      { moa: 'BIO-INS', fit: 'good', why: { en: 'Beauveria infects mites in humid conditions.', zh: '湿润条件下白僵菌可侵染螨类。' } },
     ],
     avoid: [
       { moa: 'IRAC 3A', why: { en: 'Pyrethroids kill predatory mites → outbreak.', zh: '拟除虫菊酯杀死捕食螨→螨害爆发。' } },
@@ -619,6 +625,7 @@ export const GROUPS = [
       { moa: 'FRAC 11', fit: 'good', why: { en: 'Azoxystrobin: preventive — max 2 in a row.', zh: '嘧菌酯：预防性——连续不超过2次。' } },
       { moa: 'FRAC 20', fit: 'good', why: { en: 'Pencycuron for Rhizoctonia leaf blight.', zh: '戊菌隆防治丝核菌叶枯。' } },
       { moa: 'FRAC M01', fit: 'good', why: { en: 'Copper for algal leaf spot.', zh: '铜剂防治藻斑病。' } },
+      { moa: 'BIO-FUN', fit: 'good', why: { en: 'Bacillus-based products protect flush and flowers from anthracnose.', zh: '芽孢杆菌类产品保护新梢和花朵免受炭疽病。' } },
     ],
     avoid: [],
     stages: ['vegetative', 'flowering', 'fruit-set'],

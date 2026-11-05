@@ -52,10 +52,10 @@ export default function Home({ orchard, setOrchard }) {
         </div>
       </a>
       <div className="grid grid-cols-2 gap-3 mt-3">
-        <a href={href('chem')} className="rounded-2xl bg-white border-2 border-stone-200 p-4 active:bg-stone-50">
-          <Icon name="flask" className="w-7 h-7 text-emerald-700" />
-          <div className="font-extrabold text-[16px] mt-2 leading-tight">{ui('home.checkChem')}</div>
-          <div className="text-[14px] text-stone-600 leading-snug mt-0.5">{ui('home.checkChemSub')}</div>
+        <a href={href('organic')} className="rounded-2xl bg-lime-50 border-2 border-lime-300 p-4 active:bg-lime-100">
+          <Icon name="leaf" className="w-7 h-7 text-lime-700" />
+          <div className="font-extrabold text-[16px] mt-2 leading-tight">{ui('home.organic')}</div>
+          <div className="text-[14px] text-stone-600 leading-snug mt-0.5">{ui('home.organicSub')}</div>
         </a>
         <a href={href('rotate')} className="rounded-2xl bg-white border-2 border-stone-200 p-4 active:bg-stone-50">
           <Icon name="rotate" className="w-7 h-7 text-emerald-700" />

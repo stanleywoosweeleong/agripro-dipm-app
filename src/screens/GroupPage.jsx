@@ -35,7 +35,8 @@ export default function GroupPage({ id, orchard, setOrchard }) {
   const [showEx, setShowEx] = useState(false);
   const [lastPick, setLastPick] = useState(false);
 
-  const rec = useMemo(() => g && recommend(g, { stage: orchard.stage, recentMoa: orchard.recentMoa }), [g, orchard.stage, orchard.recentMoa]);
+  const track = orchard.track || 'organic';
+  const rec = useMemo(() => g && recommend(g, { stage: orchard.stage, recentMoa: orchard.recentMoa, track }), [g, orchard.stage, orchard.recentMoa, track]);
   if (!g) return <div><BackBar /><p>Not found.</p></div>;
 
   const examples = examplesFor(g.id);
@@ -98,10 +99,21 @@ export default function GroupPage({ id, orchard, setOrchard }) {
       ) : (
         <>
           <Section title={ui('group.chem')} sub={ui('group.chemSub')}>
+            {/* Organic first, conventional equally complete */}
+            <div className="grid grid-cols-2 gap-1 p-1 rounded-2xl bg-stone-200 mb-3" role="tablist">
+              {[['organic', 'group.trackOrganic', 'leaf'], ['conventional', 'group.trackConv', 'flask']].map(([k, label, icon]) => (
+                <button key={k} role="tab" aria-selected={track === k} onClick={() => setOrchard({ track: k })}
+                  className={`min-h-[48px] rounded-xl font-extrabold text-[15px] flex items-center justify-center gap-1.5 ${track === k
+                    ? (k === 'organic' ? 'bg-lime-600 text-white shadow' : 'bg-white text-stone-900 shadow') : 'text-stone-600'}`}>
+                  <Icon name={icon} className="w-5 h-5" />{ui(label)}
+                </button>
+              ))}
+            </div>
             {stage && <div className="mb-3"><Badge tone="green">{ui('home.stage')}: {t(stage.name)}</Badge></div>}
+            {rec.options.length === 0 && <Callout tone="lime" icon="leaf">{ui('group.organicEmpty')}</Callout>}
 
             {/* Last-used picker → rotation-aware ranking */}
-            <Card className="p-3 mb-3">
+            {rec.options.length > 0 && <Card className="p-3 mb-3">
               <button className="w-full flex items-center justify-between min-h-[40px] text-left" onClick={() => setLastPick(!lastPick)}>
                 <span className="font-bold text-[15px]">{ui('group.lastUsed')}</span>
                 <Badge tone={orchard.recentMoa.length ? 'amber' : 'grey'}>
@@ -111,18 +123,21 @@ export default function GroupPage({ id, orchard, setOrchard }) {
               {lastPick && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   <Chip on={!orchard.recentMoa.length} onClick={() => { setLast(null); setLastPick(false); }}>{ui('group.lastUsedNone')}</Chip>
-                  {g.chem.map(c => (
-                    <Chip key={c.moa} on={orchard.recentMoa.includes(c.moa)} onClick={() => { setLast(c.moa); setLastPick(false); }}>
-                      {moaCode(rec.options.find(o => o.moa === c.moa).moaInfo) || t(rec.options.find(o => o.moa === c.moa).moaInfo.name)}
+                  {rec.options.map(o => (
+                    <Chip key={o.moa} on={orchard.recentMoa.includes(o.moa)} onClick={() => { setLast(o.moa); setLastPick(false); }}>
+                      {moaCode(o.moaInfo) || t(o.moaInfo.name)}
                     </Chip>
                   ))}
                 </div>
               )}
-            </Card>
+            </Card>}
 
             <div className="space-y-3">
               {rec.options.map(o => <OptionCard key={o.moa} o={o} />)}
             </div>
+            {track === 'conventional' && rec.options.length > 0 && (
+              <div className="mt-3"><Callout tone="lime" icon="leaf">{ui('group.convNote')}</Callout></div>
+            )}
           </Section>
 
           {rec.rotation.length > 1 && (

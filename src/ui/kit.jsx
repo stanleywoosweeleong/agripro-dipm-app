@@ -60,6 +60,7 @@ const TONE = {
   blue: 'bg-sky-50 text-sky-900 border-sky-300',
   grey: 'bg-stone-100 text-stone-700 border-stone-300',
   violet: 'bg-violet-50 text-violet-900 border-violet-300',
+  lime: 'bg-lime-50 text-lime-900 border-lime-400',
 };
 export const Badge = ({ tone = 'grey', children, className = '' }) => (
   <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-[13px] font-bold leading-tight ${TONE[tone]} ${className}`}>{children}</span>

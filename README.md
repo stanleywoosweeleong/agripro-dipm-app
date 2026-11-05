@@ -18,18 +18,19 @@ questions (where, what you see, what creature), and gets sound advice.
 
 ## Screens
 
-- **Home**: set crop stage + weather, then a "watch now" list, flowering bee warning, search known examples.
+- **Home**: set crop stage + weather, then a "watch now" list, flowering bee warning, organic toolbox, search known examples.
 - **Diagnose**: 3-step wizard that returns the likely pest group, the evidence behind it, and a low-confidence warning.
 - **Group page**: what it is, why it matters for control, how to confirm it, action threshold, non-chemical steps first.
-  Then ranked MoA classes with real actives and stage/bee/harvest/resistance warnings, a 3-spray rotation plan,
-  and a list of what **not** to use.
+  Then two equally complete spray programmes, **Organic & biological** (default) and **Conventional**. Each has ranked
+  MoA classes with real actives, stage/bee/harvest/resistance warnings and its own 3-spray rotation. Then a list of
+  what **not** to use. Organic status lives on each active (`ORGANIC_IDS` in `src/core/chemDb.js`).
 - **Rotate**: the Rotation Helper (see below). Pick a pest and the IRAC group used last; it returns Avoid,
   Caution (shared target), and Rotate to, ranked by switching to a different target site and then by WHO toxicity.
-- **Chemicals**: search by active ingredient (EN/中文). Each entry shows MoA, how it reaches the pest, WHO class,
+- **Products**: an MoA library of organic, biological and conventional actives (with an Organic filter). Search by active ingredient (EN/中文). Each entry shows MoA, how it reaches the pest, WHO class,
   bee hazard, effect on natural enemies, weather timing, EU status, cross-resistance, resistance risk by pest,
   and links to the live China MRL table (GB 2763-2026). Searching for a **banned** active gives an honest
   "banned" answer with legal alternatives, never "no matches".
-- **Learn**: short WhatsApp-shareable lessons (mouthparts, life stages, rotation, banned chemicals, fake labels,
+- **Learn**: short WhatsApp-shareable lessons (making organic products work, mouthparts, life stages, rotation,
   pollinators, systemic vs contact, safe mixing + tank-mix order).
 - **Classic**: the v2 app (full catalogue, DT50 tables, risk simulator), still reachable from Learn.
 

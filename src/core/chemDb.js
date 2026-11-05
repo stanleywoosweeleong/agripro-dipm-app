@@ -91,6 +91,23 @@ const LOCAL = [
 
 export const CHEMICALS = [...byName.values(), ...LOCAL];
 
+// ── Organic / biological toolbox ───────────────────────────────────────────
+// Actives generally allowed under organic standards (e.g. OMRI-listed, EU
+// organic Annex I). The product's OWN certification is what counts — a
+// formulation can carry non-organic co-formulants.
+export const ORGANIC_IDS = new Set([
+  'bacillus-thuringiensis', 'beauveria-bassiana', 'metarhizium', 'isaria', 'lecanicillium', 'steinernema',
+  'azadirachtin', 'white-oil', 'soap', 'spinosad', 'sulfur', 'copper', 'trichoderma', 'bacillus-subtilis', 'iron-phosphate',
+]);
+for (const c of CHEMICALS) c.organic = ORGANIC_IDS.has(c.id);
+
+export const ORGANIC_NOTE = {
+  default: { en: 'Generally allowed in organic farming (e.g. OMRI, EU organic). Check the certification of the product you buy.', zh: '一般可用于有机种植（如OMRI、欧盟有机标准）。请确认所购产品本身的有机认证。' },
+  copper: { en: 'Allowed in organic farming with limits on total copper per year — it builds up in soil. Use the lowest effective rate.', zh: '有机种植可用，但每年铜总用量有限制——铜会在土壤中累积。使用最低有效剂量。' },
+  spinosad: { en: 'Fermentation product allowed in organic farming. Its relative spinetoram is NOT organic. Still rotate — thrips and caterpillars can resist spinosyns.', zh: '发酵产物，可用于有机种植。同类的乙基多杀菌素不属于有机。仍需轮换——蓟马和毛虫可对多杀菌素类产生抗性。' },
+};
+export const organicNote = (c) => ORGANIC_NOTE[c.id] || ORGANIC_NOTE.default;
+
 export const CAUTION_TEXT = {
   export: { en: 'Not approved in the EU and under tight residue limits in several markets — check your buyer\'s requirements before using near harvest.', zh: '欧盟未批准，多个市场残留限量严格——临近采收使用前请确认买家要求。' },
   pets: { en: 'Poisonous to dogs, cats and wildlife. Prefer iron-phosphate baits.', zh: '对狗、猫和野生动物有毒。优先使用磷酸铁饵剂。' },
@@ -143,7 +160,7 @@ export const chemsForMoa = (key) => CHEMICALS.filter(c => c.moa === key);
 export function searchChemicals(query, kind = 'all') {
   const q = query.trim().toLowerCase();
   return CHEMICALS
-    .filter(c => kind === 'all' || c.kind === kind || (kind === 'insecticide' && c.kind === 'acaricide'))
+    .filter(c => kind === 'all' || (kind === 'organic' ? c.organic : c.kind === kind || (kind === 'insecticide' && c.kind === 'acaricide')))
     .filter(c => !q ||
       c.name.en.toLowerCase().includes(q) || c.name.zh.includes(q) ||
       (c.aliases || []).some(a => a.toLowerCase().includes(q)) ||

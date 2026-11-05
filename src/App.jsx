@@ -16,7 +16,7 @@ const NAV = [
   { id: 'home', icon: 'home', path: '', match: ['home', 'group'] },
   { id: 'diagnose', icon: 'search', path: 'diagnose', match: ['diagnose'] },
   { id: 'rotate', icon: 'rotate', path: 'rotate', match: ['rotate'] },
-  { id: 'chemicals', icon: 'flask', path: 'chem', match: ['chem'] },
+  { id: 'chemicals', icon: 'flask', path: 'chem', match: ['chem', 'organic'] },
   { id: 'learn', icon: 'book', path: 'learn', match: ['learn'] },
 ];
 
@@ -47,7 +47,8 @@ function Shell() {
   switch (route.name) {
     case 'diagnose': screen = <Diagnose orchard={orchard} />; break;
     case 'group': screen = <GroupPage id={route.id} orchard={orchard} setOrchard={setOrchard} />; break;
-    case 'chem': screen = route.id ? <ChemicalDetail id={route.id} /> : <ChemicalList />; break;
+    case 'chem': screen = route.id ? <ChemicalDetail id={route.id} /> : <ChemicalList key="all" />; break;
+    case 'organic': screen = <ChemicalList key="organic" initialKind="organic" />; break;
     case 'rotate': screen = <Rotate pestId={route.id} />; break;
     case 'learn': screen = route.id ? <Lesson id={route.id} /> : <LearnList />; break;
     default: screen = <Home orchard={orchard} setOrchard={setOrchard} />;
