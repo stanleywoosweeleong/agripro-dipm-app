@@ -1,8 +1,8 @@
 // Recommendation engine: pest group + orchard context → ranked chemistry
 // options (with real actives), a rotation plan, and the warnings that matter.
 
-import { CHART_ROWS, CROSS_RESISTANCE_CLUSTERS, toxSev } from './moaDb.js';
-import { CHEMICALS, moaInfo, moaKeyFromIrac, REMOVED } from './chemDb.js';
+import { CROSS_RESISTANCE_CLUSTERS, toxSev } from './moaDb.js';
+import { CHEMICALS, USABLE_ROWS, moaInfo, moaKeyFromIrac, REMOVED } from './chemDb.js';
 import { CHART_FOR_GROUP } from './rotation.js';
 
 const FIT_SCORE = { best: 3, good: 2, limited: 1 };
@@ -12,12 +12,17 @@ const clusterOf = (irac) => CROSS_RESISTANCE_CLUSTERS.find(c => c.groups.include
 /** Actives for one MoA class, restricted to the rotation chart for this group when we have one. */
 function activesFor(group, key) {
   const chart = CHART_FOR_GROUP[group.id];
-  let list = [];
+  let list;
   if (chart) {
-    const names = new Set(CHART_ROWS.filter(r => chart.includes(r.pest) && moaKeyFromIrac(r.g) === key).map(r => r.n));
-    list = [...names].map(n => chemByEn.get(n)).filter(Boolean);
+    // Chart pests: only actives the chart lists for THIS pest, plus broad physical /
+    // biological products (oils, neem, insect fungi) and non-chart actives of the class.
+    const broad = (g) => g === 'UN' || g === 'UNM' || g === 'UNF';
+    const names = new Set(USABLE_ROWS.filter(r => moaKeyFromIrac(r.g) === key && (chart.includes(r.pest) || broad(r.g))).map(r => r.n));
+    list = [...names].map(n => chemByEn.get(n)).filter(Boolean)
+      .concat(CHEMICALS.filter(c => c.moa === key && c.source === 'local'));
+  } else {
+    list = CHEMICALS.filter(c => c.moa === key);
   }
-  if (!list.length) list = CHEMICALS.filter(c => c.moa === key);
   // gentlest first: WHO class, then bee hazard
   const beeRank = { low: 0, wet: 1, mod: 1, high: 2 };
   return list.sort((a, b) => toxSev(a.name.en) - toxSev(b.name.en) || (beeRank[a.bee] ?? 0) - (beeRank[b.bee] ?? 0));

@@ -19,20 +19,28 @@ questions (where, what you see, what creature), and gets sound advice.
 ## Screens
 
 - **Home**: set crop stage + weather, then a "watch now" list, flowering bee warning, organic toolbox, search known examples.
-- **Diagnose**: 3-step wizard that returns the likely pest group, the evidence behind it, and a low-confidence warning.
+- **Diagnose**: 3-step wizard → the likely pest group, the evidence behind it, and **what works** right on the result:
+  the first non-chemical steps, the top organic options and the top conventional options, each with real products.
 - **Group page**: what it is, why it matters for control, how to confirm it, action threshold, non-chemical steps first.
   Then two equally complete spray programmes, **Organic & biological** (default) and **Conventional**. Each has ranked
   MoA classes with real actives, stage/bee/harvest/resistance warnings and its own 3-spray rotation. Then a list of
   what **not** to use. Organic status lives on each active (`ORGANIC_IDS` in `src/core/chemDb.js`).
 - **Rotate**: the Rotation Helper (see below). Pick a pest and the IRAC group used last; it returns Avoid,
   Caution (shared target), and Rotate to, ranked by switching to a different target site and then by WHO toxicity.
-- **Products**: an MoA library of organic, biological and conventional actives (with an Organic filter). Search by active ingredient (EN/中文). Each entry shows MoA, how it reaches the pest, WHO class,
+- **Products** (reached from product chips and from Learn, not the bottom bar): an MoA reference of organic, biological and conventional actives (with an Organic filter). Search by active ingredient (EN/中文). Each entry shows MoA, how it reaches the pest, WHO class,
   bee hazard, effect on natural enemies, weather timing, EU status, cross-resistance, resistance risk by pest,
   and links to the live China MRL table (GB 2763-2026). Searching for a **banned** active gives an honest
   "banned" answer with legal alternatives, never "no matches".
 - **Learn**: short WhatsApp-shareable lessons (making organic products work, mouthparts, life stages, rotation,
   pollinators, systemic vs contact, safe mixing + tank-mix order).
 - **Classic**: the v2 app (full catalogue, DT50 tables, risk simulator), still reachable from Learn.
+
+## Safety rule: WHO highly hazardous actives are excluded
+
+Anything in WHO class Ia or Ib (extremely / highly hazardous) is excluded from all advice and from the
+rotation helper (`WHO_EXCLUDED` in `src/core/chemDb.js`). From the rotation chart this removes abamectin and
+formetanate hydrochloride. Searching for one returns a short "avoid" notice with alternatives. The tests
+enforce this.
 
 ## What was merged from the other apps
 

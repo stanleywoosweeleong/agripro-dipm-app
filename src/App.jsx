@@ -16,8 +16,7 @@ const NAV = [
   { id: 'home', icon: 'home', path: '', match: ['home', 'group'] },
   { id: 'diagnose', icon: 'search', path: 'diagnose', match: ['diagnose'] },
   { id: 'rotate', icon: 'rotate', path: 'rotate', match: ['rotate'] },
-  { id: 'chemicals', icon: 'flask', path: 'chem', match: ['chem', 'organic'] },
-  { id: 'learn', icon: 'book', path: 'learn', match: ['learn'] },
+  { id: 'learn', icon: 'book', path: 'learn', match: ['learn', 'chem', 'organic'] },
 ];
 
 function LanguageGate() {
@@ -72,7 +71,7 @@ function Shell() {
       <main className="max-w-2xl mx-auto px-4 pt-4 pb-28">{screen}</main>
 
       <nav className="fixed bottom-0 inset-x-0 z-40 bg-white border-t border-stone-200" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <div className="max-w-2xl mx-auto grid grid-cols-5">
+        <div className="max-w-2xl mx-auto grid grid-cols-4">
           {NAV.map(n => {
             const on = n.match.includes(route.name);
             return (

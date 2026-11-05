@@ -84,7 +84,7 @@ export const MOA = {
   },
   'IRAC 6': {
     kind: 'insecticide',
-    name: { en: 'Avermectins (abamectin, emamectin)', zh: '阿维菌素类（阿维菌素、甲氨基阿维菌素）' },
+    name: { en: 'Avermectins (emamectin)', zh: '阿维菌素类（甲氨基阿维菌素）' },
     how: { en: 'Paralyses nerves and muscles. Soaks into leaves, protecting the underside.', zh: '麻痹神经和肌肉。渗入叶片，保护叶背。' },
     route: ['contact', 'ingestion', 'translaminar'], stages: ['young', 'adult'], bee: 'medium', resistance: 'medium',
     note: { en: 'Breaks down fast in sunlight — spray late afternoon.', zh: '阳光下分解快——下午晚些时候喷施。' },
@@ -137,7 +137,7 @@ export const MOA = {
   },
   'IRAC 15': {
     kind: 'insecticide',
-    name: { en: 'Chitin inhibitors (lufenuron)', zh: '几丁质合成抑制剂（虱螨脲）' },
+    name: { en: 'Benzoylureas (lufenuron, novaluron…)', zh: '苯甲酰脲类（虱螨脲、氟酰脲等）' },
     how: { en: 'Larvae cannot build a new skin and die at the next moult.', zh: '幼虫无法形成新表皮，在下一次蜕皮时死亡。' },
     route: ['ingestion', 'contact'], stages: ['egg', 'young'], bee: 'low', resistance: 'medium',
     note: { en: 'Slow (3–5 days) but very selective. Does not kill adults.', zh: '起效慢（3–5天）但选择性极高。不杀成虫。' },

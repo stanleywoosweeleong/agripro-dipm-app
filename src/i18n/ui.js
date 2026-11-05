@@ -59,7 +59,8 @@ export const UI_STRINGS = {
     because: s('Because you saw', '依据'),
     lowConf: s('Not enough evidence for a confident answer. Add more signs, check the scouting tips, or send a sample to your agronomist / Jabatan Pertanian.', '证据不足，无法给出可靠答案。请补充更多症状、参考检查方法，或将样本送交农艺师 / 农业局（Jabatan Pertanian）。'),
     none: s('No match. Try selecting more signs.', '没有匹配结果。请尝试选择更多症状。'),
-    open: s('See treatment', '查看防治方案'),
+    open: s('Full plan: scouting, rotation, what not to use', '完整方案：监测、轮换、禁忌'),
+    whatWorks: s('What works', '有效方法'),
     match: s('match', '匹配'),
     conf: { high: s('Strong match', '高度匹配'), medium: s('Likely', '可能'), low: s('Possible', '有可能') },
   },
@@ -156,6 +157,8 @@ export const UI_STRINGS = {
   level: { high: s('High', '高'), medium: s('Medium', '中'), low: s('Low', '低') },
   learn: {
     openClassic: s('Open classic version', '打开经典版'),
+    products: s('Product & MoA reference', '药剂与机制参考'),
+    productsSub: s('How each active works, what it controls, how to rotate it', '各有效成分的作用原理、防治对象与轮换方法'),
     exitClassic: s('New app', '返回新版'),
 
     title: s('Learn', '学习'),

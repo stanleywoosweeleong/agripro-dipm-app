@@ -143,9 +143,8 @@ export const GROUPS = [
     ],
     chem: [
       { moa: 'IRAC 5', fit: 'best', why: { en: 'Spinosyns (spinosad — organic; spinetoram — conventional) reach thrips in buds; gentle on predators. Do not alternate the two: same target.', zh: '多杀菌素类（多杀霉素——有机；乙基多杀菌素——常规）可到达花蕾内的蓟马；对天敌温和。两者靶标相同，不能互相轮换。' } },
-      { moa: 'IRAC 6', fit: 'best', why: { en: 'Abamectin is translaminar and reaches folded leaves.', zh: '阿维菌素具渗透性，可到达卷叶内部。' } },
       { moa: 'IRAC 28', fit: 'good', why: { en: 'Cyantraniliprole has thrips activity and low bee risk.', zh: '溴氰虫酰胺对蓟马有效，对蜜蜂风险低。' } },
-      { moa: 'IRAC 15', fit: 'good', why: { en: 'Lufenuron kills larvae at moult.', zh: '虱螨脲在蜕皮期杀灭若虫。' } },
+      { moa: 'IRAC 15', fit: 'good', why: { en: 'Benzoylureas kill young thrips when they moult.', zh: '苯甲酰脲类在若虫蜕皮时将其杀死。' } },
       { moa: 'BIO-INS', fit: 'good', why: { en: 'Isaria fumosorosea in humid evenings.', zh: '湿润傍晚施用玫烟色棒束孢。' } },
       { moa: 'IRAC UN', fit: 'limited', why: { en: 'Neem or oil sprays slow thrips build-up; best early and with good coverage.', zh: '印楝或油剂可减缓蓟马增殖；宜尽早使用并充分覆盖。' } },
     ],
@@ -215,7 +214,7 @@ export const GROUPS = [
       { moa: 'IRAC 5', fit: 'best', why: { en: 'Spinosyns: fast, gentle on predators.', zh: '多杀菌素：速效，对天敌温和。' } },
       { moa: 'IRAC 6', fit: 'good', why: { en: 'Emamectin benzoate: very potent on caterpillars.', zh: '甲维盐：对毛虫活性极高。' } },
       { moa: 'IRAC 22A', fit: 'good', why: { en: 'Indoxacarb: stomach action.', zh: '茚虫威：胃毒作用。' } },
-      { moa: 'IRAC 15', fit: 'good', why: { en: 'Lufenuron: for young larvae.', zh: '虱螨脲：用于低龄幼虫。' } },
+      { moa: 'IRAC 15', fit: 'good', why: { en: 'Benzoylureas (lufenuron etc.): for young larvae.', zh: '苯甲酰脲类（虱螨脲等）：用于低龄幼虫。' } },
       { moa: 'IRAC UN', fit: 'good', why: { en: 'Neem stops young larvae feeding and moulting.', zh: '印楝素抑制低龄幼虫取食和蜕皮。' } },
     ],
     avoid: [
@@ -469,7 +468,6 @@ export const GROUPS = [
       { moa: 'IRAC 23', fit: 'best', why: { en: 'Spiromesifen/spirodiclofen: all stages incl. eggs.', zh: '螺甲螨酯/螺螨酯：包括卵在内的所有虫态。' } },
       { moa: 'IRAC 20D', fit: 'good', why: { en: 'Bifenazate: different target from nerve miticides; soft on predatory mites.', zh: '联苯肼酯：与神经类杀螨剂靶标不同；对捕食螨温和。' } },
       { moa: 'IRAC 25A', fit: 'good', why: { en: 'Cyflumetofen: respiration target, gentle on predators.', zh: '丁氟螨酯：作用于呼吸，对天敌温和。' } },
-      { moa: 'IRAC 6', fit: 'good', why: { en: 'Abamectin: fast on adults, soaks into leaf.', zh: '阿维菌素：快速杀成螨，渗入叶片。' } },
       { moa: 'IRAC 12C', fit: 'good', why: { en: 'Propargite: contact on adults (avoid hot midday).', zh: '炔螨特：触杀成螨（避开正午高温）。' } },
       { moa: 'SULFUR', fit: 'good', why: { en: 'Good on broad and eriophyid mites; cheap, no resistance.', zh: '对茶黄螨和瘿螨效果好；便宜，无抗性。' } },
       { moa: 'IRAC UN', fit: 'good', why: { en: 'Oil smothers mites and eggs.', zh: '油剂窒息螨及螨卵。' } },

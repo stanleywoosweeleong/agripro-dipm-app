@@ -6,7 +6,7 @@
 //               then gentler toxicity, then more low-resistance-risk actives.
 
 import { CHART_ROWS, CROSS_RESISTANCE_CLUSTERS, isBanned, groupSite, toxSev, CHART_PESTS } from './moaDb.js';
-import { CHEMICALS } from './chemDb.js';
+import { CHEMICALS, USABLE_ROWS } from './chemDb.js';
 
 const chemByEn = new Map(CHEMICALS.map(c => [c.name.en, c]));
 export { CHART_PESTS };
@@ -33,12 +33,12 @@ const iracOrder = (a, b) => {
 };
 
 export function groupsForChartPest(pest) {
-  return [...new Set(CHART_ROWS.filter(a => a.pest === pest && !isBanned(a.n)).map(a => a.g))].sort(iracOrder);
+  return [...new Set(USABLE_ROWS.filter(a => a.pest === pest && !isBanned(a.n)).map(a => a.g))].sort(iracOrder);
 }
 
 export function rotationFor(pest, lastGroup) {
   if (!lastGroup) return null;
-  const pool = CHART_ROWS.filter(a => a.pest === pest && !isBanned(a.n));
+  const pool = USABLE_ROWS.filter(a => a.pest === pest && !isBanned(a.n));
   const groupsAvail = [...new Set(pool.map(a => a.g))];
   const selectedSite = groupSite(lastGroup, CHART_ROWS);
   const cluster = CROSS_RESISTANCE_CLUSTERS.find(c => c.groups.includes(lastGroup));

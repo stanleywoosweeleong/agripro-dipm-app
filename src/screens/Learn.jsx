@@ -45,6 +45,12 @@ export function LearnList() {
           </a>
         ))}
       </div>
+      <Section title={ui('learn.products')} sub={ui('learn.productsSub')}>
+        <div className="grid grid-cols-2 gap-2">
+          <a href={href('organic')} className="p-4 rounded-xl bg-lime-50 border border-lime-300 font-bold flex items-center justify-between">{ui('group.trackOrganic')} <Icon name="chevron" className="w-5 h-5" /></a>
+          <a href={href('chem')} className="p-4 rounded-xl bg-white border border-stone-300 font-bold flex items-center justify-between">{ui('chem.filterAll')} <Icon name="chevron" className="w-5 h-5" /></a>
+        </div>
+      </Section>
       <Section title={ui('learn.classic')} sub={ui('learn.classicSub')}>
         <a href={href('classic')} className="flex items-center justify-between p-4 rounded-xl bg-stone-100 border border-stone-300 font-bold">
           {ui('learn.openClassic')} <Icon name="chevron" className="w-5 h-5" />

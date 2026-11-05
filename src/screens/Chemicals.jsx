@@ -29,7 +29,7 @@ export function RemovedNotice({ r }) {
     <div className="rounded-2xl border-2 border-rose-500 bg-rose-50 p-4">
       <div className="flex items-center gap-2 text-rose-800">
         <Icon name="warn" className="w-6 h-6" />
-        <div className="text-lg font-extrabold">{lang === 'zh' ? r.zh : r.en} — {ui('status.banned')}</div>
+        <div className="text-lg font-extrabold">{lang === 'zh' ? r.zh : r.en} — {r.hhp ? ui('status.hhp') : ui('status.banned')}</div>
       </div>
       <p className="text-[16px] text-rose-900 mt-2 leading-snug">{lang === 'zh' ? r.basisZh : r.basisEn}</p>
       <p className="text-[15px] text-rose-900 mt-2">{ui('chem.notListed')}</p>

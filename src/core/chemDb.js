@@ -89,7 +89,16 @@ const LOCAL = [
   X('glufosinate', 'Glufosinate-ammonium', '草铵膦', 'HRAC 10', 'herbicide'),
 ];
 
-export const CHEMICALS = [...byName.values(), ...LOCAL];
+// WHO Class Ia/Ib (extremely / highly hazardous) actives are EXCLUDED from all
+// advice. There is always a less hazardous option, so they are never needed.
+export const WHO_EXCLUDED = new Set(['Ia', 'Ib']);
+const isHHP = (name) => WHO_EXCLUDED.has(TOX_WHO[name] || 'NL');
+const excludedHHP = [...byName.values()].filter(c => isHHP(c.name.en));
+
+export const CHEMICALS = [...byName.values(), ...LOCAL].filter(c => !WHO_EXCLUDED.has(c.tox));
+
+/** Chart rows usable for advice and rotation (WHO Ia/Ib removed). */
+export const USABLE_ROWS = CHART_ROWS.filter(r => !isHHP(r.n));
 
 // ── Organic / biological toolbox ───────────────────────────────────────────
 // Actives generally allowed under organic standards (e.g. OMRI-listed, EU
@@ -144,6 +153,12 @@ const CHART_TO_GROUPS = {
 };
 export const REMOVED = [
   ...REMOVED_MY.map(r => ({ ...r, my: true, groups: [...new Set(r.pests.flatMap(p => CHART_TO_GROUPS[p] || []))] })),
+  ...excludedHHP.map(c => ({
+    terms: [c.name.en.toLowerCase(), c.name.zh], en: c.name.en, zh: c.name.zh, hhp: true,
+    basisEn: `WHO class ${c.tox} (highly hazardous to people). This app does not recommend it — the options below work without that risk.`,
+    basisZh: `WHO ${c.tox}类（对人高毒）。本应用不推荐使用——下列选项同样有效且没有这种风险。`,
+    groups: [...new Set(c.chartPests.flatMap(p => CHART_TO_GROUPS[p] || []))],
+  })),
   ...EXTRA_REMOVED,
 ];
 

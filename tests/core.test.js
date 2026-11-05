@@ -40,18 +40,19 @@ test('rotation-guide invariant: nothing removed in Malaysia is browsable or reco
 test('banned search answers instead of "no matches"', () => {
   for (const q of ['chlorpyrifos', '毒死蜱', 'paraquat', '百草枯', 'endosulfan', 'methomyl', 'carbofuran'])
     assert.ok(findRemovedActive(q), q);
-  assert.equal(findRemovedActive('abamectin'), null);
+  assert.equal(findRemovedActive('spinosad'), null);
   assert.ok(searchChemicals('吡虫啉').length === 1);
 });
 
 test('lookup maps only name actives that exist', () => {
-  const names = new Set(CHEMICALS.map(c => c.name.en));
+  const names = new Set(CHART_ROWS.map(c => c.n).concat(CHEMICALS.map(c => c.name.en)));
   for (const m of [EU_BANNED, BEE_TAGS, TOX_WHO]) for (const k of Object.keys(m)) assert.ok(names.has(k), k);
 });
 
 test('the merged database keeps all 69 chart actives', () => {
   assert.equal(new Set(CHART_ROWS.map(r => r.n)).size, 69);
-  assert.equal(CHEMICALS.filter(c => c.source === 'chart').length, 69);
+  // 69 in the chart, minus WHO Ia/Ib exclusions (abamectin, formetanate)
+  assert.equal(CHEMICALS.filter(c => c.source === 'chart').length, 67);
 });
 
 test('diagnosis weights point at real groups', () => {
@@ -117,4 +118,16 @@ test('organic track shows only organic actives; conventional shows none of them'
 test('most groups with any chemistry also have an organic option', () => {
   const missing = GROUPS.filter(g => g.chem.length && !recommend(g, { track: 'organic' }).options.length).map(g => g.id);
   assert.deepEqual(missing, ['ants-wasps']);
+});
+
+test('WHO Ia/Ib actives are never offered — not in advice, not in rotation', () => {
+  assert.ok(CHEMICALS.every(c => c.tox !== 'Ia' && c.tox !== 'Ib'));
+  for (const g of GROUPS) for (const tr of ['organic', 'conventional'])
+    for (const o of recommend(g, { track: tr }).options) assert.ok(o.actives.every(a => a.tox !== 'Ia' && a.tox !== 'Ib'));
+  for (const pest of new Set(Object.values(CHART_FOR_GROUP).flat()))
+    for (const g of groupsForChartPest(pest)) {
+      const r = rotationFor(pest, g);
+      for (const grp of [...r.suggested, ...r.caution]) for (const it of grp.items) assert.ok(!['Ia', 'Ib'].includes(TOX_WHO[it.n]), it.n);
+    }
+  assert.ok(findRemovedActive('abamectin')?.hhp);
 });
