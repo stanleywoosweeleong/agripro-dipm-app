@@ -130,6 +130,7 @@ export const UI_STRINGS = {
     organicTitle: s('Organic & biological toolbox', '有机与生物药剂'),
     organicHint: s('Products generally allowed in organic farming. Use them early, in the evening, with full coverage.', '一般可用于有机种植的产品。尽早使用、傍晚喷施、充分覆盖。'),
     organic: s('Organic-compatible', '可用于有机'),
+    hhpNote: s('Handle with care', '注意安全使用'),
     group: s('Group', '组别'),
     how: s('How it works', '作用原理'),
     reaches: s('How it reaches the pest', '如何到达害虫'),

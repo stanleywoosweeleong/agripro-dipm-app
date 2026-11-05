@@ -38,9 +38,12 @@ questions (where, what you see, what creature), and gets sound advice.
 ## Safety rule: WHO highly hazardous actives are excluded
 
 Anything in WHO class Ia or Ib (extremely / highly hazardous) is excluded from all advice and from the
-rotation helper (`WHO_EXCLUDED` in `src/core/chemDb.js`). From the rotation chart this removes abamectin and
-formetanate hydrochloride. Searching for one returns a short "avoid" notice with alternatives. The tests
-enforce this.
+rotation helper (`WHO_EXCLUDED` in `src/core/chemDb.js`). From the rotation chart this removes formetanate
+hydrochloride. Searching for it returns a short "avoid" notice with alternatives.
+
+**Documented exceptions** (`HHP_EXCEPTIONS`) are actives Malaysian growers still depend on. Their farm
+formulations are far more dilute than the technical material WHO rates. Today that is only **abamectin**, kept
+with a handling note on its page. The tests enforce both rules.
 
 ## What was merged from the other apps
 

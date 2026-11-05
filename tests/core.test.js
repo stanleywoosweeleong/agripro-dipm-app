@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GROUPS } from '../src/core/groups.js';
-import { CHEMICALS, REMOVED, findRemovedActive, moaInfo, searchChemicals } from '../src/core/chemDb.js';
+import { CHEMICALS, REMOVED, findRemovedActive, moaInfo, searchChemicals, HHP_EXCEPTIONS } from '../src/core/chemDb.js';
 import { REMOVED_MY, CHART_ROWS, EU_BANNED, BEE_TAGS, TOX_WHO } from '../src/core/moaDb.js';
 import { SIGNS, CULPRITS, diagnose } from '../src/core/diagnosis.js';
 import { recommend } from '../src/core/recommend.js';
@@ -51,8 +51,8 @@ test('lookup maps only name actives that exist', () => {
 
 test('the merged database keeps all 69 chart actives', () => {
   assert.equal(new Set(CHART_ROWS.map(r => r.n)).size, 69);
-  // 69 in the chart, minus WHO Ia/Ib exclusions (abamectin, formetanate)
-  assert.equal(CHEMICALS.filter(c => c.source === 'chart').length, 67);
+  // 69 in the chart, minus WHO Ia/Ib exclusions (formetanate); abamectin is a documented exception
+  assert.equal(CHEMICALS.filter(c => c.source === 'chart').length, 68);
 });
 
 test('diagnosis weights point at real groups', () => {
@@ -120,14 +120,18 @@ test('most groups with any chemistry also have an organic option', () => {
   assert.deepEqual(missing, ['ants-wasps']);
 });
 
-test('WHO Ia/Ib actives are never offered — not in advice, not in rotation', () => {
-  assert.ok(CHEMICALS.every(c => c.tox !== 'Ia' && c.tox !== 'Ib'));
+test('WHO Ia/Ib actives are never offered unless a documented exception', () => {
+  const ok = (c) => !['Ia', 'Ib'].includes(c.tox) || !!HHP_EXCEPTIONS[c.name.en];
+  assert.ok(CHEMICALS.every(ok));
+  assert.ok(CHEMICALS.find(c => c.id === 'abamectin')?.hhpNote, 'abamectin kept with a handling note');
+  assert.ok(!CHEMICALS.some(c => c.id === 'formetanate-hydrochloride'));
   for (const g of GROUPS) for (const tr of ['organic', 'conventional'])
-    for (const o of recommend(g, { track: tr }).options) assert.ok(o.actives.every(a => a.tox !== 'Ia' && a.tox !== 'Ib'));
+    for (const o of recommend(g, { track: tr }).options) assert.ok(o.actives.every(ok));
   for (const pest of new Set(Object.values(CHART_FOR_GROUP).flat()))
     for (const g of groupsForChartPest(pest)) {
       const r = rotationFor(pest, g);
-      for (const grp of [...r.suggested, ...r.caution]) for (const it of grp.items) assert.ok(!['Ia', 'Ib'].includes(TOX_WHO[it.n]), it.n);
+      for (const grp of [...r.suggested, ...r.caution]) for (const it of grp.items) assert.ok(!['Ia', 'Ib'].includes(TOX_WHO[it.n]) || HHP_EXCEPTIONS[it.n], it.n);
     }
-  assert.ok(findRemovedActive('abamectin')?.hhp);
+  assert.ok(findRemovedActive('formetanate')?.hhp);
+  assert.equal(findRemovedActive('abamectin'), null);
 });

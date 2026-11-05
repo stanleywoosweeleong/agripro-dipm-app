@@ -90,12 +90,22 @@ const LOCAL = [
 ];
 
 // WHO Class Ia/Ib (extremely / highly hazardous) actives are EXCLUDED from all
-// advice. There is always a less hazardous option, so they are never needed.
+// advice by default — there is almost always a less hazardous option.
+// HHP_EXCEPTIONS are deliberate, documented exceptions: actives growers in
+// Malaysia still depend on, whose farm formulations are far more dilute than
+// the technical material WHO classifies. They stay in, with a handling note.
 export const WHO_EXCLUDED = new Set(['Ia', 'Ib']);
-const isHHP = (name) => WHO_EXCLUDED.has(TOX_WHO[name] || 'NL');
+export const HHP_EXCEPTIONS = {
+  Abamectin: {
+    en: 'The pure technical active is WHO class Ib. Farm products (e.g. 1.8% EC) are much more dilute and are usually labelled lower — check the signal word on your label. Wear gloves and a mask when mixing, keep it out of drains and ponds (very toxic to fish), never spray during flowering, and spray late in the day (sunlight breaks it down).',
+    zh: '原药为WHO Ib类。农用制剂（如1.8%乳油）浓度低得多，标签等级通常较低——请查看标签上的信号词。配药时戴手套和口罩，远离水沟和池塘（对鱼剧毒），开花期禁用，傍晚施药（阳光会分解）。',
+  },
+};
+const isHHP = (name) => WHO_EXCLUDED.has(TOX_WHO[name] || 'NL') && !HHP_EXCEPTIONS[name];
 const excludedHHP = [...byName.values()].filter(c => isHHP(c.name.en));
 
-export const CHEMICALS = [...byName.values(), ...LOCAL].filter(c => !WHO_EXCLUDED.has(c.tox));
+export const CHEMICALS = [...byName.values(), ...LOCAL].filter(c => !isHHP(c.name.en));
+for (const c of CHEMICALS) if (HHP_EXCEPTIONS[c.name.en]) c.hhpNote = HHP_EXCEPTIONS[c.name.en];
 
 /** Chart rows usable for advice and rotation (WHO Ia/Ib removed). */
 export const USABLE_ROWS = CHART_ROWS.filter(r => !isHHP(r.n));

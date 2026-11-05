@@ -84,7 +84,7 @@ export const MOA = {
   },
   'IRAC 6': {
     kind: 'insecticide',
-    name: { en: 'Avermectins (emamectin)', zh: '阿维菌素类（甲氨基阿维菌素）' },
+    name: { en: 'Avermectins (abamectin, emamectin)', zh: '阿维菌素类（阿维菌素、甲氨基阿维菌素）' },
     how: { en: 'Paralyses nerves and muscles. Soaks into leaves, protecting the underside.', zh: '麻痹神经和肌肉。渗入叶片，保护叶背。' },
     route: ['contact', 'ingestion', 'translaminar'], stages: ['young', 'adult'], bee: 'medium', resistance: 'medium',
     note: { en: 'Breaks down fast in sunlight — spray late afternoon.', zh: '阳光下分解快——下午晚些时候喷施。' },

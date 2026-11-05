@@ -124,6 +124,7 @@ export function ChemicalDetail({ id }) {
         {c.site && <Badge tone={SITE_TONE[c.site]}>{SITE_LABEL(lang, c.site)}</Badge>}
       </div>
 
+      {c.hhpNote && <div className="mt-3"><Callout tone="amber" title={ui('chem.hhpNote')}>{t(c.hhpNote)}</Callout></div>}
       {c.organic && <div className="mt-3"><Callout tone="lime" icon="leaf" title={ui('chem.organic')}>{t(organicNote(c))}</Callout></div>}
       {c.caution && <div className="mt-3"><Callout>{t(CAUTION_TEXT[c.caution])}</Callout></div>}
 
