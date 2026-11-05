@@ -20,11 +20,27 @@ const FIGURES = {
       ))}
     </ol>
   ),
+  hazard: (t) => (
+    <div className="grid grid-cols-3 gap-2 text-center">
+      {[
+        [{ en: 'Pure active', zh: '纯原药' }, { en: 'Factory · ~100%', zh: '工厂 · 约100%' }, { en: 'WHO class is rated here', zh: 'WHO等级按此评定' }, 'bg-rose-100 border-rose-400'],
+        [{ en: 'Your bottle', zh: '你的药瓶' }, { en: 'e.g. 1.8% EC', zh: '如 1.8% 乳油' }, { en: 'Mixing = highest risk', zh: '配药 = 风险最高' }, 'bg-amber-100 border-amber-400'],
+        [{ en: 'Spray tank', zh: '药箱' }, { en: 'Diluted again hundreds of times', zh: '再稀释几百倍' }, { en: 'Keep off water & flowers', zh: '远离水源和花朵' }, 'bg-emerald-100 border-emerald-400'],
+      ].map(([title, conc, note, cls], i) => (
+        <div key={i} className={`rounded-xl border-2 p-2 ${cls}`}>
+          <div className="font-extrabold text-[15px] leading-tight">{t(title)}</div>
+          <div className="text-[13px] mt-1 leading-tight">{t(conc)}</div>
+          <div className="text-[12px] font-bold mt-1.5 leading-tight">{t(note)}</div>
+        </div>
+      ))}
+    </div>
+  ),
 };
 const FIGURE_TITLE = {
   mouthparts: { en: 'Five mouth types', zh: '五种口器' },
   lifecycle: { en: 'Which stage each product hits', zh: '各类药剂作用于哪个虫态' },
   safety: { en: 'Tank-mix order', zh: '调配顺序' },
+  hazard: { en: 'Where the danger is', zh: '危险在哪里' },
 };
 
 export function LearnList() {
@@ -66,7 +82,7 @@ export function Lesson({ id }) {
   if (!l) return <div><BackBar /><p>Not found.</p></div>;
   const body = l.body[lang] || l.body.en;
   const share = () => {
-    const text = `${t(l.title)}\n\n${body.join('\n')}\n\n— AgriPro Durian IPM`;
+    const text = `${t(l.title)}\n\n${body.join('\n')}\n\n— ${ui('app.title')}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   };
   return (

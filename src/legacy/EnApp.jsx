@@ -1106,7 +1106,7 @@ export default function EnApp() {
   }, [search, filterCat, filterPart, filterSeverity, filterStage]);
 
   const getWhatsAppUrl = (pest) => {
-    let text = `AgriPro IPM Alert\n\nPest/Disease: ${pest.common.en}\nScientific: ${pest.scientific}\nSeverity Level: ${pest.severity}/5\nActivity: ${pest.activity}\n\nSymptoms: ${pest.symptoms.en}\n\nTarget Areas: ${pest.target.en}\n\nProtocol Summary: ${pest.control.en}`;
+    let text = `Durian IPM Alert\n\nPest/Disease: ${pest.common.en}\nScientific: ${pest.scientific}\nSeverity Level: ${pest.severity}/5\nActivity: ${pest.activity}\n\nSymptoms: ${pest.symptoms.en}\n\nTarget Areas: ${pest.target.en}\n\nProtocol Summary: ${pest.control.en}`;
     
     if (pest.application && pest.application !== 'N/A' && !['Vertebrates'].includes(pest.category)) {
       text += `\n\nSpray Target: ${pest.application}`;

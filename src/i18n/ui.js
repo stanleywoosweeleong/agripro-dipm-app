@@ -7,7 +7,7 @@ export const UI_STRINGS = {
   app: {
     textSize: s('Text size', '字体大小'),
 
-    title: s('AgriPro Durian IPM', 'AgriPro 榴莲综合防治'),
+    title: s('Durian IPM', '榴莲综合防治'),
     tagline: s('Identify by how it feeds. Treat with the right chemistry.', '看取食方式识别，用对药剂防治。'),
   },
   nav: {
@@ -98,6 +98,11 @@ export const UI_STRINGS = {
   fit: { best: s('Best fit', '最佳'), good: s('Good', '良好'), limited: s('Limited', '有限') },
   warn: {
     crossRes: s('Shares a target with your last spray — not a real change', '与上次用药靶标相同——并非真正换药'),
+    noAdults: s('Does not kill adults', '不杀成虫'),
+    noYoung: s('Does not kill young stages', '不杀幼期虫态'),
+    youngBest: s('Ideal for young stages — selective, spares natural enemies', '最适合幼期——选择性强，不伤天敌'),
+    ovicide: s('Also kills eggs', '可杀卵'),
+    pairAdult: s('Young stages only — pair with an adult-killer', '仅杀幼期——需搭配杀成虫药剂'),
 
     beeBlock: s('Not during flowering — highly toxic to bees', '开花期禁用——对蜜蜂剧毒'),
     beeHigh: s('Toxic to bees — never during flowering', '对蜜蜂有毒——花期禁用'),
@@ -131,6 +136,7 @@ export const UI_STRINGS = {
     organicHint: s('Products generally allowed in organic farming. Use them early, in the evening, with full coverage.', '一般可用于有机种植的产品。尽早使用、傍晚喷施、充分覆盖。'),
     organic: s('Organic-compatible', '可用于有机'),
     hhpNote: s('Handle with care', '注意安全使用'),
+    hhpLearn: s('Learn why →', '了解原因 →'),
     group: s('Group', '组别'),
     how: s('How it works', '作用原理'),
     reaches: s('How it reaches the pest', '如何到达害虫'),
@@ -174,6 +180,13 @@ export const UI_STRINGS = {
     order: s('Different target first, then the gentlest (lowest WHO class) options.', '优先换靶标，其次选择毒性最低（WHO等级）的选项。'),
     colourTitle: s('Why the colours matter', '颜色代表什么'),
     colourText: s('Colour = the target a pesticide attacks. If spray B is the same colour as spray A, it hits the same body system. Changing the colour (target site) breaks the resistance cycle best.', '颜色 = 农药攻击的靶标。如果B药与A药颜色相同，就是攻击同一身体系统。换颜色（换靶标部位）最能打破抗药性循环。'),
+  },
+  stage: {
+    question: s('Which stage do you see most?', '你看到最多的是哪个虫态？'),
+    why: s('Why it matters', '为什么重要'),
+    eggs: s('Eggs', '卵'),
+    mixed: s('A mix of all', '各种虫态都有'),
+    kills: s('Kills:', '杀灭：'),
   },
   common: {
     back: s('Back', '返回'),

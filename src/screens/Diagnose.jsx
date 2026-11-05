@@ -5,6 +5,7 @@ import { GroupArt } from '../components/Art.jsx';
 import { PARTS, CULPRITS, signsForPart, diagnose } from '../core/diagnosis.js';
 import { recommend } from '../core/recommend.js';
 import { ChemChip, moaCode } from './GroupPage.jsx';
+import { StagePicker, KillsBadges } from '../ui/StagePicker.jsx';
 import { href } from '../hooks/useRoute.js';
 
 const toggle = (arr, v) => (arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
@@ -52,7 +53,7 @@ export default function Diagnose({ orchard }) {
         {top && (
           <>
             {top.confidence === 'low' && <div className="mt-3"><Callout>{ui('diag.lowConf')}</Callout></div>}
-            <ResultCard r={top} big orchard={orchard} />
+            <ResultCard r={top} big orchard={orchard} culprits={culprits} />
             {rest.length > 0 && (
               <>
                 <h2 className="mt-6 text-lg font-extrabold">{ui('diag.others')}</h2>
@@ -119,7 +120,7 @@ export default function Diagnose({ orchard }) {
   );
 }
 
-function ResultCard({ r, big, orchard }) {
+function ResultCard({ r, big, orchard, culprits = [] }) {
   const { t, ui } = useLang();
   const g = r.group;
   const tone = r.confidence === 'high' ? 'green' : r.confidence === 'medium' ? 'amber' : 'grey';
@@ -141,7 +142,7 @@ function ResultCard({ r, big, orchard }) {
           <div className="mt-3 text-[14px] font-bold text-stone-500">{ui('diag.because')}</div>
           <div className="flex flex-wrap gap-1.5 mt-1">{uniq.map(e => <Badge key={e.id}>{t(e.label)}</Badge>)}</div>
           <p className="mt-3 text-[16px] leading-snug text-stone-800">{t(g.why)}</p>
-          <WhatWorks g={g} orchard={orchard} />
+          <WhatWorks g={g} orchard={orchard} culprits={culprits} />
         </>
       )}
       <a href={href(`group/${g.id}`)} className={`mt-3 flex items-center justify-center gap-1 min-h-[48px] rounded-xl font-extrabold ${big ? 'bg-emerald-700 text-white' : 'bg-stone-100 text-stone-900'}`}>
@@ -152,9 +153,13 @@ function ResultCard({ r, big, orchard }) {
 }
 
 // "Spotted something → what works": the effective options, straight on the result.
-function WhatWorks({ g, orchard }) {
+// Culprits that already tell us the life stage.
+const YOUNG_CULPRITS = new Set(['caterpillar', 'grub', 'maggot']);
+
+function WhatWorks({ g, orchard, culprits }) {
   const { t, ui } = useLang();
-  const ctx = { stage: orchard?.stage, recentMoa: orchard?.recentMoa || [] };
+  const [pestStage, setPestStage] = React.useState(() => (culprits.some(c => YOUNG_CULPRITS.has(c)) ? 'young' : null));
+  const ctx = { stage: orchard?.stage, recentMoa: orchard?.recentMoa || [], pestStage };
   const org = recommend(g, { ...ctx, track: 'organic' }).options.filter(o => !o.warnings.includes('beeBlock')).slice(0, 3);
   const conv = recommend(g, { ...ctx, track: 'conventional' }).options.filter(o => !o.warnings.includes('beeBlock')).slice(0, 3);
   const Block = ({ title, tone, list }) => list.length > 0 && (
@@ -164,6 +169,8 @@ function WhatWorks({ g, orchard }) {
         {list.map(o => (
           <div key={o.moa}>
             <div className="text-[15px] font-bold leading-tight">{t(o.moaInfo.name)}{moaCode(o.moaInfo) ? <span className="text-emerald-800"> · {moaCode(o.moaInfo)}</span> : null}</div>
+            <div className="mt-1"><KillsBadges stages={o.moaInfo.stages} /></div>
+            {['youngBest', 'pairAdult', 'ovicide'].filter(w => o.warnings.includes(w)).map(w => <div key={w} className="text-[13px] font-bold text-sky-800 mt-0.5">{ui(`warn.${w}`)}</div>)}
             <div className="flex flex-wrap gap-1.5 mt-1">{o.actives.slice(0, 3).map(c => <ChemChip key={c.id} c={c} />)}</div>
           </div>
         ))}
@@ -173,6 +180,7 @@ function WhatWorks({ g, orchard }) {
   return (
     <div className="mt-4">
       <div className="text-lg font-extrabold">{ui('diag.whatWorks')}</div>
+      <div className="mt-2"><StagePicker groupId={g.id} value={pestStage} onChange={setPestStage} /></div>
       <div className="mt-2 rounded-xl border border-stone-200 bg-stone-50 p-3">
         <div className="font-extrabold text-[15px] mb-1">{ui('group.nonChem')}</div>
         <ul className="space-y-1">{g.nonChem.slice(0, 2).map((n, i) => <li key={i} className="text-[15px] leading-snug">• {t(n)}</li>)}</ul>

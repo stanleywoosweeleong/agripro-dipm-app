@@ -3,7 +3,7 @@
   "private": true,
   "version": "3.0.0",
   "type": "module",
-  "description": "AgriPro DIPM - Unified bilingual Durian IPM PWA (中文 / English)",
+  "description": "Durian IPM — bilingual (中文 / English) durian integrated pest management PWA",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -194,6 +194,16 @@ export function searchChemicals(query, kind = 'all') {
     .sort((a, b) => a.name.en.localeCompare(b.name.en));
 }
 
+// Life stages killed, for IRAC classes that only exist in the rotation chart
+// (classes with a plain-language entry in moa.js carry their own `stages`).
+// Conservative: a stage is listed only where activity is well established.
+const STAGES_EXTRA = {
+  '4E': ['young', 'adult'], '7B': ['egg', 'young'], '9D': ['young', 'adult'], '13': ['young', 'adult'],
+  '18': ['young'], '19': ['young', 'adult'], '20D': ['young', 'adult'], '21A': ['young', 'adult'],
+  '21B': ['young', 'adult'], '22B': ['young', 'adult'], '25A': ['egg', 'young', 'adult'],
+  '30': ['young', 'adult'], '36': ['young', 'adult'],
+};
+
 /** Class-level info for a MoA key: our plain-language entry + the rotation guide's detail. */
 export function moaInfo(key) {
   const base = MOA[key];
@@ -211,7 +221,7 @@ export function moaInfo(key) {
     detail: detailCode && GROUP_MOA.en[detailCode] ? { en: GROUP_MOA.en[detailCode], zh: GROUP_MOA.zh[detailCode] } : null,
     crossRes: detailCode && GROUP_CROSS_RESISTANCE.en[detailCode] ? { en: GROUP_CROSS_RESISTANCE.en[detailCode], zh: GROUP_CROSS_RESISTANCE.zh[detailCode] } : null,
     route: base?.route || [],
-    stages: base?.stages || [],
+    stages: base?.stages || STAGES_EXTRA[irac] || [],
     bee: base?.bee || (worstBee === 'high' ? 'high' : worstBee === 'wet' || worstBee === 'mod' ? 'medium' : 'low'),
     resistance: base?.resistance || 'medium',
     note: base?.note || null,

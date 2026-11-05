@@ -732,4 +732,26 @@ export const GROUPS = [
   },
 ];
 
+// What farmers call each life stage in this group, so the stage picker speaks
+// their language. Groups without an entry (diseases, wildlife…) have no picker.
+// adultNote: shown when adults are picked but are not the damaging stage.
+const st = (young, adult, adultNote) => ({ young, adult, adultNote });
+export const STAGE_TERMS = {
+  'phloem-suckers': st({ en: 'Nymphs (wingless young)', zh: '若虫（无翅幼虫）' }, { en: 'Adults (often winged)', zh: '成虫（常有翅）' }),
+  'scale-mealybug': st({ en: 'Crawlers (moving babies)', zh: '爬虫（会爬的幼虫）' }, { en: 'Settled adults under wax', zh: '蜡壳下的固定成虫' },
+    { en: 'Adults under wax are hard to kill. Two-way systemics reach them; growth regulators work on the next crawler wave.', zh: '蜡壳下的成虫很难杀死。双向内吸药剂可到达；生长调节剂作用于下一批爬虫。' }),
+  thrips: st({ en: 'Larvae (pale, wingless)', zh: '若虫（浅色、无翅）' }, { en: 'Adults (dark, winged)', zh: '成虫（深色、有翅）' }),
+  'plant-bugs': st({ en: 'Nymphs (no full wings)', zh: '若虫（翅未长全）' }, { en: 'Adult bugs', zh: '成虫' }),
+  'leaf-caterpillars': st({ en: 'Caterpillars (larvae)', zh: '毛虫（幼虫）' }, { en: 'Moths', zh: '蛾子' },
+    { en: 'Moths do no damage — they only lay eggs. Target the eggs and young caterpillars; use light traps for moths.', zh: '蛾子不造成危害——只产卵。应针对卵和低龄毛虫；用灯光诱捕蛾子。' }),
+  'leaf-beetles': st({ en: 'Grubs / young hoppers', zh: '幼虫 / 蝗蝻' }, { en: 'Beetles / adult grasshoppers', zh: '甲虫 / 成年蝗虫' }),
+  'fruit-borers': st({ en: 'Newly hatched larvae', zh: '初孵幼虫' }, { en: 'Moths', zh: '蛾子' },
+    { en: 'Moths do no damage — they lay eggs on the fruit. Bag fruit, use light traps, and protect the fruit surface for when eggs hatch.', zh: '蛾子不造成危害——在果实上产卵。套袋、灯光诱捕，并保护果面以应对卵孵化。' }),
+  'fruit-flies': st({ en: 'Maggots in fruit', zh: '果内的蛆' }, { en: 'Adult flies', zh: '成虫' },
+    { en: 'Adult flies are the target here — protein bait + spinosad and male traps. Maggots inside fruit cannot be reached: destroy fallen fruit.', zh: '这里针对的是成虫——蛋白饵剂+多杀霉素及雄虫诱捕。果内的蛆无法触及：销毁落果。' }),
+  'trunk-borers': st({ en: 'Grubs in tunnels', zh: '虫道内的幼虫' }, { en: 'Adult beetles / moths', zh: '成年甲虫 / 蛾子' }),
+  'soil-pests': st({ en: 'Grubs in soil', zh: '土中幼虫' }, { en: 'Adult beetles', zh: '成年甲虫' }),
+  mites: st({ en: 'Young mites', zh: '幼螨 / 若螨' }, { en: 'Adult mites', zh: '成螨' }),
+};
+
 export const groupById = (id) => GROUPS.find(g => g.id === id);

@@ -142,3 +142,19 @@ test('chart pests only get actives the chart lists for them (plus organic oils/n
   assert.ok(!ids.includes('pyridalyl'));
   assert.ok(ids.includes('white-oil') && ids.includes('sulfur') && ids.includes('abamectin'));
 });
+
+test('life stage steers the ranking', () => {
+  const sap = GROUPS.find(g => g.id === 'scale-mealybug');
+  const pos = (r, moa) => r.options.findIndex(o => o.moa === moa);
+  const young = recommend(sap, { pestStage: 'young' });
+  const adults = recommend(sap, { pestStage: 'adults' });
+  // buprofezin (IRAC 16) only kills crawlers/nymphs
+  assert.ok(young.options.find(o => o.moa === 'IRAC 16').warnings.includes('youngBest'));
+  assert.ok(adults.options.find(o => o.moa === 'IRAC 16').warnings.includes('noAdults'));
+  assert.ok(pos(adults, 'IRAC 16') > pos(young, 'IRAC 16'));
+  const mites = recommend(GROUPS.find(g => g.id === 'mites'), { pestStage: 'eggs' });
+  assert.ok(mites.options.find(o => o.moa === 'IRAC 10').warnings.includes('ovicide'));
+  // every insect/mite class we recommend declares which stages it kills
+  for (const g of GROUPS.filter(g => g.kingdom === 'insect' || g.kingdom === 'mite'))
+    for (const o of recommend(g).options.filter(o => o.moaInfo.kind !== 'fungicide')) assert.ok(o.moaInfo.stages.length, `${g.id}/${o.moa}`);
+});

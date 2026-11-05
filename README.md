@@ -1,4 +1,4 @@
-# AgriPro Durian IPM (v3) · 榴莲综合防治
+# Durian IPM (v3) · 榴莲综合防治
 
 A bilingual (中文 / English), offline PWA for durian growers in Malaysia.
 
@@ -32,8 +32,24 @@ questions (where, what you see, what creature), and gets sound advice.
   and links to the live China MRL table (GB 2763-2026). Searching for a **banned** active gives an honest
   "banned" answer with legal alternatives, never "no matches".
 - **Learn**: short WhatsApp-shareable lessons (making organic products work, mouthparts, life stages, rotation,
+  "same chemical, different danger" (hazard vs. dilution, using abamectin as the example),
   pollinators, systemic vs contact, safe mixing + tank-mix order).
 - **Classic**: the v2 app (full catalogue, DT50 tables, risk simulator), still reachable from Learn.
+
+## Life stages
+
+Many products only work on some life stages. Growth regulators (IRAC 7, 10, 15, 16, 18, 23) kill eggs and
+young stages, not adults; ovicides kill eggs. Every MoA class declares the stages it kills (`stages` in
+`moa.js`, `STAGES_EXTRA` in `chemDb.js`), shown as **Kills: eggs · young · adults** badges.
+
+A **stage picker** ("Which stage do you see most?") sits on group pages and on the diagnosis result. It uses
+each group's own words (crawlers, nymphs, caterpillars, grubs, maggots…), from `STAGE_TERMS` in `groups.js`.
+- Young → growth regulators move up (selective, spare natural enemies).
+- Adults → young-only products drop with "does not kill adults".
+- Eggs → ovicides move up.
+- Mix → young-only products are flagged "pair with an adult-killer".
+
+Reporting a caterpillar, grub or maggot pre-selects "young". Where adults do no damage (moths), the picker says so.
 
 ## Safety rule: WHO highly hazardous actives are excluded
 

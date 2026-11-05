@@ -1122,7 +1122,7 @@ export default function ZhApp() {
 
     const sprayTarget = pest.application && !['Vertebrates'].includes(pest.category) ? `\n\n[喷洒靶点]: ${pest.application}` : `\n\n[管理靶点]: ${pest.target.zh}`;
 
-    const text = `AgriPro 病虫害管理警报\n\n` +
+    const text = `榴莲综合防治 · 病虫害警报\n\n` +
                  `目标: ${pest.common.zh}\n` +
                  `学名: ${pest.scientific}\n` +
                  `严重等级: ${pest.severity} / 5\n` +

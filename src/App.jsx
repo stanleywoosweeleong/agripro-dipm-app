@@ -24,7 +24,7 @@ function LanguageGate() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 bg-stone-50">
       <img src="pwa-192x192.png" alt="" className="w-20 h-20 rounded-2xl" />
-      <div className="text-2xl font-extrabold text-center">AgriPro 榴莲综合防治<br />Durian IPM</div>
+      <div className="text-2xl font-extrabold text-center">榴莲综合防治<br />Durian IPM</div>
       <div className="w-full max-w-xs space-y-3 mt-2">
         <button onClick={() => setLang('zh')} className="w-full min-h-[56px] rounded-xl bg-emerald-700 text-white text-xl font-extrabold">中文</button>
         <button onClick={() => setLang('en')} className="w-full min-h-[56px] rounded-xl bg-white border-2 border-stone-300 text-xl font-extrabold">English</button>

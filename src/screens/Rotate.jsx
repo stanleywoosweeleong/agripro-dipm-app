@@ -5,6 +5,8 @@ import { PestIcon } from '../components/Art.jsx';
 import { MOA_LABELS, GROUP_NAMES, CHART_PESTS } from '../core/moaDb.js';
 import { rotationFor, groupsForChartPest, GROUP_FOR_CHART } from '../core/rotation.js';
 import { groupById } from '../core/groups.js';
+import { moaInfo, moaKeyFromIrac } from '../core/chemDb.js';
+import { KillsBadges } from '../ui/StagePicker.jsx';
 import { href, go } from '../hooks/useRoute.js';
 
 const SITE = {
@@ -104,6 +106,7 @@ function GroupBlock({ grp, gName, L }) {
         <div className="font-extrabold text-[16px]">{gName(grp.g)}</div>
         {grp.differentSite === 1 && <Badge tone="green">{L.siteChanger}</Badge>}
       </div>
+      <div className="mt-1.5"><KillsBadges stages={moaInfo(moaKeyFromIrac(grp.g)).stages} /></div>
       <div className="flex flex-wrap gap-1.5 mt-2">{grp.items.map(a => <ActiveLink key={a.n} a={a} />)}</div>
     </div>
   );

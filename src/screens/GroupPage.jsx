@@ -9,11 +9,12 @@ import { CHART_FOR_GROUP } from '../core/rotation.js';
 import { examplesFor } from '../core/examples.js';
 import { stageById } from '../core/stages.js';
 import { href } from '../hooks/useRoute.js';
+import { StagePicker, KillsBadges } from '../ui/StagePicker.jsx';
 
 const WikiPhotoStrip = lazy(() => import('../components/WikiPhotoStrip.jsx').then(m => ({ default: m.WikiPhotoStrip })));
 
 const FIT_TONE = { best: 'green', good: 'blue', limited: 'grey' };
-const WARN_TONE = { beeBlock: 'red', beeHigh: 'amber', beeEvening: 'amber', phi: 'violet', resistance: 'grey', rotate: 'red', crossRes: 'amber' };
+const WARN_TONE = { beeBlock: 'red', beeHigh: 'amber', beeEvening: 'amber', phi: 'violet', resistance: 'grey', rotate: 'red', crossRes: 'amber', noAdults: 'red', noYoung: 'red', youngBest: 'green', ovicide: 'green', pairAdult: 'amber' };
 const TOX_TONE = { Ia: 'red', Ib: 'red', II: 'amber', III: 'grey', U: 'green', NL: 'grey' };
 
 export const moaCode = (info) => (info.irac ? `IRAC ${info.irac}` : info.key.startsWith('FRAC') ? info.key : null);
@@ -34,9 +35,10 @@ export default function GroupPage({ id, orchard, setOrchard }) {
   const g = groupById(id);
   const [showEx, setShowEx] = useState(false);
   const [lastPick, setLastPick] = useState(false);
+  const [pestStage, setPestStage] = useState(null);
 
   const track = orchard.track || 'organic';
-  const rec = useMemo(() => g && recommend(g, { stage: orchard.stage, recentMoa: orchard.recentMoa, track }), [g, orchard.stage, orchard.recentMoa, track]);
+  const rec = useMemo(() => g && recommend(g, { stage: orchard.stage, recentMoa: orchard.recentMoa, track, pestStage }), [g, orchard.stage, orchard.recentMoa, track, pestStage]);
   if (!g) return <div><BackBar /><p>Not found.</p></div>;
 
   const examples = examplesFor(g.id);
@@ -46,7 +48,7 @@ export default function GroupPage({ id, orchard, setOrchard }) {
 
   const share = () => {
     const lines = [
-      `AgriPro IPM — ${t(g.name)}`, t(g.examples), '', t(g.why), '',
+      `${ui('app.title')} — ${t(g.name)}`, t(g.examples), '', t(g.why), '',
       `${ui('group.nonChem')}:`, ...g.nonChem.map(n => `• ${t(n)}`),
     ];
     if (rec.rotation.length) {
@@ -109,6 +111,7 @@ export default function GroupPage({ id, orchard, setOrchard }) {
                 </button>
               ))}
             </div>
+            <div className="mb-3"><StagePicker groupId={g.id} value={pestStage} onChange={setPestStage} /></div>
             {stage && <div className="mb-3"><Badge tone="green">{ui('home.stage')}: {t(stage.name)}</Badge></div>}
             {rec.options.length === 0 && <Callout tone="lime" icon="leaf">{ui('group.organicEmpty')}</Callout>}
 
@@ -233,6 +236,7 @@ function OptionCard({ o }) {
         <Badge tone={FIT_TONE[o.fit]}>{ui(`fit.${o.fit}`)}</Badge>
       </div>
       <p className="text-[15px] leading-snug mt-2 text-stone-800">{t(o.why)}</p>
+      <div className="mt-2"><KillsBadges stages={info.stages} /></div>
       {info.route.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mt-2">
           {info.route.map(r => <Badge key={r} tone="blue">{t(ROUTE_LABEL[r])}</Badge>)}

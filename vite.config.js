@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'AgriPro DIPM — 榴莲虫害管理 / Durian Pest Management',
-        short_name: 'AgriPro DIPM',
+        name: 'Durian IPM · 榴莲综合防治',
+        short_name: 'Durian IPM',
         description:
           '榴莲综合防治 — 按取食方式诊断、轮替用药、查农药是否违禁。Durian IPM: diagnose by how pests feed, rotate by MoA, check chemicals.',
         theme_color: '#059669',

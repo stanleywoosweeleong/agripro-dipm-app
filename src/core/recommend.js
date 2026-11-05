@@ -33,7 +33,8 @@ function activesFor(group, key) {
  * @param {object} ctx   – { stage?: string, recentMoa?: string[] }  (MoA class keys)
  */
 export function recommend(group, ctx = {}) {
-  const { stage = null, recentMoa = [], track = 'all' } = ctx;
+  // pestStage: what the farmer sees most — 'eggs' | 'young' | 'adults' | 'mixed' | null
+  const { stage = null, recentMoa = [], track = 'all', pestStage = null } = ctx;
   const flowering = stage === 'flowering';
   const nearHarvest = stage === 'harvest';
   const recentIrac = recentMoa.filter(k => k.startsWith('IRAC ')).map(k => k.slice(5));
@@ -52,6 +53,17 @@ export function recommend(group, ctx = {}) {
     }
     if (nearHarvest && info.kind !== 'bio' && info.kind !== 'physical') warnings.push('phi');
     if (info.resistance === 'high') warnings.push('resistance');
+
+    // Life stage: growth regulators and ovicides only work on some stages.
+    const kills = info.stages;
+    const youngOnly = kills.length > 0 && !kills.includes('adult');
+    if (kills.length && pestStage) {
+      if (pestStage === 'adults' && youngOnly) { score -= 2; warnings.push('noAdults'); }
+      else if (pestStage === 'young' && youngOnly) { score += 0.75; warnings.push('youngBest'); }
+      else if (pestStage === 'young' && !kills.includes('young')) { score -= 2; warnings.push('noYoung'); }
+      else if (pestStage === 'eggs' && kills.includes('egg')) { score += 1; warnings.push('ovicide'); }
+      else if (pestStage === 'mixed' && youngOnly) warnings.push('pairAdult');
+    }
 
     const recentlyUsed = recentMoa.includes(c.moa);
     if (recentlyUsed) { score -= 1.5; warnings.push('rotate'); }
