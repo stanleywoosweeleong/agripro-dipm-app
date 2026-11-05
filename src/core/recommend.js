@@ -16,8 +16,8 @@ function activesFor(group, key) {
   if (chart) {
     // Chart pests: only actives the chart lists for THIS pest, plus broad physical /
     // biological products (oils, neem, insect fungi) and non-chart actives of the class.
-    const broad = (g) => g === 'UN' || g === 'UNM' || g === 'UNF';
-    const names = new Set(USABLE_ROWS.filter(r => moaKeyFromIrac(r.g) === key && (chart.includes(r.pest) || broad(r.g))).map(r => r.n));
+    const broad = (r) => (r.g === 'UN' || r.g === 'UNM' || r.g === 'UNF') && chemByEn.get(r.n)?.organic;
+    const names = new Set(USABLE_ROWS.filter(r => moaKeyFromIrac(r.g) === key && (chart.includes(r.pest) || broad(r))).map(r => r.n));
     list = [...names].map(n => chemByEn.get(n)).filter(Boolean)
       .concat(CHEMICALS.filter(c => c.moa === key && c.source === 'local'));
   } else {

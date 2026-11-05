@@ -135,3 +135,10 @@ test('WHO Ia/Ib actives are never offered unless a documented exception', () => 
   assert.ok(findRemovedActive('formetanate')?.hhp);
   assert.equal(findRemovedActive('abamectin'), null);
 });
+
+test('chart pests only get actives the chart lists for them (plus organic oils/neem/fungi)', () => {
+  const mites = recommend(GROUPS.find(g => g.id === 'mites'), { track: 'all' });
+  const ids = mites.options.flatMap(o => o.actives.map(a => a.id));
+  assert.ok(!ids.includes('pyridalyl'));
+  assert.ok(ids.includes('white-oil') && ids.includes('sulfur') && ids.includes('abamectin'));
+});
