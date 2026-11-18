@@ -389,10 +389,10 @@ const TankMixGuide = () => (
               <Icon name="alert" className="w-6 h-6 text-red-600" />
             </div>
             <div>
-              <strong className="text-red-900 block mb-1 text-lg uppercase tracking-wider">The Copper "Loner" Rule</strong>
+              <strong className="text-red-900 block mb-1 text-lg uppercase tracking-wider">Copper: Spray Alone Unless the Label Says Otherwise</strong>
               <p className="font-bold text-red-950 mb-2">Copper (FRAC M01) + Synthetic Organics (e.g., Pencycuron)</p>
               <p className="text-sm text-red-800 leading-relaxed font-medium">
-                Never mix heavy metal fungicides (Copper Oxychloride / Hydroxide) with synthetic organic chemicals. The highly reactive copper ions bind to organic molecules, causing them to separate and sink to the bottom of the tank as a chalky sludge (flocculation). This destroys the chemical's efficacy and severely burns the tree (phytotoxicity). <strong>Copper must always be sprayed alone!</strong>
+                Copper is incompatible with many other products: in the tank it can react with them, settle out, and in some mixes scorch leaves or flowers. Some labels do allow a copper mix — follow the label. If it says nothing, spray copper on its own, or do a small jar test first. <strong>When in doubt, spray copper alone.</strong>
               </p>
             </div>
           </div>
@@ -1063,7 +1063,8 @@ export default function EnApp() {
     const wildlifeStages = ['rapid-expansion', 'maturation'];
 
     let sap = (sapStages.includes(stage) ? 40 : 10) + (nitrogen * 30) + (dryDays > 4 ? 20 : 0);
-    let bor = (borerStages.includes(stage) ? 60 : 10) + (rain === 'moderate' ? 10 : 0);
+    // Fruit borers peak while fruit grows; trunk and pinhole borers attack after harvest and after rain.
+    let bor = (borerStages.includes(stage) ? 60 : (stage === 'post-harvest' ? 40 : 10)) + (rain === 'high' ? 15 : rain === 'moderate' ? 10 : 0);
     let fun = (rain === 'high' ? 50 : (rain === 'moderate' ? 20 : 0)) + (humidity > 80 ? 30 : 0);
     let wild = (nearForest ? 50 : 0) + (wildlifeStages.includes(stage) ? 40 : 0);
 
@@ -1370,7 +1371,7 @@ export default function EnApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.sapSuckers >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.sapSuckers >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.sapSuckers >= 70 ? 'text-red-700' : risks.sapSuckers >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>SAP SUCKERS:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.sapSuckers >= 70 ? "Outbreak conditions. Apply Imidacloprid/Acetamiprid late afternoon. Check twigs for Pit Scale craters." :
+                      {risks.sapSuckers >= 70 ? "Outbreak conditions. First check which sap-sucker it is: mealybugs and scales — spirotetramat with white oil; psyllids and aphids — flonicamid or spirotetramat; leafhoppers — flonicamid. No neonicotinoids or pyrethroids during flowering." :
                        risks.sapSuckers >= 40 ? "Population growing. Apply Neem oil (1%) or insecticidal soap. Avoid applying high Nitrogen to reduce tender flush." :
                        "Preventative: Deploy yellow sticky traps for monitoring. Maintain beneficial insect habitats (ladybugs/lacewings)."}
                     </span>
@@ -1379,8 +1380,8 @@ export default function EnApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.borers >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.borers >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.borers >= 70 ? 'text-red-700' : risks.borers >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>BORERS/WOOD:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.borers >= 70 ? "Critical risk. Deploy High-Canopy Solar Light Traps immediately to intercept night-flying borer moths. Check trunks for termite mud tubes or ambrosia beetle frass." :
-                       risks.borers >= 40 ? "Fruit development starting. Activate Solar Light Traps (High-Canopy) from dusk to midnight to block moth egg-laying. Ensure low-level traps are on for Chafer Beetles." :
+                      {risks.borers >= 70 ? "Critical risk. Check young fruit for borer holes and protect it before larvae get in (diamide or Bt). After rain, walk round every trunk base: fresh sawdust or pinholes mean act within 3 days. Light traps catch borer moths — but switch them off during full bloom." :
+                       risks.borers >= 40 ? "Borer season. High-canopy light traps catch fruit-borer moths and low traps catch chafer beetles (off during full bloom). Thin fruit so they do not touch, and check trunks for fresh sawdust after harvest and after rain." :
                        "Preventative: Clear fallen branches and rotting fruits from orchard floor. Inspect living trunks for termite activity."}
                     </span>
                   </div>
@@ -1390,12 +1391,12 @@ export default function EnApp() {
                     <span className="leading-relaxed font-semibold">
                       {risks.fungal >= 70 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
-                          <span>High moisture alert! <strong className="text-red-700 uppercase">⚠️ Zero Copper Window Active!</strong> Avoid copper on open flowers — it can scorch them. Apply a Phosphonate soil drench and spray <em>Bacillus subtilis</em> on the canopy immediately.</span> :
-                          "High moisture alert. Ensure drainage channels are clear to prevent Phytophthora collar rot. Apply Phosphonate drench immediately."
+                          <span>High moisture alert! <strong className="text-red-700 uppercase">⚠️ Zero Copper Window Active!</strong> Avoid copper on open flowers — it can scorch them. Keep your phosphonate program on schedule (trunk injection or bark spray, at the label rate) and spray <em>Bacillus subtilis</em> on the canopy.</span> :
+                          "High moisture alert. Clear the drains to prevent Phytophthora collar rot. Check trunks for wet dark patches with reddish ooze; keep your phosphonate program on schedule (trunk injection or bark spray, at the label rate)."
                       ) : risks.fungal >= 40 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
                           <span>Conditions favorable for spores. <strong className="text-amber-800 uppercase">⚠️ Zero Copper Window Active!</strong> Do NOT spray copper fungicides preventatively. Switch to soft biologicals like <em>Bacillus subtilis</em> to protect delicate flowers.</span> :
-                          "Conditions favorable for spores. Apply Trichoderma around tree base. Spray copper fungicides preventatively."
+                          "Conditions favorable for disease. Apply Trichoderma around the tree base. Scout for Phytophthora patches after rain. Use copper only on scraped cankers or heavy algae — not as a routine spray."
                       ) : 
                        `Preventative: ${stage === 'post-harvest' ? 'Ideal time for major structural canopy pruning to maximize airflow and sunlight for the next season.' : 'Perform only minor sanitary pruning (remove dead/diseased twigs); save major structural pruning for post-harvest to avoid fruit/flower drop.'}`}
                     </span>
@@ -1404,7 +1405,7 @@ export default function EnApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.wildlife >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.wildlife >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.wildlife >= 70 ? 'text-red-700' : risks.wildlife >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>WILDLIFE:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.wildlife >= 70 ? "High intrusion risk. Energize perimeter fences. Use zinc wraps to stop Civets. Apply slug pellets if Slugs spotted." :
+                      {risks.wildlife >= 70 ? "High intrusion risk. Energize perimeter fences. Use zinc wraps to stop Civets. Iron-phosphate pellets around young trees if slugs or snails are seen." :
                        risks.wildlife >= 40 ? "Attraction increasing. Clear forest brush near orchard edges. Guard dogs on active patrol." :
                        "Preventative: Conduct monthly checks on perimeter fences and repair any gaps. Secure waste bins."}
                     </span>

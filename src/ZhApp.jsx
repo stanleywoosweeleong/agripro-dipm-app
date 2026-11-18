@@ -383,10 +383,10 @@ const TankMixGuide = () => (
               <Icon name="alert" className="w-6 h-6 text-red-600" />
             </div>
             <div>
-              <strong className="text-red-900 block mb-1 text-lg uppercase tracking-wider">铜制剂 "独行侠" 法则</strong>
+              <strong className="text-red-900 block mb-1 text-lg uppercase tracking-wider">铜制剂：除非标签允许，否则单独喷</strong>
               <p className="font-bold text-red-950 mb-2">铜制剂 (FRAC M01) + 合成有机物 (例如：戊菌隆)</p>
               <p className="text-lg text-red-800 leading-relaxed font-medium">
-                绝不要将重金属杀菌剂(氧氯化铜 / 氢氧化铜)与合成有机化学品混合。高反应活性的铜离子会与有机分子结合，导致它们分离并作为白垩状污泥沉到桶底(絮凝现象)。这会破坏化学物质的药效并严重烧伤树木。<strong>铜制剂必须始终单独喷洒！</strong>
+                铜制剂与很多药剂不相容：在药桶里可能起反应、沉淀，有些组合还会灼伤叶片或花朵。有些标签允许与铜制剂混用——按标签做。标签没写的话，就单独喷铜，或先用小瓶做混合试验。<strong>拿不准就单独喷。</strong>
               </p>
             </div>
           </div>
@@ -1063,7 +1063,8 @@ export default function ZhApp() {
     const wildlifeStages = ['rapid-expansion', 'maturation'];
 
     let sap = (sapStages.includes(stage) ? 40 : 10) + (nitrogen * 30) + (dryDays > 4 ? 20 : 0);
-    let bor = (borerStages.includes(stage) ? 60 : 10) + (rain === 'moderate' ? 10 : 0);
+    // Fruit borers peak while fruit grows; trunk and pinhole borers attack after harvest and after rain.
+    let bor = (borerStages.includes(stage) ? 60 : (stage === 'post-harvest' ? 40 : 10)) + (rain === 'high' ? 15 : rain === 'moderate' ? 10 : 0);
     let fun = (rain === 'high' ? 50 : (rain === 'moderate' ? 20 : 0)) + (humidity > 80 ? 30 : 0);
     let wild = (nearForest ? 50 : 0) + (wildlifeStages.includes(stage) ? 40 : 0);
 
@@ -1415,7 +1416,7 @@ export default function ZhApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.sapSuckers >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.sapSuckers >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.sapSuckers >= 70 ? 'text-red-700' : risks.sapSuckers >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>吸汁害虫:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.sapSuckers >= 70 ? "爆发警报。在傍晚施用吡虫啉/啶虫脒。检查细枝是否有榴莲盾介壳虫造成的坑洞。" :
+                      {risks.sapSuckers >= 70 ? "爆发警报。先看清是哪一种刺吸害虫：粉蚧和介壳虫——螺虫乙酯加白油；木虱和蚜虫——氟啶虫酰胺或螺虫乙酯；青蚊（叶蝉）——氟啶虫酰胺。花期不用新烟碱类或拟除虫菊酯。" :
                        risks.sapSuckers >= 40 ? "种群数量增长中。施用印楝油(1%)或杀虫皂液。避免施用高氮肥以减少嫩梢的吸引力。" :
                        "预防期：悬挂黄色粘虫板进行监测。维护有益昆虫（如瓢虫/草蛉）的栖息地。"}
                     </span>
@@ -1424,8 +1425,8 @@ export default function ZhApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.borers >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.borers >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.borers >= 70 ? 'text-red-700' : risks.borers >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>蛀干/蛀枝害虫:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.borers >= 70 ? "高危警报。立即部署高层树冠太阳能杀虫灯，拦截夜间飞行的蛀虫成蛾。检查树干是否有白蚁泥管或材小蠹虫粪。" :
-                       risks.borers >= 40 ? "果实发育期开始。黄昏至午夜开启太阳能杀虫灯（高层），阻止飞蛾产卵。确保低层诱捕灯开启以对付鳃金龟。" :
+                      {risks.borers >= 70 ? "高危警报。检查幼果有没有蛀孔，在幼虫钻入前保护果实（双酰胺类或 Bt）。下雨后绕每棵树头看一圈：有新木屑或针孔，3天内处理。杀虫灯可诱杀蛀果蛾——但盛花期要关灯。" :
+                       risks.borers >= 40 ? "蛀虫季节。高层杀虫灯诱杀蛀果蛾，低层灯诱杀金龟子（盛花期关灯）。疏果让果实互不接触；采果后和下雨后检查树干有没有新木屑。" :
                        "预防期：清除果园地面的落枝和腐烂果实。定期检查活树树干是否有白蚁活动迹象。"}
                     </span>
                   </div>
@@ -1435,12 +1436,12 @@ export default function ZhApp() {
                     <span className="leading-relaxed font-semibold">
                       {risks.fungal >= 70 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
-                          <span>高湿警报！<strong className="text-red-700 uppercase">⚠️ 零铜制剂窗口期激活！</strong>避免把铜制剂喷到盛开的花上——会灼伤花朵。立即进行亚磷酸土壤灌根，并在树冠喷施<em>枯草芽孢杆菌</em>。</span> :
-                          "高湿警报。确保排水沟渠畅通，防止疫霉根颈腐烂。立即进行亚磷酸土壤灌根。"
+                          <span>高湿警报！<strong className="text-red-700 uppercase">⚠️ 零铜制剂窗口期激活！</strong>避免把铜制剂喷到盛开的花上——会灼伤花朵。按时进行亚磷酸盐防治（树干注射或喷树皮，按标签用量），并在树冠喷施<em>枯草芽孢杆菌</em>。</span> :
+                          "高湿警报。清通排水沟，防止疫霉根颈腐烂。检查树干有没有湿黑斑、流红褐色胶；按时进行亚磷酸盐防治（树干注射或喷树皮，按标签用量）。"
                       ) : risks.fungal >= 40 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
                           <span>环境有利于孢子繁殖。<strong className="text-amber-800 uppercase">⚠️ 零铜制剂窗口期激活！</strong>切勿预防性喷洒铜制剂。改用<em>枯草芽孢杆菌</em>等软性生物制剂来保护娇嫩的花朵。</span> :
-                          "环境有利于孢子繁殖。在树基部周围施用木霉菌。预防性喷洒铜制剂杀菌剂。"
+                          "环境有利于发病。在树基部周围施用木霉菌。雨后巡查疫霉斑块。铜制剂只用在刮净的病斑或严重的藻斑上——不要当例行喷药。"
                       ) : 
                        `预防期：${stage === 'post-harvest' ? '进行大型树冠结构修剪的理想时机，以为下个季节最大化气流和阳光。' : '仅进行轻微的卫生修剪（去除枯死/带病细枝）；将大型结构修剪留到采收后，以避免引起落花落果。'}`}
                     </span>
@@ -1449,7 +1450,7 @@ export default function ZhApp() {
                   <div className={`flex flex-col md:flex-row gap-2 md:gap-5 text-base md:text-xl p-4 md:p-5 rounded-xl border-2 transition-colors ${risks.wildlife >= 70 ? 'bg-red-50 border-red-200 text-red-900' : risks.wildlife >= 40 ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
                     <span className={`font-black w-full md:w-40 flex-shrink-0 uppercase tracking-tighter ${risks.wildlife >= 70 ? 'text-red-700' : risks.wildlife >= 40 ? 'text-amber-700' : 'text-emerald-700'}`}>野生动物:</span>
                     <span className="leading-relaxed font-semibold">
-                      {risks.wildlife >= 70 ? "高入侵风险。开启周边电围栏。使用锌片包裹树干以阻止果子狸。如果发现蛞蝓，施用防蜗牛颗粒诱饵。" :
+                      {risks.wildlife >= 70 ? "高入侵风险。开启周边电围栏。使用锌片包裹树干以阻止果子狸。如果发现蛞蝓或蜗牛，在幼树周围撒磷酸铁颗粒。" :
                        risks.wildlife >= 40 ? "吸引力增加。清理果园边缘的森林灌木丛。安排护卫犬进行活跃巡逻。" :
                        "预防期：每月检查周边围栏并修复任何缺口。固定好垃圾桶。"}
                     </span>
