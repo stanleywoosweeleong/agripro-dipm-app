@@ -753,7 +753,7 @@ const CATALOGUE = [
     part: 'Trunk/Branches',
     type: { en: 'Wood-boring', zh: '蛀木性' },
     hiding: { en: 'Intricate tunnels inside the xylem (wood)', zh: '木质部内错综复杂的隧道中' },
-    symptoms: { en: 'Tiny, perfectly round holes ("shot holes") in bark. Extrusion of compacted frass noodles ("toothpicks").', zh: '树皮上微小、完美的圆孔 ("霰弹孔")。挤出压实的条状虫粪 ("牙签")。' },
+    symptoms: { en: 'Tiny round holes ("shot holes") in the bark, about 1 mm, with fine sawdust — sometimes pushed out as thin "toothpicks". Often on trees already hit by Phytophthora, waterlogging or drought.', zh: '树皮上约1毫米的小圆孔（"霰弹孔"），有细木屑——有时被推出成细条（"牙签"）。常出现在已受疫霉、积水或干旱影响的树上。' },
     activity: 'Crepuscular',
     lifecycle: { en: 'Females mate with their brothers inside the tree, so one female flying to a new tree can start a colony on her own. In Vietnamese durian, Xyleborus similis attacks the trunk and trunk base, and X. fornicatus the branches, mostly after harvest. Most go for stressed or waterlogged trees.', zh: '雌虫在树内与兄弟交配，所以一只雌虫飞到新树上就能单独建立虫群。在越南榴莲上，Xyleborus similis 危害树干和树头，X. fornicatus 危害枝条，多在采果后。多数专找衰弱或积水的树。' },
     symbiosis: { en: 'Farms a fungus in the wood (often Fusarium). A Thai durian study found an ambrosia beetle carrying Fusarium solani, which causes branch dieback.', zh: '在木材里培养真菌（常为镰刀菌）。泰国一项榴莲研究发现一种小蠹携带腐皮镰刀菌，会引起枝枯。' },
