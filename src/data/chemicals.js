@@ -37,7 +37,7 @@ export const DT50_DATABASE = [
   },
   {
     name: 'Cartap hydrochloride (杀螟丹)',
-    moa: 'IRAC 4',
+    moa: 'IRAC 14',
     foliar: '3 - 5 Days',
     soil: '3 - 10 Days',
     notes: { en: 'Highly systemic. Short environmental persistence, but highly toxic to aquatic life.', zh: '高度内吸。环境残留短，但对水生生物具有高毒性。' },
@@ -141,7 +141,7 @@ export const DT50_DATABASE = [
   },
   {
     name: 'Propargite (炔螨特)',
-    moa: 'IRAC 12A',
+    moa: 'IRAC 12C',
     foliar: '3 - 5 Days',
     soil: '40 - 70 Days',
     notes: { en: 'Fumes in high heat (vapor action) to kill mites on leaf undersides.', zh: '在高温下会蒸发(蒸汽作用)，从而杀死隐藏在叶片背面的螨虫。' },
@@ -220,14 +220,6 @@ export const DT50_DATABASE = [
     type: 'Fungicide',
   },
   {
-    name: 'Benomyl (苯菌灵)',
-    moa: 'FRAC 1',
-    foliar: '1 - 2 Days',
-    soil: '< 1 Day',
-    notes: { en: 'Degrades rapidly into Carbendazim. High resistance risk. Broad systemic action.', zh: '迅速降解为多菌灵。高抗药性风险。广谱内吸作用。' },
-    type: 'Fungicide',
-  },
-  {
     name: 'Bordeaux mixture (波尔多液)',
     moa: 'FRAC M01',
     foliar: 'Infinite',
@@ -240,7 +232,7 @@ export const DT50_DATABASE = [
     moa: 'FRAC 1',
     foliar: '3 - 7 Days',
     soil: '30 - 90 Days',
-    notes: { en: 'Common systemic fungicide. Very high risk of resistance if used without rotation.', zh: '常见的内吸性杀菌剂。如果不轮换使用，产生抗药性的风险极高。' },
+    notes: { en: 'Systemic fungicide for true fungi. Very high resistance risk — rotate. It has NO effect on Phytophthora (a water mould).', zh: '防治真菌的内吸杀菌剂。抗药性风险极高——要轮换。对疫霉（卵菌）完全无效。' },
     type: 'Fungicide',
   },
   {
@@ -248,7 +240,7 @@ export const DT50_DATABASE = [
     moa: 'FRAC M01',
     foliar: 'Infinite',
     soil: 'Infinite',
-    notes: { en: 'Inorganic Heavy Metal. Does NOT degrade. Washes off leaves and accumulates permanently. Can cause root toxicity.', zh: 'Inorganic Heavy Metal. Does NOT degrade. Washes off leaves and accumulates permanently. Can cause root toxicity.' },
+    notes: { en: 'A metal: it does not break down and builds up in the soil with repeated heavy use. Use copper only when needed, not as a routine spray.', zh: '金属：不会分解，长期大量使用会在土壤中积累。只在需要时用铜剂，不要当例行喷药。' },
     type: 'Fungicide',
   },
   {
@@ -280,7 +272,7 @@ export const DT50_DATABASE = [
     moa: 'FRAC P07',
     foliar: 'Variable',
     soil: '< 1 Day',
-    notes: { en: 'True two-way systemic. Rapidly degrades into phosphite in soil, triggering plant immunity.', zh: '真正的双向内吸传导。在土壤中迅速降解为亚磷酸盐，触发植物免疫。' },
+    notes: { en: "Two-way systemic; breaks down to phosphite in the plant. In the app owner's orchards it gave poor results — potassium phosphonate is the main tool.", zh: '双向内吸；在植物体内分解成亚磷酸。在本软件作者的果园里效果不好——主要用亚磷酸钾。' },
     type: 'Fungicide',
   },
   {
@@ -304,7 +296,7 @@ export const DT50_DATABASE = [
     moa: 'FRAC 4',
     foliar: '3 - 5 Days',
     soil: '15 - 40 Days',
-    notes: { en: 'Highly systemic upward. Target specific to Oomycetes (Phytophthora/Pythium).', zh: 'Highly systemic upward. Target specific to Oomycetes (Phytophthora/Pythium).' },
+    notes: { en: 'Highly systemic upward. Works only on water moulds (Phytophthora/Pythium). Phytophthora can become resistant — use it sparingly and with a partner.', zh: '向上内吸性强。只针对卵菌（疫霉/腐霉）。疫霉会产生抗性——少用，并与其他药剂混用或轮换。' },
     type: 'Fungicide',
   },
   {
@@ -320,7 +312,7 @@ export const DT50_DATABASE = [
     moa: 'FRAC P07',
     foliar: 'Variable',
     soil: 'Variable',
-    notes: { en: 'Uniquely moves both up and down the tree. Is eventually oxidized by microbes into natural Phosphate fertilizer.', zh: 'Uniquely moves both up and down the tree. Is eventually oxidized by microbes into natural Phosphate fertilizer.' },
+    notes: { en: 'Moves both up and down the tree, down to the roots — the main tool against durian Phytophthora. Trunk injection is one of the ways (it wounds the trunk); bark spray is another. Never exceed the label rate.', zh: '在树内上下双向移动，能到达根部——防治榴莲疫霉的主要工具。树干注射是其中一种方法（会伤树干）；树皮喷施是另一种。绝不超过标签用量。' },
     type: 'Fungicide',
   },
   {
@@ -360,7 +352,7 @@ export const DT50_DATABASE = [
     moa: 'Botanical',
     foliar: '1 - 2.5 Days',
     soil: '1 - 2 Days',
-    notes: { en: 'Highly sensitive to UV light and alkaline water. Will completely degrade within 48 hours.', zh: 'Highly sensitive to UV light and alkaline water. Will completely degrade within 48 hours.' },
+    notes: { en: 'Highly sensitive to UV light and alkaline water. Will completely degrade within 48 hours.', zh: '对紫外线和碱性水非常敏感。约48小时内完全降解。' },
     type: 'Bio/Other',
   },
   {
@@ -384,7 +376,7 @@ export const DT50_DATABASE = [
     moa: 'Molluscicide',
     foliar: 'N/A',
     soil: '3 - 10 Days',
-    notes: { en: 'Breaks down rapidly into acetic acid (vinegar) in damp soil. Highly sensitive to heat and moisture.', zh: 'Breaks down rapidly into acetic acid (vinegar) in damp soil. Highly sensitive to heat and moisture.' },
+    notes: { en: 'Breaks down in damp soil, but the bait poisons dogs, cats and birds. Iron-phosphate pellets are much safer.', zh: '在潮湿土壤中会分解，但诱饵会毒死狗、猫和鸟。磷酸铁颗粒安全得多。' },
     type: 'Bio/Other',
   },
   {
