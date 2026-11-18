@@ -698,7 +698,7 @@ const CATALOGUE = [
     lifecycle: { en: 'The most destructive borer. The grub feeds first under the bark, then moves deep into the heartwood — about 9 months as a larva in a Thai durian study. Small grubs are hard to see; by the time sawdust shows, it has been feeding for a while.', zh: '危害最严重的蛀虫。幼虫先在树皮下取食，再钻入心材深处——泰国榴莲研究中幼虫期约9个月。小幼虫很难发现；等看到木屑时，它已经取食了一段时间。' },
     symbiosis: { en: 'Entry wounds invite secondary fungal infections.', zh: '入侵伤口会引来继发性真菌感染。' },
     severity: 5,
-    control: { en: 'Hook out the grub with a stiff wire. Put insecticide into the *active* hole; seal only the surface wound once no fresh sawdust has appeared for two weeks — a sealed live grub keeps eating. In a Thai durian trial, imidacloprid, acetamiprid or thiamethoxam sprayed on the trunk (ground to 2 m) gave the best control; emamectin benzoate has strong evidence on a related longhorn. Chlorantraniliprole is not proven on longhorn grubs. Never drill new holes.', zh: '用硬铁丝钩杀幼虫。向**活动**虫孔注药；连续两周没有新木屑后才只封表面伤口——活虫被封住会继续蛀食。泰国榴莲试验中，吡虫啉、啶虫脒或噻虫嗪喷树干（地面到 2 米）防效最好；甲氨基阿维菌素苯甲酸盐在近缘天牛上证据很强。氯虫苯甲酰胺对天牛幼虫未经证实。不要钻新孔。' },
+    control: { en: 'Hook out the grub with a stiff wire. Put insecticide into the *active* hole; seal only the surface wound once no fresh sawdust has appeared for two weeks — a sealed live grub keeps eating. In a Thai durian trial, imidacloprid, acetamiprid or thiamethoxam sprayed on the trunk (ground to 2 m) gave the best control; emamectin benzoate has strong evidence on a related longhorn. Never drill new holes.', zh: '用硬铁丝钩杀幼虫。向**活动**虫孔注药；连续两周没有新木屑后才只封表面伤口——活虫被封住会继续蛀食。泰国榴莲试验中，吡虫啉、啶虫脒或噻虫嗪喷树干（地面到 2 米）防效最好；甲氨基阿维菌素苯甲酸盐在近缘天牛上证据很强。不要钻新孔。' },
     stages: ['All Stages'],
     ipm: ['Chemical', 'Physical'],
   },
