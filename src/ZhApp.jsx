@@ -88,7 +88,7 @@ const getMobilityTag = (code) => {
 // --- 3-PHASE IPM PARSER ---
 const getPhaseInfo = (phase, category) => {
   if (category === 'Fungi/Pathogens') {
-      if (phase === 1) return { step: '阶段一', title: '快速灭除', desc: '爆发期。瞬间烧毁活跃的真菌病斑，阻止孢子扩散。', color: 'red' };
+      if (phase === 1) return { step: '阶段一', title: '快速灭除', desc: '爆发期。控制活跃的病斑，减少孢子扩散。', color: 'red' };
       if (phase === 2) return { step: '阶段二', title: '内吸防护', desc: '巩固期。吸收到维管组织中，保护新梢免受内部感染蔓延。', color: 'amber' };
       if (phase === 3) return { step: '阶段三', title: '保护剂', desc: '维护期。用接触性屏障或竞争性生物制剂覆盖叶面。', color: 'emerald' };
   }
@@ -155,7 +155,7 @@ const TrappingGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">黄色粘虫板<br/><span className="text-sm text-slate-500 font-medium">(全能型)</span></h4>
         </div>
         <p className="text-lg font-medium text-slate-600 mb-4 leading-relaxed flex-1">
-          模拟高氮嫩梢的反射光。最适合对付<strong>木虱、蚜虫、粉虱和果实蝇</strong>，大型黄板也能有效诱捕<strong>马蜂和虎头蜂</strong>等危险蜂类。
+          模拟高氮嫩梢的反射光。主要用于监测嫩梢上的<strong>木虱、蚜虫和青蚊（叶蝉）</strong>（果实蝇在榴莲上是次要害虫——清理落果和裂果即可；榴莲上没有粉虱的记录）。大型黄板也能有效诱捕<strong>马蜂和虎头蜂</strong>等危险蜂类。
         </p>
         <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mt-auto">
           <strong className="text-yellow-800 block mb-2 uppercase tracking-wider text-xs">悬挂位置:</strong>
@@ -194,7 +194,7 @@ const TrappingGuide = () => (
     
     <div className="mt-6 p-4 bg-emerald-900 text-emerald-50 rounded-xl flex items-center gap-4 border border-emerald-950 shadow-inner">
       <Icon name="info" className="w-6 h-6 text-emerald-400 flex-shrink-0" />
-      <span className="text-lg font-medium"><strong>专家提示：</strong>大规模诱捕（每棵树 5-10 张）可以在不使用化学药剂的情况下使害虫种群减少高达 40%。当板面覆盖率达到 50% 时请及时更换。</span>
+      <span className="text-lg font-medium"><strong>专家提示：</strong>黄板主要用于监测——看到虫量上升，就能及时处理。榴莲上没有可靠的数据说明黄板能减少多少害虫。板面盖满一半时更换。</span>
     </div>
   </div>
 );
@@ -312,7 +312,7 @@ const TankMixGuide = () => (
               绝对不要在同一个喷药桶中混合超过 <strong>3 种有效成分</strong>。
             </p>
             <p className="text-lg font-medium mt-3 opacity-95 leading-relaxed">
-              混合过多种类的化学物质会造成"鸡尾酒灾难"。您将面临<strong>药害</strong>(烧毁整个树冠)或<strong>化学中和</strong>的风险。如果化学物质相互抵消，您等于<strong>白白浪费了 40-60% 的成本</strong>，同时可能用未溶解的污泥堵塞喷嘴。
+              混合过多种类的化学物质会造成"鸡尾酒灾难"。您将面临<strong>药害</strong>(烧毁整个树冠)或<strong>化学中和</strong>的风险。如果化学物质相互抵消，您就<strong>白白浪费了钱</strong>，还可能让未溶解的沉淀堵塞喷嘴。
             </p>
           </div>
         </div>
@@ -325,7 +325,7 @@ const TankMixGuide = () => (
           黄金 pH 法则 (碱性水解)
         </h4>
         <p className="text-slate-600 mb-4 leading-relaxed">
-          如果您的农场水源呈强碱性 (pH 7.5+)，它会在20分钟内将喷雾桶内的现代农药(如拟除虫菊酯)彻底分解失效。请始终先测试并缓冲您的水质！
+          如果您的农场水源呈强碱性 (pH 7.5+)，有些农药会在药桶里分解（碱性水解），快慢因产品而异。先测水质，标签要求时加缓冲剂，配好后尽快喷完。
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
@@ -345,28 +345,28 @@ const TankMixGuide = () => (
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
         <h4 className="font-bold text-xl text-slate-800 flex items-center gap-3 mb-4">
           <Icon name="beaker" className="w-6 h-6 text-violet-500" />
-          经证实的协同增效配方 (1 + 1 = 3)
+          常见混配——它们实际上做什么
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-violet-50 p-4 rounded-xl border border-violet-200">
              <strong className="text-violet-900 block mb-1 text-sm uppercase tracking-wider">抗性酶阻断剂</strong>
              <p className="font-bold text-violet-950 mb-2">PBO (增效醚) + 拟除虫菊酯 (IRAC 3A)</p>
-             <p className="text-lg font-medium text-violet-800 leading-relaxed">昆虫利用体内酶来分解毒素存活。PBO能关闭这种酶，使拟除虫菊酯对付高抗性蛀虫的致死率提高近10倍。</p>
+             <p className="text-lg font-medium text-violet-800 leading-relaxed">有些害虫靠体内的酶分解拟除虫菊酯而存活。PBO 能阻断一部分这种酶，所以在由酶引起抗性的地方，可以恢复部分药效。只用本身就含 PBO 的产品，按标签用量。</p>
           </div>
           <div className="bg-fuchsia-50 p-4 rounded-xl border border-fuchsia-200">
-             <strong className="text-fuchsia-900 block mb-1 text-sm uppercase tracking-wider">能量与护盾粉碎机</strong>
-             <p className="font-bold text-fuchsia-950 mb-2">FRAC 11 + FRAC 3</p>
-             <p className="text-lg font-medium text-fuchsia-800 leading-relaxed">嘧菌酯(阻断真菌呼吸) 混合 苯醚甲环唑(阻止细胞壁构建)。对抗炭疽病的终极组合。</p>
+             <strong className="text-fuchsia-900 block mb-1 text-sm uppercase tracking-wider">炭疽病：用药有先后</strong>
+             <p className="font-bold text-fuchsia-950 mb-2">先用 FRAC 3，FRAC 11 只作轮换</p>
+             <p className="text-lg font-medium text-fuchsia-800 leading-relaxed">泰国一项榴莲研究发现，所有炭疽病菌株对苯醚甲环唑和咪鲜胺都敏感，但很多对甲氧基丙烯酸酯类（QoI，如嘧菌酯）有抗性。所以先用苯醚甲环唑或咪鲜胺；甲氧基丙烯酸酯类只作轮换搭档。</p>
           </div>
           <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-200">
-             <strong className="text-indigo-900 block mb-1 text-sm uppercase tracking-wider">"驱赶与击杀" 战术</strong>
+             <strong className="text-indigo-900 block mb-1 text-sm uppercase tracking-wider">注意：螨害爆发</strong>
              <p className="font-bold text-indigo-950 mb-2">IRAC 3A + IRAC 4A</p>
-             <p className="text-lg font-medium text-indigo-800 leading-relaxed">拟除虫菊酯具有刺激性，能将隐藏在叶缝里的害虫驱赶出来，迫使它们接触到早已喷洒的新烟碱内吸层。爆发期的完美对策。</p>
+             <p className="text-lg font-medium text-indigo-800 leading-relaxed">拟除虫菊酯和新烟碱类会杀死捕食螨，反复使用会引发红蜘蛛爆发。每次喷一种作用机理，轮换使用，而不是用这种复配。</p>
           </div>
           <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
-             <strong className="text-amber-900 block mb-1 text-sm uppercase tracking-wider">物理装甲突破</strong>
+             <strong className="text-amber-900 block mb-1 text-sm uppercase tracking-wider">油剂帮助药液附着</strong>
              <p className="font-bold text-amber-950 mb-2">矿物油/白油 + IRAC 23</p>
-             <p className="text-lg font-medium text-amber-800 leading-relaxed">油剂充当物理溶剂，融化盾介壳虫的蜡质盔甲，并将螺虫乙酯系统性地直接吸入昆虫体内。</p>
+             <p className="text-lg font-medium text-amber-800 leading-relaxed">油剂帮助药液在介壳虫和粉蚧的蜡质外壳上铺展、附着。螺虫乙酯是内吸性的，也能打到在枝条里吸汁的介壳虫。</p>
           </div>
         </div>
       </div>
@@ -399,7 +399,7 @@ const TankMixGuide = () => (
               <strong className="text-amber-900 block mb-1 text-lg uppercase tracking-wider">"零铜制剂" 窗口期 (花期)</strong>
               <p className="font-bold text-amber-950 mb-2">在火柴头期或盛花期施用铜制剂</p>
               <p className="text-lg text-amber-800 leading-relaxed font-medium">
-                <strong>绝对不要在开花期间喷洒铜制剂！</strong>高活性的铜离子会立即烧伤娇嫩的柱头并使花粉干瘪，导致大规模的花朵败育/落花。此外，金属残留物会驱离重要的夜间授粉者（如洞穴果蝠），并且对授粉昆虫的肠道生物群具有高度毒性。在此阶段请完全改用软性生物制剂（如 <em>枯草芽孢杆菌</em>）。
+                <strong>不要把铜制剂喷到盛开的花上。</strong>铜会灼伤娇嫩的花器。花期改用较温和的产品（如 <em>枯草芽孢杆菌</em>）；确实需要用铜时，避开盛开的花。
               </p>
             </div>
           </div>
@@ -413,7 +413,7 @@ const TankMixGuide = () => (
           理解 LT₅₀ (致死时间) 与击倒速度
         </h4>
         <p className="text-slate-600 mb-4 leading-relaxed">
-          虽然 DT₅₀ 衡量的是环境寿命，但 <strong>LT₅₀</strong> 衡量的是昆虫实际死亡的速度。农艺师将快和慢 LT₅₀ 的化学品混合以创造终极防御：
+          虽然 DT₅₀ 衡量的是环境寿命，但 <strong>LT₅₀</strong> 衡量的是昆虫实际死亡的速度。快效和慢效的药各有用处：
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -427,9 +427,9 @@ const TankMixGuide = () => (
              <p className="text-lg font-medium text-slate-600 leading-relaxed">需要 3-7 天。害虫会立刻停止取食，但会像无害的"行尸走肉"一样停留在叶片上。</p>
           </div>
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-sm">
-             <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider">完美的混配</strong>
-             <p className="font-bold text-emerald-950 mb-1">快 + 慢 (驱赶与击杀)</p>
-             <p className="text-lg font-medium text-emerald-900 leading-relaxed">快速的化学成分击倒当前的成虫群，而缓慢的内吸成分则保护几天后孵化出的新若虫。</p>
+             <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider">两种作用</strong>
+             <p className="font-bold text-emerald-950 mb-1">先快后慢——轮流用</p>
+             <p className="text-lg font-medium text-emerald-900 leading-relaxed">虫害严重时，先用快速的触杀药压低虫口；下一轮再用另一组的缓慢内吸药，保护新梢不被新孵化的若虫危害。轮流喷，不要混在一起喷。</p>
           </div>
         </div>
       </div>
@@ -452,7 +452,7 @@ const TankMixGuide = () => (
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
              <strong className="text-indigo-800 block mb-1 text-sm uppercase tracking-wider flex items-center gap-1.5"><Icon name="leaf" className="w-4 h-4"/> 跨层传导</strong>
              <p className="font-bold text-indigo-950 mb-1">例如：IRAC 6, FRAC 11</p>
-             <p className="text-lg font-medium text-slate-600 leading-relaxed">被叶片吸收，但不会在树液中流动。喷洒树冠顶部，它能杀死隐藏在叶背的害虫(如螨虫/粉虱)。</p>
+             <p className="text-lg font-medium text-slate-600 leading-relaxed">被叶片吸收，但不会在树液中流动。喷洒树冠顶部，它能杀死隐藏在叶背的害虫(如螨类、叶蝉若虫)。</p>
           </div>
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-sm">
              <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider flex items-center gap-1.5"><Icon name="arrow-up" className="w-4 h-4"/> 向上内吸 (木质部)</strong>
@@ -502,7 +502,7 @@ const TankMixGuide = () => (
           <div>
             <strong className="text-rose-900 block mb-2 text-lg uppercase tracking-wider">⚠️ 严重警告：农残超标 (MRL) 陷阱</strong>
             <p className="text-lg text-rose-800 leading-relaxed font-medium">
-              在<strong>果实成熟期</strong>，<strong>绝对不要</strong>使用能延长 DT₅₀ 的助剂(展着剂/抗紫剂)！在接近采收时人为延长化学品的寿命，注定会导致您的果实在海关出口的 <strong>MRL (最大农药残留限量)</strong> 检测中失败。请在采收前至少 30-45 天停止使用这些助剂，让农药自然降解。
+              在<strong>果实成熟期</strong>，<strong>绝对不要</strong>使用能延长 DT₅₀ 的助剂(展着剂/抗紫剂)！在接近采收时延长药剂寿命，会提高残留超过出口 <strong>MRL (最大农药残留限量)</strong> 的风险。临近采收，按标签的安全间隔期用药，不要加这些助剂。
             </p>
           </div>
         </div>
@@ -515,7 +515,7 @@ const TankMixGuide = () => (
 const BioControlGuide = () => (
   <div className="bg-white border-2 border-lime-100 rounded-2xl p-6 mt-4 mb-4 shadow-md animate-in fade-in slide-in-from-top-4">
     <p className="text-lg text-slate-600 font-medium mb-6">
-      使用如 <strong>贝莱斯芽孢杆菌 (B. velezensis)</strong> 和 <strong>解淀粉芽孢杆菌 (B. amyloliquefaciens)</strong> 等有益细菌是抵御侵略性真菌枯萎病 (如<em>丝核菌</em>) 最有效的反制手段之一。以下是它们赢得微观战争的原理：
+      使用如 <strong>贝莱斯芽孢杆菌 (B. velezensis)</strong> 和 <strong>解淀粉芽孢杆菌 (B. amyloliquefaciens)</strong> 等有益细菌可以帮助保护叶片，减少叶枯病 (如<em>丝核菌</em>)。田间效果不一，作预防比作治疗好。原理如下：
     </p>
     
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -525,7 +525,7 @@ const BioControlGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">脂肽类生物战</h4>
         </div>
         <p className="text-lg font-medium text-slate-600 mb-4 leading-relaxed flex-1">
-          这些细菌能合成强大的天然抗真菌化合物(伊枯草菌素、表面活性素、丰原素)，这些物质能直接撕裂真菌脂质细胞膜上的孔洞，导致真菌细胞瞬间泄漏死亡。
+          这些细菌能合成强大的天然抗真菌化合物(伊枯草菌素、表面活性素、丰原素)，在实验室中能破坏真菌的细胞膜。
         </p>
       </div>
 
@@ -535,7 +535,7 @@ const BioControlGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">竞争性排斥</h4>
         </div>
         <p className="text-lg font-medium text-slate-600 mb-4 leading-relaxed flex-1">
-          枯萎病不通过孢子传播，而是通过物理网状生长来蔓延。<em>芽孢杆菌</em>类微生物是超级活跃的定殖者，它们在物理上覆盖了叶片表面，剥夺了病原真菌的生存空间和营养。
+          枯萎病不通过孢子传播，而是通过物理网状生长来蔓延。<em>芽孢杆菌</em>会在叶片表面生长，与病菌争夺空间和养分。
         </p>
       </div>
 
@@ -570,8 +570,8 @@ const MicrobeGuide = () => (
           <div className="bg-teal-100 p-2.5 rounded-lg text-teal-600 shadow-sm"><Icon name="bug" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">球孢白僵菌</h4>
         </div>
-        <p className="text-sm font-extrabold text-teal-800 mb-3 uppercase tracking-wider">白色木乃伊刺客</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种接触杀虫真菌，能够穿透昆虫外骨骼并吸干其养分，将它们变成毛茸茸的白色木乃伊。最好与轻质园艺油混合使用。<br/><br/><strong className="text-slate-900">目标靶点：</strong>粉蚧，蚧壳虫，露尾甲，蛀虫。</p>
+        <p className="text-sm font-extrabold text-teal-800 mb-3 uppercase tracking-wider">白僵菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种昆虫病原真菌，孢子穿透虫体表皮后在体内生长，死虫身上长满白色菌丝。湿润天气效果较好，比化学药慢。最好与轻质园艺油混合使用。<br/><br/><strong className="text-slate-900">目标靶点：</strong>粉蚧，蚧壳虫，露尾甲，蛀虫。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-emerald-300 transition-colors shadow-sm">
@@ -579,8 +579,8 @@ const MicrobeGuide = () => (
           <div className="bg-emerald-100 p-2.5 rounded-lg text-emerald-600 shadow-sm"><Icon name="target" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">绿僵菌</h4>
         </div>
-        <p className="text-sm font-extrabold text-emerald-800 mb-3 uppercase tracking-wider">绿色地下刺客</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种栖息在土壤中的杀手真菌，专门感染并消耗硬壳甲虫和地下蛴螬，在死去的宿主身上留下坚硬的绿色硬壳。<br/><br/><strong className="text-slate-900">目标靶点：</strong>犀角金龟，鳃金龟蛴螬，白蚁。</p>
+        <p className="text-sm font-extrabold text-emerald-800 mb-3 uppercase tracking-wider">绿僵菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种土壤真菌，能感染甲虫、蛴螬等昆虫；死虫身上长满绿色孢子。土壤湿润时效果最好。<br/><br/><strong className="text-slate-900">目标靶点：</strong>鳃金龟蛴螬，象甲幼虫，白蚁。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-violet-300 transition-colors shadow-sm">
@@ -588,8 +588,8 @@ const MicrobeGuide = () => (
           <div className="bg-violet-100 p-2.5 rounded-lg text-violet-600 shadow-sm"><Icon name="activity" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">莱氏绿僵菌 (莱氏野村菌)</h4>
         </div>
-        <p className="text-sm font-extrabold text-violet-800 mb-3 uppercase tracking-wider">毛虫潜行者</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一接触就会将毛虫变成僵硬的木乃伊雕像，表面覆盖着淡绿色的孢子。对付高度活跃的食叶和蛀果毛虫效果极佳。<br/><br/><strong className="text-slate-900">目标靶点：</strong>蛀果蛾，蓑蛾，卷叶蛾。</p>
+        <p className="text-sm font-extrabold text-violet-800 mb-3 uppercase tracking-wider">毛虫病原真菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">能感染毛虫，死虫僵硬、长满淡绿色孢子。湿润天气才有效，比化学药慢，本地货源有限。<br/><br/><strong className="text-slate-900">目标靶点：</strong>蛀果蛾，蓑蛾，卷叶蛾。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-sky-300 transition-colors shadow-sm">
@@ -597,8 +597,8 @@ const MicrobeGuide = () => (
           <div className="bg-sky-100 p-2.5 rounded-lg text-sky-600 shadow-sm"><Icon name="leaf" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">蜡蚧轮枝菌</h4>
         </div>
-        <p className="text-sm font-extrabold text-sky-800 mb-3 uppercase tracking-wider">吸汁害虫溶解剂</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">在高湿度的树冠中茁壮成长，能直接溶解软体吸汁昆虫的角质层。独特之处在于，它能主动消化蜜露，瞬间治愈煤烟病。<br/><br/><strong className="text-slate-900">目标靶点：</strong>蚜虫，粉虱，木虱。</p>
+        <p className="text-sm font-extrabold text-sky-800 mb-3 uppercase tracking-wider">吸汁害虫病原真菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">在潮湿的树冠中效果最好，能感染软体吸汁昆虫。它本身治不了煤烟病——控制住分泌蜜露的害虫后，煤烟病会慢慢消退。<br/><br/><strong className="text-slate-900">目标靶点：</strong>蚜虫，木虱，粉蚧。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-yellow-400 transition-colors shadow-sm">
@@ -607,7 +607,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">玫烟色棒束孢 (球孢白僵菌亚种)</h4>
         </div>
         <p className="text-sm font-extrabold text-yellow-800 mb-3 uppercase tracking-wider">树冠清道夫</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">与其他真菌相比，对温度波动和阳光照射的适应力极强。非常适合对付高层树冠的害虫，用粉灰色的绒毛覆盖它们。<br/><br/><strong className="text-slate-900">目标靶点：</strong>茶黄蓟马，粉虱，蚜虫。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">与其他真菌相比，对温度波动和阳光照射的适应力极强。被感染的虫体会长出粉灰色的绒毛。<br/><br/><strong className="text-slate-900">目标靶点：</strong>蓟马，蚜虫，木虱。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-pink-300 transition-colors shadow-sm">
@@ -615,8 +615,8 @@ const MicrobeGuide = () => (
           <div className="bg-pink-100 p-2.5 rounded-lg text-pink-600 shadow-sm"><Icon name="target" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">汤普森被毛孢</h4>
         </div>
-        <p className="text-sm font-extrabold text-pink-800 mb-3 uppercase tracking-wider">红蜘蛛毁灭者</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">高度专业化的蜘蛛螨类猎手。穿透螨虫角质层并产生致瘫毒素。能够在地势较低的螨虫群落中引发大规模的“真菌瘟疫”。<br/><br/><strong className="text-slate-900">目标靶点：</strong>红蜘蛛，茶黄螨，瘿螨。</p>
+        <p className="text-sm font-extrabold text-pink-800 mb-3 uppercase tracking-wider">螨类病原真菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种能感染螨类的真菌。天气很潮湿时可在螨群中蔓延；田间效果不一，未在榴莲上试验过。<br/><br/><strong className="text-slate-900">目标靶点：</strong>红蜘蛛，茶黄螨，瘿螨。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-amber-300 transition-colors shadow-sm">
@@ -625,7 +625,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">枯草芽孢杆菌</h4>
         </div>
         <p className="text-sm font-extrabold text-amber-800 mb-3 uppercase tracking-wider">韧性防护盾</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种坚韧、能形成芽孢的细菌，对紫外线高度耐受。产生强大的天然抗生素(伊枯草菌素)来抑制广谱的叶片病害。也能作为强大的生物过滤器，利用EPS中和土壤中有毒的重金属。<br/><br/><strong className="text-slate-900">目标靶点：</strong>炭疽病，霉病，叶斑病，铜中毒。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种坚韧、能形成芽孢的细菌，对紫外线高度耐受。产生天然抗真菌物质（伊枯草菌素），作预防时能帮助保护叶片，减少几种叶部病害。<br/><br/><strong className="text-slate-900">目标靶点：</strong>炭疽病，霉病，叶斑病。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-indigo-300 transition-colors shadow-sm">
@@ -634,7 +634,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">荧光假单胞菌</h4>
         </div>
         <p className="text-sm font-extrabold text-indigo-800 mb-3 uppercase tracking-wider">铁元素掠夺者</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种具有强侵略性的根系/土壤细菌。它利用铁载体在土壤中与致病真菌激烈争夺铁元素，将病原菌"饿死"，同时增强树木的免疫力。<br/><br/><strong className="text-slate-900">目标靶点：</strong>疫霉病，腐霉根腐病。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种根际/土壤细菌，利用铁载体与病原菌争夺铁元素。田间效果不一。<br/><br/><strong className="text-slate-900">目标靶点：</strong>疫霉病，腐霉根腐病。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-rose-300 transition-colors shadow-sm">
@@ -643,7 +643,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">链霉菌属</h4>
         </div>
         <p className="text-sm font-extrabold text-rose-800 mb-3 uppercase tracking-wider">天然生物抗生素</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">以生产天然抗生素而闻名的土壤细菌。它们分泌挥发性有机化合物，能够直接溶解极具侵略性的木材腐烂菌的细胞壁。<br/><br/><strong className="text-slate-900">目标靶点：</strong>枝枯病，长喙壳菌(猝萎病)，白根病。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">以产生天然抗生素闻名的土壤细菌，在实验室中能抑制一些木腐菌。未在榴莲上试验过。<br/><br/><strong className="text-slate-900">目标靶点：</strong>枝枯病，白根病。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-fuchsia-300 transition-colors shadow-sm">
@@ -651,8 +651,8 @@ const MicrobeGuide = () => (
           <div className="bg-fuchsia-100 p-2.5 rounded-lg text-fuchsia-600 shadow-sm"><Icon name="x" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">淡紫拟青霉</h4>
         </div>
-        <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">线虫猎手</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种高度专业化、主动猎杀线虫的真菌。它的孢子会寄生线虫的卵和雌性成虫，将其溶解并彻底打破线虫的世代繁殖周期。<br/><br/><strong className="text-slate-900">目标靶点：</strong>根结线虫，根腐线虫。</p>
+        <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">线虫寄生真菌</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种能寄生线虫卵和雌虫的真菌，可减少下一代线虫。配合堆肥使用；效果不一。<br/><br/><strong className="text-slate-900">目标靶点：</strong>根结线虫，根腐线虫。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-orange-300 transition-colors shadow-sm">
@@ -661,7 +661,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">拜氏青霉菌</h4>
         </div>
         <p className="text-sm font-extrabold text-orange-800 mb-3 uppercase tracking-wider">解磷钥匙</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种有益的根部真菌，分泌有机酸来溶解土壤中被锁定的磷元素。能大规模促进根系质量增长，直接预防因营养胁迫诱发的根腐病。<br/><br/><strong className="text-slate-900">目标靶点：</strong>根系受压，营养锁定现象。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种有益的根部真菌，分泌有机酸来溶解土壤中被锁定的磷元素。在磷被固定的土壤中，可帮助根系生长。<br/><br/><strong className="text-slate-900">目标靶点：</strong>根系受压，营养锁定现象。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-lime-300 transition-colors shadow-sm">
@@ -670,7 +670,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">哈茨木霉</h4>
         </div>
         <p className="text-sm font-extrabold text-lime-800 mb-3 uppercase tracking-wider">真菌寄生客</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种极具攻击性的有益真菌，实行重寄生行为(寄生于真菌)。它真的会追踪致病真菌，盘绕在它们身上，并分泌酶来溶解和吃掉敌方的细胞壁。<br/><br/><strong className="text-slate-900">目标靶点：</strong>疫霉病，腐霉病，丝核菌。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">一种寄生其他真菌的有益真菌（重寄生）：缠绕病原菌并分解其细胞壁。最适合在根区作预防，配合堆肥使用。<br/><br/><strong className="text-slate-900">目标靶点：</strong>疫霉病，腐霉病，丝核菌。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-cyan-300 transition-colors shadow-sm">
@@ -679,7 +679,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">贝莱斯芽孢杆菌</h4>
         </div>
         <p className="text-sm font-extrabold text-cyan-800 mb-3 uppercase tracking-wider">脂肽类战士</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">能合成强大的天然抗真菌化合物（伊枯草菌素、表面活性素），能瞬间在致病真菌的脂质膜上撕开孔洞，导致侵略性枯萎病菌迅速细胞死亡。<br/><br/><strong className="text-slate-900">目标靶点：</strong>丝核菌叶枯病，各种病原真菌。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">产生天然抗真菌物质（伊枯草菌素、表面活性素），在实验室中能破坏真菌细胞膜。在叶枯病发生前用作保护效果最好。<br/><br/><strong className="text-slate-900">目标靶点：</strong>丝核菌叶枯病，各种病原真菌。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-fuchsia-300 transition-colors shadow-sm">
@@ -688,7 +688,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">解淀粉芽孢杆菌</h4>
         </div>
         <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">空间竞争霸主</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">与贝莱斯芽孢杆菌发挥完美的协同作用。它是一个超级活跃的定殖者，迅速覆盖叶片表面，剥夺入侵叶枯病菌丝的生长空间和营养。<br/><br/><strong className="text-slate-900">目标靶点：</strong>丝核菌，细菌性叶斑病。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">常与贝莱斯芽孢杆菌一起使用。它在叶片表面生长，与叶枯病菌争夺空间和养分。<br/><br/><strong className="text-slate-900">目标靶点：</strong>丝核菌，细菌性叶斑病。</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-blue-300 transition-colors shadow-sm lg:col-span-1">
@@ -697,7 +697,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">EM菌 (有效微生物群)</h4>
         </div>
         <p className="text-sm font-extrabold text-blue-800 mb-3 uppercase tracking-wider">土壤生态合成器</p>
-        <p className="text-slate-700 text-lg leading-relaxed font-medium">由乳酸菌、酵母菌和光合细菌组成的联合体。能极快地将死去的覆盖物发酵转化为营养，并强势排挤会造成腐烂的厌氧环境。<br/><br/><strong className="text-slate-900">目标靶点：</strong>土壤毒性(重金属累积)，病虫害繁殖地。</p>
+        <p className="text-slate-700 text-lg leading-relaxed font-medium">由乳酸菌、酵母菌和光合细菌组成的联合体。帮助分解覆盖物和有机质。在榴莲上的试验证据很少。<br/><br/><strong className="text-slate-900">目标靶点：</strong>覆盖物和堆肥分解。</p>
       </div>
     </div>
 
@@ -707,9 +707,9 @@ const MicrobeGuide = () => (
         <Icon name="shield" className="w-8 h-8 text-emerald-400" />
       </div>
       <div>
-        <strong className="text-emerald-300 block mb-2 text-lg uppercase tracking-widest font-black">隐藏优势：重金属解毒 (生物修复)</strong>
+        <strong className="text-emerald-300 block mb-2 text-lg uppercase tracking-widest font-black">铜制剂要省着用</strong>
         <p className="text-lg font-medium leading-relaxed text-emerald-100/90">
-          几十年长期使用化肥和<strong className="text-white">铜制剂杀菌剂</strong> (FRAC M01) 会导致土壤中积累有毒重金属，最终毒害树木的吸收根（铜中毒）。诸如 <strong>枯草芽孢杆菌</strong>、<strong>假单胞菌</strong>、<strong>木霉菌</strong>和<strong>EM菌</strong>等微生物充当着天然的生物过滤器。它们分泌生物表面活性剂、EPS（粘性聚合物）和酶类，这些物质在土壤中主动绑定、中和并锁定多余的重金属，从而将根系从化学烧伤中拯救出来。
+          反复大量使用<strong className="text-white">铜制剂杀菌剂</strong> (FRAC M01) 会使铜在土壤中积累，因为铜不会分解。只在需要时用铜，并与其他类别轮换。微生物不能把铜从土壤中清除。
         </p>
       </div>
     </div>
@@ -770,7 +770,7 @@ const DT50Guide = () => {
         <div>
           <strong className="text-rose-900 block mb-1 text-lg uppercase tracking-wider">农艺师专业提示：农残 (MRL) 与出口限制</strong>
           <p className="text-lg text-rose-800 leading-relaxed font-medium">
-            如果您要出口榴莲，任何<strong>叶面 DT₅₀ 大于 7 天</strong>的化学药剂（例如氯虫苯甲酰胺、嘧菌酯），必须在<strong>采收前至少 30 到 45 天</strong>完全从您的喷洒计划中剔除。在最后的果实成熟阶段，请坚持使用快速降解的化学品（叶面 DT₅₀ 小于 3 天）或纯生物制剂，以确保顺利通过海关的农药残留检测。
+            如果您要出口榴莲，请遵守每个产品<strong>标签上的安全间隔期</strong>和<strong>进口国的 MRL</strong>（出口中国：GB 2763）。DT₅₀ 只是药剂能留多久的粗略参考，不是采收规则。临近采收，用降解快的药剂或生物制剂可降低残留风险。
           </p>
         </div>
       </div>
@@ -1435,7 +1435,7 @@ export default function ZhApp() {
                     <span className="leading-relaxed font-semibold">
                       {risks.fungal >= 70 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
-                          <span>高湿警报！<strong className="text-red-700 uppercase">⚠️ 零铜制剂窗口期激活！</strong>切勿使用铜制剂，否则会导致瞬间落花。立即进行亚磷酸土壤灌根，并在树冠喷施<em>枯草芽孢杆菌</em>。</span> :
+                          <span>高湿警报！<strong className="text-red-700 uppercase">⚠️ 零铜制剂窗口期激活！</strong>避免把铜制剂喷到盛开的花上——会灼伤花朵。立即进行亚磷酸土壤灌根，并在树冠喷施<em>枯草芽孢杆菌</em>。</span> :
                           "高湿警报。确保排水沟渠畅通，防止疫霉根颈腐烂。立即进行亚磷酸土壤灌根。"
                       ) : risks.fungal >= 40 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
@@ -1761,7 +1761,7 @@ export default function ZhApp() {
                       </div>
                       <div className="text-left">
                         <span className="block font-extrabold text-xl leading-tight">生物战：芽孢杆菌 VS 真菌</span>
-                        <span className="block text-sm text-lime-700 font-medium mt-0.5">有益细菌如何消灭丝核菌等致命病原体</span>
+                        <span className="block text-sm text-lime-700 font-medium mt-0.5">有益细菌如何帮助防护丝核菌</span>
                       </div>
                     </div>
                     <Icon name={showBioGuide ? "chevron-up" : "chevron-down"} className="w-8 h-8 text-lime-400 group-hover:text-lime-600 transition-colors flex-shrink-0" />

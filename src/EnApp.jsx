@@ -92,7 +92,7 @@ const getMobilityTag = (code) => {
 // --- 3-PHASE IPM PARSER ---
 const getPhaseInfo = (phase, category) => {
   if (category === 'Fungi/Pathogens') {
-      if (phase === 1) return { title: 'Phase 1: Eradicant', desc: 'Active Outbreak. Burn out active fungal lesions and halt sporulation instantly.', color: 'red' };
+      if (phase === 1) return { title: 'Phase 1: Eradicant', desc: 'Active Outbreak. Burn out active fungal lesions and slow the spread of spores.', color: 'red' };
       if (phase === 2) return { title: 'Phase 2: Systemic Shield', desc: 'Consolidation. Absorb into vascular tissue to protect new flushes from internal spread.', color: 'amber' };
       if (phase === 3) return { title: 'Phase 3: Protectant', desc: 'Maintenance. Coat leaf surface with contact barriers or competitive bio-agents.', color: 'emerald' };
   }
@@ -158,7 +158,7 @@ const TrappingGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">Yellow Sticky Cards<br/><span className="text-sm text-slate-500 font-medium">(The All-Rounder)</span></h4>
         </div>
         <p className="text-slate-600 mb-4 leading-relaxed flex-1">
-          Mimics light reflectance of high-nitrogen young shoots. Best for <strong>Psyllids, Aphids, Whiteflies, and Fruit Flies</strong>. <br/><br/><span className="text-sm font-medium text-amber-700">⚠️ <em>Extra-large, high-strength yellow boards are also highly effective at trapping foraging <strong>Orchard Wasps/Hornets</strong>.</em></span>
+          Mimics light reflectance of high-nitrogen young shoots. Mainly for monitoring <strong>Psyllids, Aphids and Leafhoppers</strong> on the new flush. (Fruit flies are a minor durian pest — collect fallen and cracked fruit; whitefly is not recorded on durian.) <br/><br/><span className="text-sm font-medium text-amber-700">⚠️ <em>Extra-large, high-strength yellow boards are also highly effective at trapping foraging <strong>Orchard Wasps/Hornets</strong>.</em></span>
         </p>
         <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mt-auto">
           <strong className="text-yellow-800 block mb-2 uppercase tracking-wider text-xs">Placement:</strong>
@@ -197,7 +197,7 @@ const TrappingGuide = () => (
     
     <div className="mt-6 p-4 bg-emerald-900 text-emerald-50 rounded-xl flex items-center gap-4 border border-emerald-950 shadow-inner">
       <Icon name="info" className="w-6 h-6 text-emerald-400 flex-shrink-0" />
-      <span className="text-sm font-medium"><strong>Pro Tip:</strong> Mass trapping (5-10 cards/tree) can reduce insect populations by up to 40% without using chemicals. Replace when 50% covered.</span>
+      <span className="text-sm font-medium"><strong>Pro Tip:</strong> Sticky cards are mainly for monitoring — they show you when numbers rise so you can act in time. There is no reliable durian figure for how much they cut pest numbers. Replace when half covered.</span>
     </div>
   </div>
 );
@@ -230,7 +230,7 @@ const LightTrappingGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">Low-Level Traps<br/><span className="text-sm text-slate-500 font-medium">(Night-flying Beetles)</span></h4>
         </div>
         <p className="text-slate-600 mb-4 leading-relaxed flex-1">
-          Targets emerging <strong>Chafer Beetles</strong> and <strong>Rhinoceros Beetles</strong> as they rise from the soil or compost to feed on young saplings and shoots.
+          Targets emerging <strong>Chafer Beetles</strong> as they rise from the soil or compost to feed on young saplings and shoots.
         </p>
         <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 mt-auto">
           <strong className="text-amber-800 block mb-2 uppercase tracking-wider text-xs">Placement:</strong>
@@ -318,7 +318,7 @@ const TankMixGuide = () => (
               Never mix more than <strong>3 active ingredients</strong> in a single tank.
             </p>
             <p className="text-sm font-medium mt-3 opacity-95 leading-relaxed">
-              Mixing too many chemical types creates a "Cocktail Disaster." You risk <strong>Phytotoxicity</strong> (burning the entire canopy) or <strong>Chemical Neutralization</strong>. If the chemicals cancel each other out, you are <strong>wasting 40-60% of your budget</strong> while potentially caking your nozzles with non-dissolved sludge.
+              Mixing too many chemical types creates a "Cocktail Disaster." You risk <strong>Phytotoxicity</strong> (burning the entire canopy) or <strong>Chemical Neutralization</strong>. If the chemicals cancel each other out, you <strong>waste money</strong> and may cake your nozzles with non-dissolved sludge.
             </p>
           </div>
         </div>
@@ -331,7 +331,7 @@ const TankMixGuide = () => (
           The Golden pH Rule (Alkaline Hydrolysis)
         </h4>
         <p className="text-slate-600 mb-4 leading-relaxed">
-          If your farm water is highly alkaline (pH 7.5+), it will literally tear apart modern pesticides (like Pyrethroids) in the tank within 20 minutes. Always test and buffer your water first!
+          If your farm water is highly alkaline (pH 7.5+), some pesticides break down in the tank (alkaline hydrolysis) — how fast depends on the product. Test your water, buffer it if the label says so, and spray soon after mixing.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
@@ -351,28 +351,28 @@ const TankMixGuide = () => (
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
         <h4 className="font-bold text-xl text-slate-800 flex items-center gap-3 mb-4">
           <Icon name="beaker" className="w-6 h-6 text-violet-500" />
-          Proven Synergistic Cocktails (1 + 1 = 3)
+          Common Mixes — What They Really Do
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-violet-50 p-4 rounded-xl border border-violet-200">
              <strong className="text-violet-900 block mb-1 text-sm uppercase tracking-wider">The Enzyme Blocker</strong>
              <p className="font-bold text-violet-950 mb-2">PBO + Pyrethroids (IRAC 3A)</p>
-             <p className="text-sm text-violet-800 leading-relaxed">Insects use enzymes to survive poison. PBO shuts down the enzyme, making the Pyrethroid up to 10x more lethal against resistant borers.</p>
+             <p className="text-sm text-violet-800 leading-relaxed">Some insects survive pyrethroids by breaking them down with enzymes. PBO blocks part of that, so it can bring back some activity where resistance is enzyme-based. Use only a product sold with PBO, at the label rate.</p>
           </div>
           <div className="bg-fuchsia-50 p-4 rounded-xl border border-fuchsia-200">
-             <strong className="text-fuchsia-900 block mb-1 text-sm uppercase tracking-wider">Energy & Shield Breaker</strong>
-             <p className="font-bold text-fuchsia-950 mb-2">FRAC 11 + FRAC 3</p>
-             <p className="text-sm text-fuchsia-800 leading-relaxed">Azoxystrobin (stops fungal breathing) mixed with Difenoconazole (stops cell building). Ultimate combo for Anthracnose.</p>
+             <strong className="text-fuchsia-900 block mb-1 text-sm uppercase tracking-wider">Anthracnose: Order Matters</strong>
+             <p className="font-bold text-fuchsia-950 mb-2">FRAC 3 first, FRAC 11 only in rotation</p>
+             <p className="text-sm text-fuchsia-800 leading-relaxed">A Thai durian study found all anthracnose isolates sensitive to difenoconazole and prochloraz, but many resistant to strobilurins (QoI, e.g. azoxystrobin). So use difenoconazole or prochloraz first; use a strobilurin only as a rotation partner.</p>
           </div>
           <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-200">
-             <strong className="text-indigo-900 block mb-1 text-sm uppercase tracking-wider">The "Flush & Kill"</strong>
+             <strong className="text-indigo-900 block mb-1 text-sm uppercase tracking-wider">Caution: Mite Outbreaks</strong>
              <p className="font-bold text-indigo-950 mb-2">IRAC 3A + IRAC 4A</p>
-             <p className="text-sm text-indigo-800 leading-relaxed">Pyrethroids irritate and flush hidden pests out of leaf folds directly into the systemic Neonicotinoid layer. Perfect for outbreaks.</p>
+             <p className="text-sm text-indigo-800 leading-relaxed">Pyrethroids and neonicotinoids kill predatory mites, and repeated use can set off red mite outbreaks. Use one mode of action per spray and rotate groups, rather than this premix.</p>
           </div>
           <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
-             <strong className="text-amber-900 block mb-1 text-sm uppercase tracking-wider">The Physical Breach</strong>
+             <strong className="text-amber-900 block mb-1 text-sm uppercase tracking-wider">Oil Helps the Spray Stick</strong>
              <p className="font-bold text-amber-950 mb-2">White Oil + IRAC 23</p>
-             <p className="text-sm text-amber-800 leading-relaxed">Oil acts as a physical solvent, melting the wax armor of the Pit Scale and pulling the systemic Spirotetramat directly into the insect.</p>
+             <p className="text-sm text-amber-800 leading-relaxed">Oil helps the spray spread and stick through the waxy coat of scales and mealybugs. Spirotetramat is systemic, so it also reaches scales feeding in the twig.</p>
           </div>
         </div>
       </div>
@@ -405,7 +405,7 @@ const TankMixGuide = () => (
               <strong className="text-amber-900 block mb-1 text-lg uppercase tracking-wider">The "Zero Copper Window" (Anthesis)</strong>
               <p className="font-bold text-amber-950 mb-2">Copper applied during Matchstick or Full Bloom</p>
               <p className="text-sm text-amber-800 leading-relaxed font-medium">
-                <strong>Never apply copper during flowering!</strong> The highly reactive copper ions will instantly burn the delicate stigma and desiccate the pollen, causing massive flower abortion. Furthermore, the metallic residue repels vital nocturnal pollinators (like Cave Nectar Bats) and is highly toxic to the gut biome of pollinating insects. Switch entirely to soft biologicals (like <em>Bacillus subtilis</em>) during this phase.
+                <strong>Keep copper sprays off open flowers.</strong> Copper can scorch delicate flower parts. During bloom, use gentler products (like <em>Bacillus subtilis</em>) on the flowers, and spray copper only where it is really needed, away from open flowers.
               </p>
             </div>
           </div>
@@ -419,13 +419,13 @@ const TankMixGuide = () => (
           Understanding LT₅₀ (Lethal Time) & Knockdowns
         </h4>
         <p className="text-slate-600 mb-4 leading-relaxed">
-          While DT₅₀ measures environmental lifespan, <strong>LT₅₀</strong> measures how fast the insect actually dies. Agronomists mix fast and slow LT₅₀ chemicals to create the ultimate defense:
+          While DT₅₀ measures environmental lifespan, <strong>LT₅₀</strong> measures how fast the insect actually dies. Fast and slow chemicals do different jobs:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
              <strong className="text-rose-800 block mb-1 text-sm uppercase tracking-wider">Fast LT₅₀ (Knockdown)</strong>
              <p className="font-bold text-rose-950 mb-1">Contact Killers (e.g., Pyrethroids)</p>
-             <p className="text-sm text-slate-600 leading-relaxed">Kills in minutes. Insects drop from the canopy instantly upon physical contact.</p>
+             <p className="text-sm text-slate-600 leading-relaxed">Kills within minutes to hours. Insects must be hit by the spray.</p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
              <strong className="text-indigo-800 block mb-1 text-sm uppercase tracking-wider">Slow LT₅₀ (Systemic)</strong>
@@ -433,9 +433,9 @@ const TankMixGuide = () => (
              <p className="text-sm text-slate-600 leading-relaxed">Takes 3-7 days. Pests stop feeding immediately but remain on the leaf as harmless "walking dead."</p>
           </div>
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-sm">
-             <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider">The Perfect Mix</strong>
-             <p className="font-bold text-emerald-950 mb-1">Fast + Slow (Flush & Kill)</p>
-             <p className="text-sm text-emerald-900 leading-relaxed">Fast chemicals knock down the current swarm, while slow systemics protect against new hatchlings days later.</p>
+             <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider">Two Jobs</strong>
+             <p className="font-bold text-emerald-950 mb-1">Fast, then Slow — in rotation</p>
+             <p className="text-sm text-emerald-900 leading-relaxed">In a bad outbreak, a fast contact spray brings numbers down; the next round, a slow systemic from a different group protects the new flush from fresh hatchlings. Spray them in turn, not mixed together.</p>
           </div>
         </div>
       </div>
@@ -458,7 +458,7 @@ const TankMixGuide = () => (
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
              <strong className="text-indigo-800 block mb-1 text-sm uppercase tracking-wider flex items-center gap-1.5"><Icon name="leaf" className="w-4 h-4"/> Translaminar</strong>
              <p className="font-bold text-indigo-950 mb-1">e.g., IRAC 6, FRAC 11</p>
-             <p className="text-sm text-slate-600 leading-relaxed">Absorbs into the leaf but doesn't flow through the sap. Spray the top canopy, and it kills pests hiding on the underside (Mites/Whiteflies).</p>
+             <p className="text-sm text-slate-600 leading-relaxed">Absorbs into the leaf but doesn't flow through the sap. Spray the top canopy, and it kills pests hiding on the underside (mites, leafhopper nymphs).</p>
           </div>
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-sm">
              <strong className="text-emerald-800 block mb-1 text-sm uppercase tracking-wider flex items-center gap-1.5"><Icon name="arrow-up" className="w-4 h-4"/> Systemic (Xylem)</strong>
@@ -508,7 +508,7 @@ const TankMixGuide = () => (
           <div>
             <strong className="text-rose-900 block mb-2 text-lg uppercase tracking-wider">⚠️ Critical Warning: The MRL Trap</strong>
             <p className="text-rose-800 leading-relaxed font-medium">
-              <strong>DO NOT</strong> use DT₅₀ extenders (Stickers/UV Blockers) during the <strong className="text-rose-950">Maturation Stage</strong>! Artificially extending chemical life near harvest guarantees your fruits will fail export <strong>MRL (Maximum Residue Limit)</strong> tests at customs. Stop using these adjuvants at least 30-45 days before harvest to allow natural degradation.
+              <strong>DO NOT</strong> use DT₅₀ extenders (Stickers/UV Blockers) during the <strong className="text-rose-950">Maturation Stage</strong>! Making a chemical last longer near harvest raises the risk of residues above the export <strong>MRL (Maximum Residue Limit)</strong>. Near harvest, follow the label's pre-harvest interval and leave these adjuvants out.
             </p>
           </div>
         </div>
@@ -521,7 +521,7 @@ const TankMixGuide = () => (
 const BioControlGuide = () => (
   <div className="bg-white border-2 border-lime-100 rounded-2xl p-6 mt-4 mb-4 shadow-md animate-in fade-in slide-in-from-top-4">
     <p className="text-lg text-slate-600 font-medium mb-6">
-      Using beneficial bacteria like <strong>Bacillus velezensis</strong> and <strong>Bacillus amyloliquefaciens</strong> is one of the most effective countermeasures against aggressive fungal blights (like <em>Rhizoctonia solani</em>). Here is how they win the microscopic war:
+      Using beneficial bacteria like <strong>Bacillus velezensis</strong> and <strong>Bacillus amyloliquefaciens</strong> can help protect leaves against blights (like <em>Rhizoctonia solani</em>). Results vary in the field, and they work best as protection, not cure. Here is how they work:
     </p>
     
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -531,7 +531,7 @@ const BioControlGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">Lipopeptide Warfare</h4>
         </div>
         <p className="text-slate-600 mb-4 leading-relaxed flex-1">
-          These bacteria synthesize powerful natural antifungal compounds (Iturin, Surfactin, Fengycin) that literally tear holes in the fungal lipid membranes, causing the fungal cells to leak and die instantly.
+          These bacteria synthesize powerful natural antifungal compounds (Iturin, Surfactin, Fengycin) that damage fungal cell membranes in lab tests.
         </p>
       </div>
 
@@ -541,7 +541,7 @@ const BioControlGuide = () => (
           <h4 className="font-bold text-xl text-slate-800">Competitive Exclusion</h4>
         </div>
         <p className="text-slate-600 mb-4 leading-relaxed flex-1">
-          Instead of spreading via spores, blights spread via physical web-like growth. The <em>Bacillus</em> microbes are hyper-aggressive colonizers that physically cover the leaf surface, starving the fungus of space and nutrients.
+          Instead of spreading via spores, blights spread via physical web-like growth. The <em>Bacillus</em> microbes grow over the leaf surface and compete with the fungus for space and food.
         </p>
       </div>
 
@@ -577,7 +577,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Beauveria bassiana</h4>
         </div>
         <p className="text-sm font-extrabold text-teal-800 mb-3 uppercase tracking-wider">The White Muscardine</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A contact-killing fungus that penetrates insect exoskeletons and drains nutrients, turning them into fuzzy white mummies. Best mixed with light oil. <br/><br/><strong className="text-slate-900">Targets:</strong> Mealybugs, Scales, Sap Beetles, Borers.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">An insect-killing fungus: spores get through the insect's skin and grow inside it; dead insects are covered in white fuzz. Works best in humid weather and is slower than chemicals. Often mixed with a light oil. <br/><br/><strong className="text-slate-900">Targets:</strong> Mealybugs, Scales, Sap Beetles, Borers.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-emerald-300 transition-colors shadow-sm">
@@ -586,7 +586,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Metarhizium anisopliae</h4>
         </div>
         <p className="text-sm font-extrabold text-emerald-800 mb-3 uppercase tracking-wider">The Green Muscardine</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A soil-dwelling assassin fungus that specifically infects and consumes hard-shelled beetles and grubs, leaving behind a hard green crust on the dead host. <br/><br/><strong className="text-slate-900">Targets:</strong> Rhino Beetles, Chafer Grubs, Termites.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A soil fungus that infects beetles, grubs and other insects; dead insects are covered in green spores. Works best in moist soil. <br/><br/><strong className="text-slate-900">Targets:</strong> Chafer Grubs, Weevil Grubs, Termites.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-violet-300 transition-colors shadow-sm">
@@ -594,8 +594,8 @@ const MicrobeGuide = () => (
           <div className="bg-violet-100 p-2.5 rounded-lg text-violet-600 shadow-sm"><Icon name="activity" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Nomuraea rileyi</h4>
         </div>
-        <p className="text-sm font-extrabold text-violet-800 mb-3 uppercase tracking-wider">The Caterpillar Stalker</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Turns caterpillars into rigid, mummified statues covered in pale-green spores on contact. Excellent for aggressive foliar and fruit borers. <br/><br/><strong className="text-slate-900">Targets:</strong> Fruit Borers, Bagworms, Leafrollers.</p>
+        <p className="text-sm font-extrabold text-violet-800 mb-3 uppercase tracking-wider">The Caterpillar Fungus</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Infects caterpillars, which die stiff and covered in pale-green spores. Works in humid weather; slower than chemicals, and local supply is limited. <br/><br/><strong className="text-slate-900">Targets:</strong> Fruit Borers, Bagworms, Leafrollers.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-sky-300 transition-colors shadow-sm">
@@ -603,8 +603,8 @@ const MicrobeGuide = () => (
           <div className="bg-sky-100 p-2.5 rounded-lg text-sky-600 shadow-sm"><Icon name="leaf" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Lecanicillium lecanii</h4>
         </div>
-        <p className="text-sm font-extrabold text-sky-800 mb-3 uppercase tracking-wider">The Sap-Sucker Assassin</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Thrives in highly humid canopies, explicitly melting the cuticles of soft-bodied insects. Uniquely, it actively feeds on honeydew, instantly curing Sooty Mold. <br/><br/><strong className="text-slate-900">Targets:</strong> Aphids, Whiteflies, Psyllids.</p>
+        <p className="text-sm font-extrabold text-sky-800 mb-3 uppercase tracking-wider">The Sap-Sucker Fungus</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Works best in humid canopies, where it infects soft-bodied insects. It does not cure sooty mould by itself — sooty mould fades once the honeydew-making insects are controlled. <br/><br/><strong className="text-slate-900">Targets:</strong> Aphids, Psyllids, Mealybugs.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-yellow-400 transition-colors shadow-sm">
@@ -613,7 +613,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Isaria fumosorosea</h4>
         </div>
         <p className="text-sm font-extrabold text-yellow-800 mb-3 uppercase tracking-wider">The Canopy Sweeper</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Highly resilient to temperature fluctuations and sun exposure compared to other fungi. Perfect for upper canopy pests, covering them in a pinkish-grey fuzz. <br/><br/><strong className="text-slate-900">Targets:</strong> Chilli Thrips, Whiteflies, Aphids.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Highly resilient to temperature fluctuations and sun exposure compared to other fungi. Infected insects are covered in a pinkish-grey fuzz. <br/><br/><strong className="text-slate-900">Targets:</strong> Thrips, Aphids, Psyllids.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-pink-300 transition-colors shadow-sm">
@@ -621,8 +621,8 @@ const MicrobeGuide = () => (
           <div className="bg-pink-100 p-2.5 rounded-lg text-pink-600 shadow-sm"><Icon name="target" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Hirsutella thompsonii</h4>
         </div>
-        <p className="text-sm font-extrabold text-pink-800 mb-3 uppercase tracking-wider">The Mite Destroyer</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Hyper-specialized to hunt arachnids. Penetrates the mite cuticle and produces a paralyzing toxin. Capable of causing massive "fungal pandemics" in mite colonies. <br/><br/><strong className="text-slate-900">Targets:</strong> Red Mites, Broad Mites, Eriophyid Mites.</p>
+        <p className="text-sm font-extrabold text-pink-800 mb-3 uppercase tracking-wider">The Mite Fungus</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A fungus that infects mites. In very humid weather it can spread through a mite colony; field results vary and it has not been tested on durian. <br/><br/><strong className="text-slate-900">Targets:</strong> Red Mites, Broad Mites, Eriophyid Mites.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-amber-300 transition-colors shadow-sm">
@@ -631,7 +631,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Bacillus subtilis</h4>
         </div>
         <p className="text-sm font-extrabold text-amber-800 mb-3 uppercase tracking-wider">The Resilient Shield</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A tough, spore-forming bacterium highly resilient to UV light. Produces powerful natural antibiotics (iturin) to suppress broad-spectrum foliage diseases. Also acts as a powerful bio-filter using EPS to neutralize toxic heavy metals in the soil.<br/><br/><strong className="text-slate-900">Targets:</strong> Anthracnose, Mildews, Leaf Spots, Copper Toxicity.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A tough, spore-forming bacterium highly resilient to UV light. Produces natural antifungal compounds (iturin) that can help protect leaves against several leaf diseases, as prevention.<br/><br/><strong className="text-slate-900">Targets:</strong> Anthracnose, Mildews, Leaf Spots.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-indigo-300 transition-colors shadow-sm">
@@ -640,7 +640,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Pseudomonas fluorescens</h4>
         </div>
         <p className="text-sm font-extrabold text-indigo-800 mb-3 uppercase tracking-wider">The Iron Thief</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">An aggressive root/soil bacterium that outcompetes fungal pathogens for iron in the soil (using siderophores), starving them out while boosting tree immunity. <br/><br/><strong className="text-slate-900">Targets:</strong> Phytophthora, Pythium.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A root and soil bacterium that competes with disease organisms for iron (using siderophores). Results vary in the field. <br/><br/><strong className="text-slate-900">Targets:</strong> Phytophthora, Pythium.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-rose-300 transition-colors shadow-sm">
@@ -649,7 +649,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Streptomyces spp.</h4>
         </div>
         <p className="text-sm font-extrabold text-rose-800 mb-3 uppercase tracking-wider">The Bio-Antibiotic</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Soil bacteria famous for producing natural antibiotics. They secrete volatile organic compounds that literally melt the cell walls of highly aggressive wood rots. <br/><br/><strong className="text-slate-900">Targets:</strong> Fusicoccum, Ceratocystis, White Root.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Soil bacteria known for producing natural antibiotics that slow some wood-rot fungi in lab tests. Not tested on durian. <br/><br/><strong className="text-slate-900">Targets:</strong> Fusicoccum, White Root.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-fuchsia-300 transition-colors shadow-sm">
@@ -657,8 +657,8 @@ const MicrobeGuide = () => (
           <div className="bg-fuchsia-100 p-2.5 rounded-lg text-fuchsia-600 shadow-sm"><Icon name="x" className="w-6 h-6"/></div>
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Purpureocillium lilacinum</h4>
         </div>
-        <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">The Nematode Hunter</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A highly specialized fungus that actively hunts nematodes. Its spores parasitize nematode eggs and females, dissolving them and breaking the generational cycle. <br/><br/><strong className="text-slate-900">Targets:</strong> Root-knot & Lesion Nematodes.</p>
+        <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">The Nematode Fungus</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A fungus that infects nematode eggs and females, which can lower the next generation. Use with compost; results vary. <br/><br/><strong className="text-slate-900">Targets:</strong> Root-knot & Lesion Nematodes.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-orange-300 transition-colors shadow-sm">
@@ -667,7 +667,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Penicillium bilaiae</h4>
         </div>
         <p className="text-sm font-extrabold text-orange-800 mb-3 uppercase tracking-wider">The Phosphorus Unlocker</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A beneficial root fungus that secretes organic acids to dissolve bound-up phosphorus in the soil. Massively boosts root mass, directly preventing stress-induced rots. <br/><br/><strong className="text-slate-900">Targets:</strong> Root Stress, Nutrient Lockout.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A beneficial root fungus that secretes organic acids to dissolve bound-up phosphorus in the soil. Can help root growth where phosphorus is locked up. <br/><br/><strong className="text-slate-900">Targets:</strong> Root Stress, Nutrient Lockout.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-lime-300 transition-colors shadow-sm">
@@ -676,7 +676,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Trichoderma harzianum</h4>
         </div>
         <p className="text-sm font-extrabold text-lime-800 mb-3 uppercase tracking-wider">The Fungal Parasite</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A hyper-aggressive beneficial fungus that practices mycoparasitism. It literally tracks down pathogenic fungi, coils around them, and secretes enzymes to dissolve and eat their cell walls. <br/><br/><strong className="text-slate-900">Targets:</strong> Phytophthora, Pythium, Rhizoctonia.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A beneficial fungus that attacks other fungi (mycoparasitism): it grows around them and breaks down their cell walls. Best as prevention in the root zone, with compost. <br/><br/><strong className="text-slate-900">Targets:</strong> Phytophthora, Pythium, Rhizoctonia.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-cyan-300 transition-colors shadow-sm">
@@ -685,7 +685,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Bacillus velezensis</h4>
         </div>
         <p className="text-sm font-extrabold text-cyan-800 mb-3 uppercase tracking-wider">The Lipopeptide Warrior</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Synthesizes powerful natural antifungal compounds (Iturin, Surfactin) that instantly tear holes in fungal lipid membranes, causing rapid cell death in aggressive blights. <br/><br/><strong className="text-slate-900">Targets:</strong> Rhizoctonia Leaf Blight, Pathogenic Fungi.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Produces natural antifungal compounds (iturin, surfactin) that damage fungal cell membranes in lab tests. Best as protection before blight takes hold. <br/><br/><strong className="text-slate-900">Targets:</strong> Rhizoctonia Leaf Blight, Pathogenic Fungi.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-fuchsia-300 transition-colors shadow-sm">
@@ -694,7 +694,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">B. amyloliquefaciens</h4>
         </div>
         <p className="text-sm font-extrabold text-fuchsia-800 mb-3 uppercase tracking-wider">The Competitive Colonizer</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">Works synergistically with B. velezensis. A hyper-aggressive colonizer that rapidly covers the leaf surface (phyllosphere), starving invading blight mycelium of space and nutrients. <br/><br/><strong className="text-slate-900">Targets:</strong> Rhizoctonia, Bacterial Leaf Spot.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">Works synergistically with B. velezensis. Grows over the leaf surface (phyllosphere) and competes with blight for space and food. <br/><br/><strong className="text-slate-900">Targets:</strong> Rhizoctonia, Bacterial Leaf Spot.</p>
       </div>
 
       <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col hover:border-blue-300 transition-colors shadow-sm lg:col-span-1">
@@ -703,7 +703,7 @@ const MicrobeGuide = () => (
           <h4 className="font-bold text-xl text-slate-800 leading-tight">Effective Microbes (EM)</h4>
         </div>
         <p className="text-sm font-extrabold text-blue-800 mb-3 uppercase tracking-wider">The Soil Synthesizer</p>
-        <p className="text-slate-700 text-sm leading-relaxed font-medium">A consortium of lactic acid bacteria, yeast, and phototrophic bacteria. Rapidly ferments dead mulch into nutrients and aggressively outcompetes anaerobic rot environments. <br/><br/><strong className="text-slate-900">Targets:</strong> Soil toxicity (Heavy Metals), Breeding Grounds.</p>
+        <p className="text-slate-700 text-sm leading-relaxed font-medium">A consortium of lactic acid bacteria, yeast, and phototrophic bacteria. Helps break down mulch and organic matter. Little trial evidence on durian. <br/><br/><strong className="text-slate-900">Targets:</strong> Mulch and compost breakdown.</p>
       </div>
     </div>
 
@@ -713,9 +713,9 @@ const MicrobeGuide = () => (
         <Icon name="shield" className="w-8 h-8 text-emerald-400" />
       </div>
       <div>
-        <strong className="text-emerald-300 block mb-2 text-lg uppercase tracking-widest font-black">Hidden Benefit: Heavy Metal Detoxification (Bioremediation)</strong>
+        <strong className="text-emerald-300 block mb-2 text-lg uppercase tracking-widest font-black">Go Easy on Copper</strong>
         <p className="text-sm font-medium leading-relaxed text-emerald-100/90">
-          Decades of using chemical fertilizers and <strong className="text-white">Copper-based fungicides</strong> (FRAC M01) causes toxic heavy metal buildup in the soil, which eventually poisons the tree's feeder roots (Copper Toxicity). Microbes like <strong>Bacillus subtilis</strong>, <strong>Pseudomonas</strong>, <strong>Trichoderma</strong>, and <strong>EM</strong> act as natural bio-filters. They secrete biosurfactants, EPS (sticky polymers), and enzymes that actively bind, neutralize, and lock away excess heavy metals in the soil, saving the root system from chemical burn.
+          Repeated heavy use of <strong className="text-white">copper fungicides</strong> (FRAC M01) builds up copper in the soil, because copper does not break down. Use copper only when it is needed, and rotate with other groups. Microbes do not remove copper from the soil.
         </p>
       </div>
     </div>
@@ -769,7 +769,7 @@ const DT50Guide = () => {
         <div>
           <strong className="text-rose-900 block mb-1 text-lg uppercase tracking-wider">Agronomist Pro-Tip: MRL & Exporting</strong>
           <p className="text-sm text-rose-800 leading-relaxed font-medium">
-            If you are exporting your durians, any chemical with a <strong>Foliar DT₅₀ greater than 7 days</strong> (e.g., Chlorantraniliprole, Azoxystrobin) must be completely cut from your spray program <strong>at least 30 to 45 days before harvest</strong>. Stick to fast-degrading chemicals (Foliar DT₅₀ {'<'} 3 days) or purely biologicals during the final maturation stage to pass customs residue testing.
+            If you are exporting your durians, follow each product's <strong>label pre-harvest interval</strong> and the <strong>importing country's MRL</strong> (for China: GB 2763). DT₅₀ is only a rough guide to how long a chemical lasts — it is not a harvest rule. Near harvest, fast-degrading chemicals or biologicals lower the residue risk.
           </p>
         </div>
       </div>
@@ -1390,7 +1390,7 @@ export default function EnApp() {
                     <span className="leading-relaxed font-semibold">
                       {risks.fungal >= 70 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
-                          <span>High moisture alert! <strong className="text-red-700 uppercase">⚠️ Zero Copper Window Active!</strong> Do NOT use copper sprays or you will instantly abort the flowers. Apply a Phosphonate soil drench and spray <em>Bacillus subtilis</em> on the canopy immediately.</span> :
+                          <span>High moisture alert! <strong className="text-red-700 uppercase">⚠️ Zero Copper Window Active!</strong> Avoid copper on open flowers — it can scorch them. Apply a Phosphonate soil drench and spray <em>Bacillus subtilis</em> on the canopy immediately.</span> :
                           "High moisture alert. Ensure drainage channels are clear to prevent Phytophthora collar rot. Apply Phosphonate drench immediately."
                       ) : risks.fungal >= 40 ? (
                         ['flower-bud', 'matchstick', 'full-bloom', 'early-fruit'].includes(stage) ? 
@@ -1717,7 +1717,7 @@ export default function EnApp() {
                       </div>
                       <div className="text-left">
                         <span className="block font-extrabold text-xl leading-tight">Biological Warfare: Bacillus vs Fungi</span>
-                        <span className="block text-sm text-lime-700 font-medium mt-0.5">How beneficial bacteria obliterate pathogens like Rhizoctonia</span>
+                        <span className="block text-sm text-lime-700 font-medium mt-0.5">How beneficial bacteria help protect against Rhizoctonia</span>
                       </div>
                     </div>
                     <Icon name={showBioGuide ? "chevron-up" : "chevron-down"} className="w-8 h-8 text-lime-400 group-hover:text-lime-600 transition-colors flex-shrink-0" />
